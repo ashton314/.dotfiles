@@ -25,8 +25,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Turn off key dimming
-(setq aw-background nil)
-(ace-window-display-mode)
+(use-package ace-window
+  :init
+  (setq aw-background nil)
+  (ace-window-display-mode))
 
 ;(require 'org-alert)
 ;(setq alert-default-style 'osx-notifier)
@@ -326,7 +328,7 @@ If the new path's directories does not exist, create them."
 (add-hook 'scheme-mode-hook 'geiser-mode)
 ;(setq geiser-default-implementation 'racket)
 
-(add-hook 'elixir-mode-hook #'lsp-deferred)
+;(add-hook 'elixir-mode-hook #'lsp-deferred)
 ;; These two hooks run `elixir-format` on save. Original post: https://github.com/elixir-editors/emacs-elixir#add-elixir-mode-hook-to-run-elixir-format-on-file-save
 ;; (add-hook 'elixir-mode-hook
 ;;           (lambda ()
@@ -346,6 +348,7 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
+;; Uncomment this to turn on lsp mode in elixir
 ;; (use-package lsp-mode
 ;;              :hook (elixir-mode . lsp-deferred)
 ;;              :commands (lsp lsp-deferred))
@@ -474,6 +477,7 @@ If the new path's directories does not exist, create them."
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
 (setq org-project-notes-file (concat org-directory "/projects.org"))
 (setq org-work-notes-file (concat org-directory "/work.org"))
+(setq org-writing-notes-file (concat org-directory "/writing.org"))
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o a") 'org-agenda)
 (define-key global-map (kbd "C-c o l") 'org-store-link)
@@ -488,6 +492,7 @@ If the new path's directories does not exist, create them."
       ;; `((org-agenda-files . (:level . 1))
       `(((,org-bishopric-file) . (:maxlevel . 2))
         ((,org-project-notes-file) . (:level . 1))
+        ((,org-writing-notes-file) . (:level . 1))
         ((,org-general-notes-file) . (:maxlevel . 2))
         ((,org-work-notes-file) . (:maxlevel . 2))))
       
@@ -519,7 +524,7 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Sync/Dropbox/beorg/bishopric.org" "~/Sync/Dropbox/beorg/ward_council.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Sync/Dropbox/beorg/bishopric.org" "~/Sync/Dropbox/beorg/ward_council.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
  '(package-selected-packages
    (quote
     (markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir helm-swoop poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode ac-cider haskell-mode bm toml-mode define-word helm-wordnet pandoc pandoc-mode clojure-cheatsheet clojure-mode clojure-mode-extra-font-locking lorem-ipsum bison-mode yaml-mode sublimity darkroom ox-gfm cargo racer rust-mode rust-playground web-mode org-trello alchemist elixir-mode ob-elixir visual-fill-column erlang dockerfile-mode perl6-mode sos geiser quack slime deft)))
@@ -547,6 +552,7 @@ If the new path's directories does not exist, create them."
  '(font-lock-function-name-face ((t (:foreground "color-33"))))
  '(font-lock-string-face ((t (:foreground "green"))))
  '(geiser-font-lock-autodoc-identifier ((t (:foreground "color-27"))))
+ '(git-commit-summary ((t (:foreground "green"))))
  '(helm-buffer-directory ((t (:foreground "blue" :underline t))))
  '(helm-buffer-file ((t (:foreground "#909090"))))
  '(helm-buffer-saved-out ((t (:foreground "orange"))))
