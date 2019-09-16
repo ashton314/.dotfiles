@@ -54,9 +54,12 @@
 
 ;; Let's take this mode for a spin!
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x r b") 'helm-bookmarks)
+(use-package helm
+  :ensure t
+  :bind
+  (("M-x" . helm-M-x)
+   ("C-x b" . helm-buffers-list)
+   ("C-x r b" . helm-bookmarks)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
