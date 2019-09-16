@@ -300,6 +300,10 @@ If the new path's directories does not exist, create them."
 
 (use-package yasnippet
   :ensure t)
+
+(use-package smartparens
+  :ensure t)
+
 ;; (add-hook 'after-init-hook '(lambda ()
                               
 ;;                               (require 'yasnippet)
@@ -440,22 +444,25 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Poly-mode customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-hostmode poly-alchemist-hostmode :mode 'alchemist-mode)
-(define-innermode poly-elixir-doc-innermode
-  :mode 'markdown-mode
-  :head-matcher "@\\(module\\)?doc *\"\"\""
-  :tail-matcher "\"\"\""
-  :head-mode 'host
-  :tail-mode 'host)
-(define-innermode poly-elixir-template-innermode
-  :mode 'web-mode
-  :head-matcher "~\\(L\\|E\\)\"\"\""
-  :tail-matcher "\"\"\""
-  :head-mode 'host
-  :tail-mode 'host)
-(define-polymode poly-alchemist-mode
-  :hostmode 'poly-alchemist-hostmode
-  :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode))
+(use-package polymode
+  :ensure t
+  :config
+  (define-hostmode poly-alchemist-hostmode :mode 'alchemist-mode)
+  (define-innermode poly-elixir-doc-innermode
+    :mode 'markdown-mode
+    :head-matcher "@\\(module\\)?doc *\"\"\""
+    :tail-matcher "\"\"\""
+    :head-mode 'host
+    :tail-mode 'host)
+  (define-innermode poly-elixir-template-innermode
+    :mode 'web-mode
+    :head-matcher "~\\(L\\|E\\)\"\"\""
+    :tail-matcher "\"\"\""
+    :head-mode 'host
+    :tail-mode 'host)
+  (define-polymode poly-alchemist-mode
+    :hostmode 'poly-alchemist-hostmode
+    :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
