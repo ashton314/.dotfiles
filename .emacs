@@ -26,7 +26,8 @@
 
 ;; Turn off key dimming
 (use-package ace-window
-  :init
+  :ensure t
+  :config
   (setq aw-background nil)
   (ace-window-display-mode))
 
@@ -291,12 +292,20 @@ If the new path's directories does not exist, create them."
 ;; Hooks
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'after-init-hook '(lambda ()
-                              (global-company-mode)
-                              (require 'yasnippet)
-;			      (keyfreq-mode 1)
-;			      (keyfreq-autosave-mode 1)
-                              ))
+(use-package company
+  :ensure t
+  :pin melpa
+  :config
+  (global-company-mode))
+
+(use-package yasnippet
+  :ensure t)
+;; (add-hook 'after-init-hook '(lambda ()
+                              
+;;                               (require 'yasnippet)
+;; ;			      (keyfreq-mode 1)
+;; ;			      (keyfreq-autosave-mode 1)
+;;                               ))
 
 (add-hook 'lsp-mode-hook
           '(lambda ()
