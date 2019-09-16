@@ -65,6 +65,12 @@
 ;; Custom functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun install-my-packages ()
+  (interactive)
+  (dolist (pkg package-selected-packages)
+    (unless (package-installed-p pkg)
+      (package-install pkg))))
+
 (defun query-kill-string (arg)
   "Prompt for input in the minibuffer. Typed value is pushed onto
   the kill ring."
