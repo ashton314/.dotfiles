@@ -44,7 +44,7 @@
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode t)
 (setq sentence-end-double-space nil)
 (setq dabbrev-case-fold-search t)
 
@@ -149,7 +149,7 @@ as running the sequence `C-M-<SPC> (`"
   "Call perltidy on a region"
   (interactive "r")
   (shell-command-on-region beg end "perltidy" nil t))
-  
+
 ;;; copy region to system clipboard
 (global-set-key (kbd "C-c c") 'system-copy)
 (setq system-clipboard-program "pbcopy")
@@ -314,7 +314,7 @@ If the new path's directories does not exist, create them."
   :ensure t)
 
 ;; (add-hook 'after-init-hook '(lambda ()
-                              
+
 ;;                               (require 'yasnippet)
 ;; ;			      (keyfreq-mode 1)
 ;; ;			      (keyfreq-autosave-mode 1)
@@ -371,9 +371,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Uncomment this to turn on lsp mode in elixir
-;; (use-package lsp-mode
-;;              :hook (elixir-mode . lsp-deferred)
-;;              :commands (lsp lsp-deferred))
+(use-package lsp-mode
+             :hook ((elixir-mode . lsp-deferred) (rust-mode . lsp-deferred))
+             :commands (lsp lsp-deferred))
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -475,7 +475,7 @@ If the new path's directories does not exist, create them."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Org-mode customizations
+;; Org-mode customizations (org mode customizations)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (defun scripture-ref (ref)
@@ -488,21 +488,35 @@ If the new path's directories does not exist, create them."
 ;; This showed up later:
 ;  '(org-trello-current-prefix-keybinding "C-c o")
 
-
-(setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "SCHEDULED" "IN_PROGRESS" "|" "DONE" "REFILED")))
-
-(global-set-key (kbd "C-c L") 'org-insert-link-global) 
-(global-set-key (kbd "C-c O") 'org-open-at-point-global)
-
 (setq org-directory "~/Sync/Dropbox/beorg")
 (setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
+(setq org-family-notes-file (concat org-directory "/family.org"))
 (setq org-general-notes-file (concat org-directory "/general.org"))
 (setq org-bishopric-file (concat org-directory "/bishopric.org"))
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
 (setq org-project-notes-file (concat org-directory "/projects.org"))
 (setq org-work-notes-file (concat org-directory "/work.org"))
 (setq org-writing-notes-file (concat org-directory "/writing.org"))
+(setq org-20bn-file (concat org-directory "/20bn.org"))
+(setq org-school-file (concat org-directory "/school.org"))
+
+(setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
+(setq org-log-into-drawer t)            ; Move log notes into a drawer
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "BLOCKED(b@)" "SCHEDULED(s!)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "REFILED(r@)")))
+
+(setq org-capture-templates
+      '(("t" "General Todo" entry (file+headline org-default-notes-file "Tasks")
+	 "** TODO %?\n   %U\n%i\n%a")
+	("h" "General Homework" entry (file+headline org-school-file "General")
+	 "** TODO %?\n   %U\n%i\n%a")
+	("g" "German Homework" entry (file+headline org-school-file "German")
+	 "** TODO %? :homework:german:\n %U\n %i\n %a")))
+
+(global-set-key (kbd "C-c L") 'org-insert-link-global)
+(global-set-key (kbd "C-c O") 'org-open-at-point-global)
+
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o a") 'org-agenda)
 (define-key global-map (kbd "C-c o l") 'org-store-link)
@@ -515,12 +529,14 @@ If the new path's directories does not exist, create them."
 
 (setq org-refile-targets
       ;; `((org-agenda-files . (:level . 1))
-      `(((,org-bishopric-file) . (:maxlevel . 2))
-        ((,org-project-notes-file) . (:level . 1))
+      `(((,org-project-notes-file) . (:level . 1))
         ((,org-writing-notes-file) . (:level . 1))
         ((,org-general-notes-file) . (:maxlevel . 2))
-        ((,org-work-notes-file) . (:maxlevel . 2))))
-      
+        ;; ((,org-work-notes-file) . (:maxlevel . 2))
+        ((,org-family-notes-file) . (:maxlevel . 1))
+        ((,org-school-file) . (:maxlevel . 1))
+        ((,org-20bn-file) . (:level . 1))))
+
       ;; '((org-agenda-files . (:level . 1))
       ;;   (org-default-notes-file . (:level . 1))
       ;;   (org-project-notes-file . (:maxlevel . 2))))
@@ -543,13 +559,14 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.2)
  '(deft-auto-save-interval 30.0)
- '(dired-listing-switches "-avlF")
+ '(find-file-visit-truename t)
  '(initial-major-mode (quote text-mode))
  '(lsp-clients-elixir-server-executable "~/Sync/repos/elixir-ls/release/language_server.sh")
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Sync/Dropbox/beorg/bishopric.org" "~/Sync/Dropbox/beorg/ward_council.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/20bn.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
+ '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
     (bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir helm-swoop poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode ac-cider haskell-mode bm toml-mode define-word helm-wordnet pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum bison-mode yaml-mode sublimity darkroom ox-gfm cargo racer rust-mode rust-playground web-mode org-trello alchemist elixir-mode ob-elixir visual-fill-column erlang dockerfile-mode perl6-mode sos geiser quack slime deft)))
@@ -583,6 +600,7 @@ If the new path's directories does not exist, create them."
  '(helm-buffer-saved-out ((t (:foreground "orange"))))
  '(helm-selection ((t (:background "#333" :distant-foreground "black"))))
  '(helm-selection-line ((t (:background "#333" :distant-foreground "black"))))
+ '(helm-source-header ((t (:background "#abd7f0" :foreground "#000" :weight bold :height 1.3 :family "Sans Serif"))))
  '(highlight ((t (:background "#020"))))
  '(imenu-list-entry-face-0 ((t (:inherit imenu-list-entry-face :foreground "color-165"))))
  '(imenu-list-entry-face-1 ((t (:inherit imenu-list-entry-face :foreground "color-40"))))
@@ -590,6 +608,8 @@ If the new path's directories does not exist, create them."
  '(ioccur-overlay-face ((t (:background "color-22" :underline t))))
  '(isearch ((t (:background "magenta3" :foreground "black"))))
  '(isearch-fail ((t (:background "RosyBrown1" :foreground "black"))))
+ '(italic ((t (:underline t :slant italic))))
+ '(link ((t (:foreground "color-33" :underline t))))
  '(magit-diff-added-highlight ((t (:background "#000500"))))
  '(magit-diff-context-highlight ((t (:background "grey25"))))
  '(magit-diff-removed-highlight ((t (:background "#100"))))
@@ -606,6 +626,7 @@ If the new path's directories does not exist, create them."
  '(minibuffer-prompt ((t (:foreground "brightblue"))))
  '(mode-line ((t (:background "grey90" :foreground "black" :box (:line-width -1 :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey70" :foreground "grey20" :box (:line-width -1 :color "grey75") :weight light))))
+ '(org-agenda-structure ((t (:foreground "color-33"))))
  '(org-babel-load-languages (quote (emacs-lisp elixir)))
  '(org-document-info ((t (:foreground "blue"))))
  '(org-document-title ((t (:foreground "blue" :weight bold))))
@@ -614,6 +635,7 @@ If the new path's directories does not exist, create them."
  '(org-verbatim ((t (:foreground "color-34"))))
  '(region ((t (:background "color-18"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
+ '(shadow ((t (:foreground "color-244"))))
  '(show-paren-match ((t (:background "#5aa"))))
  '(show-paren-match-expression ((t (:background "#232323"))))
  '(smerge-lower ((t (:background "#0d2f0d"))))
@@ -630,3 +652,5 @@ If the new path's directories does not exist, create them."
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+(put 'scroll-left 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
