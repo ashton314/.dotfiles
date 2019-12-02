@@ -16,8 +16,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+			 ("org" . "https://orgmode.org/elpa/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -36,9 +37,12 @@
 ;(setq org-alert-interval 1200)           ; Unit: seconds
 ;(org-alert-enable)
 
+;; Turn off flymake, becuase I find it annoying
+
+
 (setq auto-writer-mode nil)
 
-(setq deft-directory "~/Sync/Box Sync/deft/")
+(setq deft-directory "~/Box/deft")
 (setq deft-extensions '("md" "org" "txt" "tex"))
 (setq deft-new-file-format "%Y-%m-%d")
 (setq deft-recursive t)
@@ -49,6 +53,16 @@
 (setq dabbrev-case-fold-search t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ivy configurations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy
+  :defer t
+  :ensure t
+  :bind
+  (("C-s" . swiper)
+   ("C-r" . swiper-backward)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -56,6 +70,7 @@
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (use-package helm
   :ensure t
+  :defer t
   :bind
   (("M-x" . helm-M-x)
    ("C-x b" . helm-buffers-list)
@@ -233,6 +248,7 @@ If the new path's directories does not exist, create them."
 
 ;; Magit
 (define-key global-map (kbd "C-x g") 'magit-status)
+(setq magit-completing-read-function 'ivy-completing-read)
 
 ;; Ace window
 (define-key global-map (kbd "M-o") 'ace-window)
@@ -261,8 +277,6 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-x D") 'dired)
 (define-key global-map (kbd "C-x U") 'undo)
 
-;; Special modes
-
 ;; windowing
 (define-key global-map (kbd "C-x O") 'previous-multiframe-window)
 (define-key global-map (kbd "C-^") 'enlarge-window)
@@ -283,6 +297,10 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c f n") 'insert-file-name)
 (define-key global-map (kbd "C-c s i r") 'string-insert-rectangle)
 (define-key global-map (kbd "C-c s r") 'insert-scripture-ref)
+
+;; Registers
+(define-key global-map (kbd "C-c C-SPC") 'point-to-register)
+(define-key global-map (kbd "C-c C-j") 'jump-to-register)
 
 ;; (autoload 'gfm-mode "gfm-mode"
 ;;   "Major mode for editing GitHub Flavored Markdown files" t)
@@ -371,9 +389,9 @@ If the new path's directories does not exist, create them."
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Uncomment this to turn on lsp mode in elixir
-(use-package lsp-mode
-             :hook ((elixir-mode . lsp-deferred) (rust-mode . lsp-deferred))
-             :commands (lsp lsp-deferred))
+;; (use-package lsp-mode
+;;              :hook ((elixir-mode . lsp-deferred) (rust-mode . lsp-deferred))
+;;              :commands (lsp lsp-deferred))
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -512,7 +530,20 @@ If the new path's directories does not exist, create them."
 	("h" "General Homework" entry (file+headline org-school-file "General")
 	 "** TODO %?\n   %U\n%i\n%a")
 	("g" "German Homework" entry (file+headline org-school-file "German")
-	 "** TODO %? :homework:german:\n %U\n %i\n %a")))
+	 "** TODO %? :homework:german:\n %U\n %i\n %a")
+	("i" "Internship Homework" entry (file+headline org-school-file "Internship")
+	 "** TODO %? :homework:internship:\n %U\n %i\n %a")))
+
+(setq org-agenda-custom-commands
+      '(("n" "Agenda and All Todos"
+	 ((agenda)
+	  (todo)))
+	("g" "Gospel Study"
+	 ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
+	  (tags-todo "gospel")))
+	("h" "Homework Agenda"
+	 ((agenda "tags school")
+	  (tags-todo "+school+homework")))))
 
 (global-set-key (kbd "C-c L") 'org-insert-link-global)
 (global-set-key (kbd "C-c O") 'org-open-at-point-global)
@@ -522,6 +553,7 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c o l") 'org-store-link)
 (define-key global-map (kbd "C-c o b") 'org-switchb)
 (define-key global-map (kbd "C-c o s") 'org-save-all-org-buffers)
+(define-key global-map (kbd "C-c C,") 'org-insert-structure-template)
 (setq org-link-abbrev-alist
       '(("scrip" . "file:~/Docs/Scriptures/lds_scriptures.txt::<<%s>>")
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
@@ -531,15 +563,9 @@ If the new path's directories does not exist, create them."
       ;; `((org-agenda-files . (:level . 1))
       `(((,org-project-notes-file) . (:level . 1))
         ((,org-writing-notes-file) . (:level . 1))
-        ((,org-general-notes-file) . (:maxlevel . 2))
-        ;; ((,org-work-notes-file) . (:maxlevel . 2))
+        ((,org-general-notes-file) . (:level . 1))
         ((,org-family-notes-file) . (:maxlevel . 1))
-        ((,org-school-file) . (:maxlevel . 1))
-        ((,org-20bn-file) . (:level . 1))))
-
-      ;; '((org-agenda-files . (:level . 1))
-      ;;   (org-default-notes-file . (:level . 1))
-      ;;   (org-project-notes-file . (:maxlevel . 2))))
+        ((,org-school-file) . (:maxlevel . 1))))
 
 ;; ghost-blog customizations
 (setq ghost-blog-url "https://ashton.wiersdorf.org/ghost/api/v0.1")
@@ -558,6 +584,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.2)
+ '(company-show-numbers t)
  '(deft-auto-save-interval 30.0)
  '(find-file-visit-truename t)
  '(initial-major-mode (quote text-mode))
@@ -565,11 +592,11 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/20bn.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/20bn.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir helm-swoop poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode ac-cider haskell-mode bm toml-mode define-word helm-wordnet pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum bison-mode yaml-mode sublimity darkroom ox-gfm cargo racer rust-mode rust-playground web-mode org-trello alchemist elixir-mode ob-elixir visual-fill-column erlang dockerfile-mode perl6-mode sos geiser quack slime deft)))
+    (org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir helm-swoop poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode ac-cider haskell-mode bm toml-mode define-word helm-wordnet pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum bison-mode yaml-mode sublimity darkroom ox-gfm cargo racer rust-mode rust-playground web-mode org-trello alchemist elixir-mode ob-elixir visual-fill-column erlang dockerfile-mode perl6-mode sos geiser quack slime deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
@@ -582,6 +609,7 @@ If the new path's directories does not exist, create them."
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
+ '(custom-variable-tag ((t (:foreground "color-33" :weight bold))))
  '(ediff-current-diff-B ((t (:background "#56bb56" :foreground "color-255"))))
  '(ediff-even-diff-A ((t (:background "blue"))))
  '(ediff-even-diff-B ((t (:background "magenta"))))
