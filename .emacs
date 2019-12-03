@@ -55,12 +55,35 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package ivy
-  :defer t
+(use-package ivy :ensure t
+  :diminish (ivy-mode . "")
   :ensure t
   :bind
   (("C-s" . swiper)
-   ("C-r" . swiper-backward)))
+   ("C-r" . swiper-backward)
+   (:map ivy-mode-map
+	 ("C-'" . ivy-avy)))
+  :config
+  (ivy-mode 1)
+  ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
+  (setq ivy-use-virtual-buffers t)
+  ;; number of result lines to display
+  (setq ivy-height 10)
+  ;; does not count candidates
+  ;; (setq ivy-count-format "")
+  ;; no regexp by default
+  (setq ivy-initial-inputs-alist nil)
+  ;; configure regexp engine.
+  (setq ivy-re-builders-alist
+	;; allow input not in order
+        '((t   . ivy--regex-ignore-order))))
+
+;; (use-package ivy
+;;   :defer t
+;;   :ensure t
+;;   :bind
+;;   (("C-s" . swiper)
+;;    ("C-r" . swiper-backward)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm configurations
@@ -68,13 +91,13 @@
 
 ;; Let's take this mode for a spin!
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(use-package helm
-  :ensure t
-  :defer t
-  :bind
-  (("M-x" . helm-M-x)
-   ("C-x b" . helm-buffers-list)
-   ("C-x r b" . helm-bookmarks)))
+;; (use-package helm
+;;   :ensure t
+;;   :defer t
+;;   :bind
+;;   (("M-x" . helm-M-x)
+;;    ("C-x b" . helm-buffers-list)
+;;    ("C-x r b" . helm-bookmarks)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
@@ -596,7 +619,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir helm-swoop poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode ac-cider haskell-mode bm toml-mode define-word helm-wordnet pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum bison-mode yaml-mode sublimity darkroom ox-gfm cargo racer rust-mode rust-playground web-mode org-trello alchemist elixir-mode ob-elixir visual-fill-column erlang dockerfile-mode perl6-mode sos geiser quack slime deft)))
+    (diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
