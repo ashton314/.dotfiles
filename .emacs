@@ -55,14 +55,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package ivy :ensure t
+(use-package ivy
   :diminish (ivy-mode . "")
   :ensure t
+  :demand
   :bind
-  (("C-s" . swiper)
+  (;("M-x" . counsel-M-x)
+   ("C-c j" . avy-goto-line)
+   ("C-c J" . avy-goto-word-0)
+   ("C-s" . swiper)
    ("C-r" . swiper-backward)
    (:map ivy-mode-map
-	 ("C-'" . ivy-avy)))
+	 ("C-c '" . ivy-avy)))
   :config
   (ivy-mode 1)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
@@ -71,8 +75,14 @@
   (setq ivy-height 10)
   ;; does not count candidates
   ;; (setq ivy-count-format "")
+  ;; Make the prompt line selectable
+  (setq ivy-use-selectable-prompt t)
   ;; no regexp by default
   (setq ivy-initial-inputs-alist nil)
+  ;; misc
+  (setq ivy-modified-buffer t)
+  (setq ivy-modified-outside-buffer t)
+
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
 	;; allow input not in order
@@ -619,7 +629,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
