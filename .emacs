@@ -42,7 +42,7 @@
 
 (setq auto-writer-mode nil)
 
-(setq deft-directory "~/Box/deft")
+(setq deft-directory "~/Sync/Dropbox/deft")
 (setq deft-extensions '("md" "org" "txt" "tex"))
 (setq deft-new-file-format "%Y-%m-%d")
 (setq deft-recursive t)
@@ -60,7 +60,7 @@
   :ensure t
   :demand
   :bind
-  (;("M-x" . counsel-M-x)
+  (("M-x" . counsel-M-x)
    ("C-c j" . avy-goto-line)
    ("C-c J" . avy-goto-word-0)
    ("C-s" . swiper)
@@ -89,18 +89,17 @@
 	;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
-;; (use-package ivy
-;;   :defer t
-;;   :ensure t
-;;   :bind
-;;   (("C-s" . swiper)
-;;    ("C-r" . swiper-backward)))
+(use-package counsel
+  :config
+  (ivy-configure 'counsel-M-x :initial-input ""))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Let's take this mode for a spin!
+;; I've moved to Ivy from Helm; I find it a bit faster and it suits my
+;; needs just fine. Helm is a fantastic package though!
+
 ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
 ;; (use-package helm
 ;;   :ensure t
@@ -424,8 +423,9 @@ If the new path's directories does not exist, create them."
 
 ;; Uncomment this to turn on lsp mode in elixir
 ;; (use-package lsp-mode
-;;              :hook ((elixir-mode . lsp-deferred) (rust-mode . lsp-deferred))
-;;              :commands (lsp lsp-deferred))
+;;   :hook ((elixir-mode . lsp-deferred)
+;; 	 (rust-mode . lsp-deferred))
+;;   :commands (lsp lsp-deferred))
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -640,6 +640,7 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(avy-lead-face-2 ((t (:background "#4f57f9" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
