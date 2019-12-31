@@ -1,6 +1,11 @@
 ;; Emacs Config file
 ;; Ashton Wiersdorf
 
+;; Set GC level higher to prevent so many garbage collection cycles
+;; during startup. Shaves off 0.2 seconds. Disabled because it might
+;; hurt performance later and my startup is already at just 1s
+;; (setq gc-cons-threshold 10000000)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,13 +37,12 @@
   (setq aw-background nil)
   (ace-window-display-mode))
 
-;(require 'org-alert)
-;(setq alert-default-style 'osx-notifier)
-;(setq org-alert-interval 1200)           ; Unit: seconds
-;(org-alert-enable)
-
-;; Turn off flymake, becuase I find it annoying
-
+;; (use-package org-alert
+;;   :ensure t
+;;   :config
+;;   (setq alert-default-style 'osx-notifier)
+;;   (setq org-alert-interval 300)           ; Unit: seconds
+;;   (org-alert-enable))
 
 (setq auto-writer-mode nil)
 
@@ -48,9 +52,10 @@
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode nil)
 (setq sentence-end-double-space nil)
 (setq dabbrev-case-fold-search t)
+(menu-bar-mode -1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
@@ -81,6 +86,7 @@
   ;; no regexp by default
   (setq ivy-initial-inputs-alist nil)
   ;; misc
+  (setq ivy-use-group-face-if-no-groups t)
   (setq ivy-modified-buffer t)
   (setq ivy-modified-outside-buffer t)
 
@@ -353,12 +359,14 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package company
+  :diminish (company-mode . "")
   :ensure t
   :pin melpa
   :config
   (global-company-mode))
 
 (use-package yasnippet
+  :diminish (yasnippet . "y")
   :ensure t)
 
 (use-package smartparens
@@ -422,10 +430,10 @@ If the new path's directories does not exist, create them."
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Uncomment this to turn on lsp mode in elixir
-;; (use-package lsp-mode
-;;   :hook ((elixir-mode . lsp-deferred)
-;; 	 (rust-mode . lsp-deferred))
-;;   :commands (lsp lsp-deferred))
+(use-package lsp-mode
+  :hook ((elixir-mode . lsp-deferred)
+	 (rust-mode . lsp-deferred))
+  :commands (lsp lsp-deferred))
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -465,11 +473,13 @@ If the new path's directories does not exist, create them."
      '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook racket-mode-hook))
 
 (add-hook 'org-mode-hook
-          '(lambda () (org-babel-do-load-languages
-                       'org-babel-load-languages
-                       '((emacs-lisp . t)
-                         (elixir . t)
-                         (scheme . t)))))
+          '(lambda ()
+	     (require 'ox-md nil t)
+	     (org-babel-do-load-languages
+	      'org-babel-load-languages
+	      '((emacs-lisp . t)
+		(elixir . t)
+		(scheme . t)))))
 
 ;; These automatically put hard line-breaks in your text automatically
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -556,17 +566,26 @@ If the new path's directories does not exist, create them."
 (setq org-log-into-drawer t)            ; Move log notes into a drawer
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "BLOCKED(b@)" "SCHEDULED(s!)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "REFILED(r@)")))
+      '((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
 
 (setq org-capture-templates
       '(("t" "General Todo" entry (file+headline org-default-notes-file "Tasks")
 	 "** TODO %?\n   %U\n%i\n%a")
-	("h" "General Homework" entry (file+headline org-school-file "General")
+        ("c" "Computer Science")
+        ("r" "Religion Classes")
+	("g" "General Homework" entry (file+headline org-school-file "General")
 	 "** TODO %?\n   %U\n%i\n%a")
-	("g" "German Homework" entry (file+headline org-school-file "German")
-	 "** TODO %? :homework:german:\n %U\n %i\n %a")
-	("i" "Internship Homework" entry (file+headline org-school-file "Internship")
-	 "** TODO %? :homework:internship:\n %U\n %i\n %a")))
+        ("cs" "CS 324 (Systems Programming)" entry (file+headline org-school-file "CS 324 (Systems)")
+         "** TODO %? :homework:cs_324:\n %U\n %i\n %a")
+        ("cd" "CS 340 (Software Design)" entry (file+headline org-school-file "CS 340 (Software Design)")
+         "** TODO %? :homework:cs_340:\n %U\n %i\n %a")
+        ("h" "PHIL 201 (History of Philosophy)" entry (file+headline org-school-file "PHIL 201 (History of Philosophy)")
+         "** TODO %? :homework:phil_201:\n %U\n %i\n %a")
+        ("rp" "REL A 327 (Pearl of Great Price)" entry (file+headline org-school-file "REL A 327 (Pearl of Great Price)")
+         "** TODO %? :homework:rel_327:\n %U\n %i\n %a")
+        ("ri" "REL A 304 (Writings of Isaiah)" entry (file+headline org-school-file "REL A 304 (Writings of Isaiah)")
+         "** TODO %? :homework:rel_304:\n %U\n %i\n %a")
+	))
 
 (setq org-agenda-custom-commands
       '(("n" "Agenda and All Todos"
@@ -579,15 +598,18 @@ If the new path's directories does not exist, create them."
 	 ((agenda "tags school")
 	  (tags-todo "+school+homework")))))
 
-(global-set-key (kbd "C-c L") 'org-insert-link-global)
-(global-set-key (kbd "C-c O") 'org-open-at-point-global)
+; Links
+(define-key global-map (kbd "C-c o l") 'org-store-link)
+(define-key global-map (kbd "C-c L") 'org-insert-link-global)
+(define-key global-map (kbd "C-c O") 'org-open-at-point-global)
 
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o a") 'org-agenda)
-(define-key global-map (kbd "C-c o l") 'org-store-link)
 (define-key global-map (kbd "C-c o b") 'org-switchb)
+(define-key global-map (kbd "C-c o '") 'org-cycle-agenda-files)
 (define-key global-map (kbd "C-c o s") 'org-save-all-org-buffers)
 (define-key global-map (kbd "C-c C,") 'org-insert-structure-template)
+(define-key global-map (kbd "C-c C>") 'org-demote-subtree)
 (setq org-link-abbrev-alist
       '(("scrip" . "file:~/Docs/Scriptures/lds_scriptures.txt::<<%s>>")
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
@@ -601,11 +623,8 @@ If the new path's directories does not exist, create them."
         ((,org-family-notes-file) . (:maxlevel . 1))
         ((,org-school-file) . (:maxlevel . 1))))
 
-;; ghost-blog customizations
-(setq ghost-blog-url "https://ashton.wiersdorf.org/ghost/api/v0.1")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Display customizations
+;; Display/mode line customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (display-time)
 (setq column-number-mode t)
@@ -620,13 +639,18 @@ If the new path's directories does not exist, create them."
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
  '(deft-auto-save-interval 30.0)
+ '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
  '(initial-major-mode (quote text-mode))
+ '(initial-scratch-message
+   ";; This space intentionally left blank. Try \\[find-file].
+
+")
  '(lsp-clients-elixir-server-executable "~/Sync/repos/elixir-ls/release/language_server.sh")
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/20bn.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/Family_Counsel.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
@@ -640,7 +664,8 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-lead-face-2 ((t (:background "#4f57f9" :foreground "white"))))
+ '(avy-lead-face-0 ((t (:background "color-27" :foreground "white"))))
+ '(avy-lead-face-2 ((t (:background "color-27" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
@@ -672,6 +697,8 @@ If the new path's directories does not exist, create them."
  '(isearch ((t (:background "magenta3" :foreground "black"))))
  '(isearch-fail ((t (:background "RosyBrown1" :foreground "black"))))
  '(italic ((t (:underline t :slant italic))))
+ '(ivy-current-match ((t (:background "#1a4bf7" :foreground "white"))))
+ '(ivy-minibuffer-match-face-2 ((t (:background "#e92ce8" :weight bold))))
  '(link ((t (:foreground "color-33" :underline t))))
  '(magit-diff-added-highlight ((t (:background "#000500"))))
  '(magit-diff-context-highlight ((t (:background "grey25"))))
@@ -687,7 +714,7 @@ If the new path's directories does not exist, create them."
  '(markdown-header-face-6 ((t (:foreground "color-21" :height 1.0))))
  '(match ((t (:background "yellow3" :foreground "black"))))
  '(minibuffer-prompt ((t (:foreground "brightblue"))))
- '(mode-line ((t (:background "grey90" :foreground "black" :box (:line-width -1 :style released-button)))))
+ '(mode-line ((t (:background "color-20" :foreground "grey90" :box (:line-width -1 :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey70" :foreground "grey20" :box (:line-width -1 :color "grey75") :weight light))))
  '(org-agenda-structure ((t (:foreground "color-33"))))
  '(org-babel-load-languages (quote (emacs-lisp elixir)))
