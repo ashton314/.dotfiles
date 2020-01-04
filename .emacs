@@ -30,6 +30,23 @@
 ;; Custom Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq auto-writer-mode nil)
+
+(setq deft-directory "~/Sync/Dropbox/deft")
+(setq deft-extensions '("md" "org" "txt" "tex"))
+(setq deft-new-file-format "%Y-%m-%d")
+(setq deft-recursive t)
+(setq deft-use-filename-as-title t)
+
+(setq-default indent-tabs-mode nil)
+(setq sentence-end-double-space nil)
+(setq dabbrev-case-fold-search t)
+(menu-bar-mode -1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Good packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Turn off key dimming
 (use-package ace-window
   :ensure t
@@ -44,18 +61,13 @@
 ;;   (setq org-alert-interval 300)           ; Unit: seconds
 ;;   (org-alert-enable))
 
-(setq auto-writer-mode nil)
-
-(setq deft-directory "~/Sync/Dropbox/deft")
-(setq deft-extensions '("md" "org" "txt" "tex"))
-(setq deft-new-file-format "%Y-%m-%d")
-(setq deft-recursive t)
-(setq deft-use-filename-as-title t)
-
-(setq-default indent-tabs-mode nil)
-(setq sentence-end-double-space nil)
-(setq dabbrev-case-fold-search t)
-(menu-bar-mode -1)
+(use-package projectile
+  :diminish (projectile-mode . " proj")
+  :ensure t
+  :config
+  (setq projectile-completion-system 'ivy)
+  (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+  (projectile-mode +1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
@@ -366,7 +378,7 @@ If the new path's directories does not exist, create them."
   (global-company-mode))
 
 (use-package yasnippet
-  :diminish (yasnippet . "y")
+  :diminish (yas-minor-mode . " y")
   :ensure t)
 
 (use-package smartparens
@@ -569,8 +581,8 @@ If the new path's directories does not exist, create them."
       '((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
 
 (setq org-capture-templates
-      '(("t" "General Todo" entry (file+headline org-default-notes-file "Tasks")
-	 "** TODO %?\n   %U\n%i\n%a")
+      '(("t" "General Todo" entry (file org-default-notes-file)
+	 "* TODO %?\n   %U\n%i\n%a")
         ("c" "Computer Science")
         ("r" "Religion Classes")
 	("g" "General Homework" entry (file+headline org-school-file "General")
@@ -654,7 +666,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
