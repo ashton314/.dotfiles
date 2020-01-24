@@ -47,6 +47,12 @@
 ;; Good packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq lsp-java-server-install-dir "~/Sync/repos/java-ls/")
+(use-package lsp-java
+  :ensure t
+  :after lsp
+  :config (add-hook 'java-mode-hook 'lsp))
+
 ;; Turn off key dimming
 (use-package ace-window
   :ensure t
@@ -79,7 +85,10 @@
   :bind
   (("M-x" . counsel-M-x)
    ("C-c j" . avy-goto-line)
-   ("C-c J" . avy-goto-word-0)
+   ("C-c J" . avy-goto-char)
+   ;; ("C-c J" . avy-goto-word-0)
+   ;; ("C-x j" . avy-goto-char)
+   ;; ("C-x J" . avy-goto-char-2)
    ("C-s" . swiper)
    ("C-r" . swiper-backward)
    (:map ivy-mode-map
@@ -110,6 +119,12 @@
 (use-package counsel
   :config
   (ivy-configure 'counsel-M-x :initial-input ""))
+
+;; Doesn't work with terminal emacs
+;; (use-package all-the-icons-ivy
+;;   :ensure t
+;;   :config
+;;   (all-the-icons-ivy-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm configurations
@@ -296,6 +311,7 @@ If the new path's directories does not exist, create them."
 
 ;; Searching
 (define-key global-map (kbd "C-h C-s") 'helm-ag)
+(define-key global-map (kbd "C-h C-b") 'helm-ag-buffers)
 
 ;; Magit
 (define-key global-map (kbd "C-x g") 'magit-status)
@@ -564,7 +580,7 @@ If the new path's directories does not exist, create them."
 
 (setq org-directory "~/Sync/Dropbox/beorg")
 (setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
-(setq org-family-notes-file (concat org-directory "/family.org"))
+(setq org-family-notes-file (concat org-directory "/family_shared.org"))
 (setq org-general-notes-file (concat org-directory "/general.org"))
 (setq org-bishopric-file (concat org-directory "/bishopric.org"))
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
@@ -573,6 +589,8 @@ If the new path's directories does not exist, create them."
 (setq org-writing-notes-file (concat org-directory "/writing.org"))
 (setq org-20bn-file (concat org-directory "/20bn.org"))
 (setq org-school-file (concat org-directory "/school.org"))
+(setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
+(setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
 
 (setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
 (setq org-log-into-drawer t)            ; Move log notes into a drawer
@@ -583,20 +601,28 @@ If the new path's directories does not exist, create them."
 (setq org-capture-templates
       '(("t" "General Todo" entry (file org-default-notes-file)
 	 "* TODO %?\n   %U\n%i\n%a")
+        ("s" "Scripture Study" entry (file+headline org-scripture-study-file "HEAD")
+         "** %?\n    %U")
         ("c" "Computer Science")
         ("r" "Religion Classes")
+        ("p" "Programming Language Research")
 	("g" "General Homework" entry (file+headline org-school-file "General")
 	 "** TODO %?\n   %U\n%i\n%a")
+        ;; CS
         ("cs" "CS 324 (Systems Programming)" entry (file+headline org-school-file "CS 324 (Systems)")
          "** TODO %? :homework:cs_324:\n %U\n %i\n %a")
         ("cd" "CS 340 (Software Design)" entry (file+headline org-school-file "CS 340 (Software Design)")
          "** TODO %? :homework:cs_340:\n %U\n %i\n %a")
-        ("h" "PHIL 201 (History of Philosophy)" entry (file+headline org-school-file "PHIL 201 (History of Philosophy)")
-         "** TODO %? :homework:phil_201:\n %U\n %i\n %a")
+        ;; Religion
         ("rp" "REL A 327 (Pearl of Great Price)" entry (file+headline org-school-file "REL A 327 (Pearl of Great Price)")
          "** TODO %? :homework:rel_327:\n %U\n %i\n %a")
         ("ri" "REL A 304 (Writings of Isaiah)" entry (file+headline org-school-file "REL A 304 (Writings of Isaiah)")
          "** TODO %? :homework:rel_304:\n %U\n %i\n %a")
+        ;; PL Research
+        ("pt" "Research Task" entry (file (concat org-research-directory "/research_tasks.org"))
+         "* TODO %?\n  %U\n %i\n %a")
+        ;; ("pn" "Research Note" entry ;; FIXME: add file
+        ;;  "** %?\n   %U\n %i\n %a")
 	))
 
 (setq org-agenda-custom-commands
@@ -605,10 +631,7 @@ If the new path's directories does not exist, create them."
 	  (todo)))
 	("g" "Gospel Study"
 	 ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
-	  (tags-todo "gospel")))
-	("h" "Homework Agenda"
-	 ((agenda "tags school")
-	  (tags-todo "+school+homework")))))
+	  (tags-todo "gospel")))))
 
 ; Links
 (define-key global-map (kbd "C-c o l") 'org-store-link)
@@ -622,6 +645,7 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c o s") 'org-save-all-org-buffers)
 (define-key global-map (kbd "C-c C,") 'org-insert-structure-template)
 (define-key global-map (kbd "C-c C>") 'org-demote-subtree)
+(define-key global-map (kbd "C-c C<") 'org-promote-subtree)
 (setq org-link-abbrev-alist
       '(("scrip" . "file:~/Docs/Scriptures/lds_scriptures.txt::<<%s>>")
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
@@ -650,6 +674,7 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
+ '(counsel-projectile-mode t nil (counsel-projectile))
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
@@ -662,11 +687,12 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family_shared.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
+ '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
