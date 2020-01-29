@@ -85,8 +85,8 @@
   :bind
   (("M-x" . counsel-M-x)
    ("C-c j" . avy-goto-line)
-   ("C-c J" . avy-goto-char)
-   ;; ("C-c J" . avy-goto-word-0)
+   ("C-M-j" . avy-goto-char)
+   ("C-c J" . avy-goto-word-0)
    ;; ("C-x j" . avy-goto-char)
    ;; ("C-x J" . avy-goto-char-2)
    ("C-s" . swiper)
@@ -590,6 +590,7 @@ If the new path's directories does not exist, create them."
 (setq org-20bn-file (concat org-directory "/20bn.org"))
 (setq org-school-file (concat org-directory "/school.org"))
 (setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
+(setq org-research-tasks (concat org-research-directory "/research_tasks.org"))
 (setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
 
 (setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
@@ -619,7 +620,7 @@ If the new path's directories does not exist, create them."
         ("ri" "REL A 304 (Writings of Isaiah)" entry (file+headline org-school-file "REL A 304 (Writings of Isaiah)")
          "** TODO %? :homework:rel_304:\n %U\n %i\n %a")
         ;; PL Research
-        ("pt" "Research Task" entry (file (concat org-research-directory "/research_tasks.org"))
+        ("pt" "Research Task" entry (file org-research-tasks)
          "* TODO %?\n  %U\n %i\n %a")
         ;; ("pn" "Research Note" entry ;; FIXME: add file
         ;;  "** %?\n   %U\n %i\n %a")
@@ -692,7 +693,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (minimap counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
@@ -758,6 +759,7 @@ If the new path's directories does not exist, create them."
  '(org-babel-load-languages (quote (emacs-lisp elixir)))
  '(org-document-info ((t (:foreground "blue"))))
  '(org-document-title ((t (:foreground "blue" :weight bold))))
+ '(org-drawer ((t (:foreground "Blue"))))
  '(org-quote ((t (:foreground "green"))))
  '(org-table ((t (:foreground "#4F9EFF"))))
  '(org-verbatim ((t (:foreground "color-34"))))
