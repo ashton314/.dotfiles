@@ -25,7 +25,6 @@
 			 ("melpa" . "http://melpa.milkbox.net/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,28 +118,6 @@
 (use-package counsel
   :config
   (ivy-configure 'counsel-M-x :initial-input ""))
-
-;; Doesn't work with terminal emacs
-;; (use-package all-the-icons-ivy
-;;   :ensure t
-;;   :config
-;;   (all-the-icons-ivy-setup))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Helm configurations
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; I've moved to Ivy from Helm; I find it a bit faster and it suits my
-;; needs just fine. Helm is a fantastic package though!
-
-;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-;; (use-package helm
-;;   :ensure t
-;;   :defer t
-;;   :bind
-;;   (("M-x" . helm-M-x)
-;;    ("C-x b" . helm-buffers-list)
-;;    ("C-x r b" . helm-bookmarks)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions

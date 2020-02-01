@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+# This file is for relatively portable configurations on top of what I do in my .zshrc
+
+EMACS="*term*"; export EMACS
+EDITOR=emacs;   export EDITOR
+PAGER=less;     export PAGER
+LESS=-RFiX;     export LESS
+
+##############################
+# Aliases
+##############################
+
+alias ll='ls -AlFG'
+alias 'ce'='carton exec'
+alias 'j'='jobs -l'
+alias 'whoamip'='ipconfig getifaddr en0'
+alias 'r~'='rm -f *~ .*~'
+
+. /usr/local/opt/asdf/asdf.sh
