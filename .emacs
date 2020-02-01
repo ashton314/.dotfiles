@@ -74,6 +74,16 @@
   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   (projectile-mode +1))
 
+(use-package avy
+  :ensure t
+  :bind
+  (("C-c j" . avy-goto-line)
+   ("C-M-j" . avy-goto-char)
+   ("C-c J" . avy-goto-word-0)
+   ;; ("C-x j" . avy-goto-char)
+   ;; ("C-x J" . avy-goto-char-2)
+   ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -83,11 +93,6 @@
   :demand
   :bind
   (("M-x" . counsel-M-x)
-   ("C-c j" . avy-goto-line)
-   ("C-M-j" . avy-goto-char)
-   ("C-c J" . avy-goto-word-0)
-   ;; ("C-x j" . avy-goto-char)
-   ;; ("C-x J" . avy-goto-char-2)
    ("C-s" . swiper)
    ("C-r" . swiper-backward)
    (:map ivy-mode-map
@@ -313,10 +318,6 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c (") 'wrap-sexp)
 (define-key global-map (kbd "C-c <") 'sp-unwrap-sexp)
 (define-key global-map (kbd "C-c )") 'sp-rewrap-sexp)
-;(define-key global-map (kbd "C-x f") 'forward-sexp)
-;(define-key global-map (kbd "C-x B") 'backward-sexp)
-;(define-key global-map (kbd "C-x d") 'down-list)
-;(define-key global-map (kbd "C-x u") 'backward-up-list)
 
 (define-key global-map (kbd "C-x D") 'dired)
 (define-key global-map (kbd "C-x U") 'undo)
@@ -346,21 +347,8 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c C-SPC") 'point-to-register)
 (define-key global-map (kbd "C-c C-j") 'jump-to-register)
 
-;; (autoload 'gfm-mode "gfm-mode"
-;;   "Major mode for editing GitHub Flavored Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-
-;; get scroll (and mouse?) support in iTerm2
-;; (require 'mwheel)
-;; (require 'mouse)
-;; (xterm-mouse-mode t)
-;; (mouse-wheel-mode t)
-;; (global-set-key [mouse-4] 'next-line)
-;; (global-set-key [mouse-5] 'previous-line)
-;; (setq mouse-wheel-progressive-speed nil)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Hooks
+;; Hooks and other sweet packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package company
@@ -368,7 +356,8 @@ If the new path's directories does not exist, create them."
   :ensure t
   :pin melpa
   :config
-  (global-company-mode))
+  (global-company-mode)
+  (company-prescient-mode))
 
 (use-package yasnippet
   :diminish (yas-minor-mode . " y")
@@ -377,16 +366,21 @@ If the new path's directories does not exist, create them."
 (use-package smartparens
   :ensure t)
 
-;; (add-hook 'after-init-hook '(lambda ()
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;                               (require 'yasnippet)
-;; ;			      (keyfreq-mode 1)
-;; ;			      (keyfreq-autosave-mode 1)
-;;                               ))
+(use-package lsp-mode
+  :hook ((elixir-mode . lsp-deferred)
+	 (rust-mode . lsp-deferred))
+  :commands (lsp lsp-deferred)
+  :bind
+  (("C-c C-d" . lsp-describe-thing-at-point))
+  :config
+  (setq lsp-clients-elixir-server-executable "~/Sync/repos/elixir-ls/release/language_server.sh")
+  (setq lsp-enable-file-watchers t)
+  (setq lsp-file-watch-threshold 10000))
 
-(add-hook 'lsp-mode-hook
-          '(lambda ()
-             (define-key lsp-mode-map (kbd "C-c C-d") 'lsp-describe-thing-at-point)))
 
 (add-hook 'cperl-mode-hook
 	  '(lambda ()
@@ -433,12 +427,6 @@ If the new path's directories does not exist, create them."
             (define-key racket-mode-map (kbd "C-c .") 'racket-describe)))
 
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-
-;; Uncomment this to turn on lsp mode in elixir
-(use-package lsp-mode
-  :hook ((elixir-mode . lsp-deferred)
-	 (rust-mode . lsp-deferred))
-  :commands (lsp lsp-deferred))
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
@@ -611,11 +599,12 @@ If the new path's directories does not exist, create them."
 	 ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
 	  (tags-todo "gospel")))))
 
-; Links
+;; Links
 (define-key global-map (kbd "C-c o l") 'org-store-link)
 (define-key global-map (kbd "C-c L") 'org-insert-link-global)
 (define-key global-map (kbd "C-c O") 'org-open-at-point-global)
 
+;; Other org-related keys
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o a") 'org-agenda)
 (define-key global-map (kbd "C-c o b") 'org-switchb)
@@ -661,7 +650,6 @@ If the new path's directories does not exist, create them."
    ";; This space intentionally left blank. Try \\[find-file].
 
 ")
- '(lsp-clients-elixir-server-executable "~/Sync/repos/elixir-ls/release/language_server.sh")
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
@@ -670,7 +658,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (minimap counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (company-prescient minimap counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
