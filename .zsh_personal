@@ -2,6 +2,9 @@
 
 # This file is for relatively portable configurations on top of what I do in my .zshrc
 
+# Enable 24-bit color (see https://stackoverflow.com/questions/14672875/true-color-24-bit-in-terminal-emacs)
+# TERM=xterm-24bit
+
 EMACS="*term*"; export EMACS
 EDITOR=emacs;   export EDITOR
 PAGER=less;     export PAGER
