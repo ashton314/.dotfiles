@@ -26,13 +26,23 @@
 			 ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom Variables
+;; Device-specific customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; These are variables that point to paths on my filesystem. These are
+;; those that need to be changed on a per-install basis
+(setq deft-directory "~/Sync/Dropbox/deft")
+(setq lsp-java-server-install-dir "~/Sync/repos/java-ls/")
+(setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
+(setq org-directory "~/Sync/Dropbox/beorg")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom Variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq auto-writer-mode nil)
 
-(setq deft-directory "~/Sync/Dropbox/deft")
-(setq deft-extensions '("md" "org" "txt" "tex"))
+(setq deft-extensions '("org" "md" "txt" "tex"))
 (setq deft-new-file-format "%Y-%m-%d")
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
@@ -46,9 +56,7 @@
 ;; Good packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq lsp-java-server-install-dir "~/Sync/repos/java-ls/")
 (use-package lsp-java
-  :ensure t
   :after lsp
   :config (add-hook 'java-mode-hook 'lsp))
 
@@ -87,19 +95,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy-prescient
+  :ensure t)
+
 (use-package ivy
   :diminish (ivy-mode . "")
   :ensure t
   :demand
   :bind
-  (("M-x" . counsel-M-x)
-   ("C-s" . swiper)
-   ("C-r" . swiper-backward)
-   (:map ivy-mode-map
+  ((:map ivy-mode-map
 	 ("C-c '" . ivy-avy)))
   :config
   (ivy-mode 1)
-  (ivy-prescient-mode)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   ;; number of result lines to display
@@ -115,14 +122,28 @@
   (setq ivy-modified-buffer t)
   (setq ivy-modified-outside-buffer t)
 
+  ;; this has to go here otherwise faces get borked up
+  (ivy-prescient-mode)
+
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
 	;; allow input not in order
         '((t   . ivy--regex-ignore-order))))
 
 (use-package counsel
+  :ensure t
+  :after ivy
+  :bind
+  (("M-x" . counsel-M-x))
   :config
   (ivy-configure 'counsel-M-x :initial-input ""))
+
+(use-package swiper
+  :ensure t
+  :after ivy
+  :bind
+  (("C-s" . swiper)
+   ("C-r" . swiper-backward)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
@@ -356,7 +377,12 @@ If the new path's directories does not exist, create them."
   :ensure t
   :pin melpa
   :config
-  (global-company-mode)
+  (global-company-mode))
+
+(use-package company-prescient
+  :ensure t
+  :after company
+  :config
   (company-prescient-mode))
 
 (use-package yasnippet
@@ -377,7 +403,7 @@ If the new path's directories does not exist, create them."
   :bind
   (("C-c C-d" . lsp-describe-thing-at-point))
   :config
-  (setq lsp-clients-elixir-server-executable "~/Sync/repos/elixir-ls/release/language_server.sh")
+  (setq lsp-clients-elixir-server-executable lsp-elixir-server)
   (setq lsp-enable-file-watchers t)
   (setq lsp-file-watch-threshold 10000))
 
@@ -543,7 +569,6 @@ If the new path's directories does not exist, create them."
 ;; This showed up later:
 ;  '(org-trello-current-prefix-keybinding "C-c o")
 
-(setq org-directory "~/Sync/Dropbox/beorg")
 (setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
 (setq org-family-notes-file (concat org-directory "/family_shared.org"))
 (setq org-general-notes-file (concat org-directory "/general.org"))
@@ -658,7 +683,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (company-prescient minimap counsel-projectile lsp-java "not-a-reall-package" projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
@@ -669,7 +694,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(avy-lead-face-0 ((t (:background "color-27" :foreground "white"))))
- '(avy-lead-face-2 ((t (:background "color-27" :foreground "white"))))
+ '(avy-lead-face-2 ((t (:background "midnightblue" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
@@ -688,7 +713,9 @@ If the new path's directories does not exist, create them."
  '(font-lock-builtin-face ((t (:foreground "#74758c"))))
  '(font-lock-comment-face ((t (:foreground "orangered"))))
  '(font-lock-function-name-face ((t (:foreground "#0087ff"))))
+ '(font-lock-keyword-face ((t (:foreground "#c040f0"))))
  '(font-lock-string-face ((t (:foreground "green"))))
+ '(font-lock-variable-name-face ((t (:foreground "peru"))))
  '(geiser-font-lock-autodoc-identifier ((t (:foreground "color-27"))))
  '(git-commit-summary ((t (:foreground "green"))))
  '(helm-buffer-directory ((t (:foreground "blue" :underline t))))
@@ -729,9 +756,9 @@ If the new path's directories does not exist, create them."
  '(minibuffer-prompt ((t (:foreground "#00bfff"))))
  '(mode-line ((t (:background "dodgerblue4" :foreground "grey96" :box (:line-width -1 :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey70" :foreground "grey20" :box (:line-width -1 :color "grey75") :weight light))))
- '(org-agenda-structure ((t (:foreground "color-33"))))
+ '(org-agenda-structure ((t (:foreground "#0087ff"))))
  '(org-babel-load-languages (quote (emacs-lisp elixir)))
- '(org-document-info ((t (:foreground "blue"))))
+ '(org-document-info ((t (:foreground "deepskyblue1"))))
  '(org-document-title ((t (:foreground "turquoise" :weight bold))))
  '(org-drawer ((t (:foreground "steelblue1"))))
  '(org-quote ((t (:foreground "green"))))
