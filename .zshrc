@@ -118,8 +118,8 @@ else
 fi
 
 setopt HIST_IGNORE_DUPS
-HISTORY_IGNORE='(fg|ll|jobs|cd|j)'
 SHARE_HISTORY=true
+HISTORY_IGNORE='(fg|ll|jobs|cd|j|l|exit)'
 
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
