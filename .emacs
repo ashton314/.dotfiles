@@ -52,6 +52,9 @@
 (setq dabbrev-case-fold-search t)
 (menu-bar-mode -1)
 
+;; In case you want emacs to save automatically after n seconds, use:
+;; (run-with-timer 10 10 (lambda () (save-some-buffers t)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Good packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -313,8 +316,8 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Searching
-(define-key global-map (kbd "C-h C-s") 'helm-ag)
-(define-key global-map (kbd "C-h C-b") 'helm-ag-buffers)
+;; (define-key global-map (kbd "C-h C-s") 'helm-ag)
+;; (define-key global-map (kbd "C-h C-b") 'helm-ag-buffers)
 
 ;; Magit
 (define-key global-map (kbd "C-x g") 'magit-status)
@@ -675,6 +678,7 @@ If the new path's directories does not exist, create them."
    ";; This space intentionally left blank. Try \\[find-file].
 
 ")
+ '(ispell-query-replace-choices t)
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
@@ -683,7 +687,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert helm-ag edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
@@ -693,8 +697,8 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-lead-face-0 ((t (:background "color-27" :foreground "white"))))
- '(avy-lead-face-2 ((t (:background "midnightblue" :foreground "white"))))
+ '(avy-lead-face-0 ((t (:background "grey30" :foreground "white"))))
+ '(avy-lead-face-2 ((t (:background "grey55" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
@@ -766,7 +770,7 @@ If the new path's directories does not exist, create them."
  '(org-table ((t (:foreground "#4F9EFF"))))
  '(org-todo ((t (:foreground "#ee3030" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "orange"))))
- '(org-verbatim ((t (:foreground "color-34"))))
+ '(org-verbatim ((t (:foreground "#7cfc00"))))
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
  '(shadow ((t (:foreground "slategray"))))
