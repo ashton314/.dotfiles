@@ -318,18 +318,21 @@ If the new path's directories does not exist, create them."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Searching
-;; (define-key global-map (kbd "C-h C-s") 'helm-ag)
-;; (define-key global-map (kbd "C-h C-b") 'helm-ag-buffers)
+(define-key global-map (kbd "C-c r") 'counsel-rg)
 
 ;; Magit
 (define-key global-map (kbd "C-x g") 'magit-status)
 (setq magit-completing-read-function 'ivy-completing-read)
+(add-hook 'magit-mode-hook
+          '(lambda () (magit-todos-mode)))
 
 ;; Ace window
 (define-key global-map (kbd "M-o") 'ace-window)
 
 ;; Overrides
 (define-key global-map (kbd "C-x C-r") 'revert-buffer) ; C-x C-r is normally like C-x C-f, but opens file in read-only mode
+;; (define-key global-map (kbd "C-r SPC") 'point-to-register) ; Normally C-r is isearch-backwards, but now I use swiper
+;; (define-key global-map (kbd "C-r j") 'jump-to-register)
 
 ;; Completion
 (define-key global-map (kbd "C-x /") 'company-complete)
@@ -498,12 +501,14 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'org-mode-hook
           '(lambda ()
+             (require 'org-attach-git)
 	     (require 'ox-md nil t)
-	     (org-babel-do-load-languages
-	      'org-babel-load-languages
-	      '((emacs-lisp . t)
-		(elixir . t)
-		(scheme . t)))))
+	     ;; (org-babel-do-load-languages
+	     ;;  'org-babel-load-languages
+	     ;;  '((emacs-lisp . t)
+	     ;;    (elixir . t)
+	     ;;    (scheme . t)))
+             ))
 
 ;; These automatically put hard line-breaks in your text automatically
 ;(add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -689,7 +694,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(package-selected-packages
    (quote
-    (kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit org-ref ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
