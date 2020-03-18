@@ -54,6 +54,8 @@
 (setq dabbrev-case-fold-search t)
 (menu-bar-mode -1)
 
+(setq tramp-terminal-type "tramp")
+
 ;; In case you want emacs to save automatically after n seconds, use:
 ;; (run-with-timer 10 10 (lambda () (save-some-buffers t)))
 
