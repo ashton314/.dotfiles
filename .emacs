@@ -744,7 +744,7 @@ If the new path's directories does not exist, create them."
  '(ioccur-overlay-face ((t (:background "color-22" :underline t))))
  '(isearch ((t (:background "magenta3" :foreground "black"))))
  '(isearch-fail ((t (:background "RosyBrown1" :foreground "black"))))
- '(italic ((t (:underline t :slant italic))))
+ '(italic ((t (:underline nil :slant italic))))
  '(ivy-current-match ((t (:background "#1a4bf7" :foreground "white"))))
  '(ivy-minibuffer-match-face-2 ((t (:foreground "green3" :underline t :weight bold))))
  '(link ((t (:foreground "#1e90ff" :underline t))))
