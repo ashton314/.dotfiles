@@ -36,7 +36,12 @@
 (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
 (setq org-directory "~/Sync/Dropbox/beorg")
 
-
+;; ITERM2 MOUSE SUPPORT
+;; (unless window-system
+;;   (require 'mouse)
+;;   (xterm-mouse-mode t)
+;;   (defun track-mouse (e)) 
+;;   (setq mouse-sel-mode t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -151,6 +156,20 @@
   :bind
   (("C-s" . swiper)
    ("C-r" . swiper-backward)))
+
+;; Magit
+(use-package magit
+  :ensure t
+  :bind
+  (("C-x g" . magit-status))
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read))
+
+(use-package magit-todos
+  :after (magit)
+  :config
+  (let ((inhibit-message t))            ; This is to suppress the "not overriding jT keybinding" message
+    (magit-todos-mode 1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
@@ -312,7 +331,7 @@ If the new path's directories does not exist, create them."
 
 (defun my-racket-doc (prefix)
   (interactive "P")
-  (cond ((not prefix) (racket-describe))
+  (cond ((not prefix) (racket-xp-describe))
         ((equal prefix '(4)) (racket-doc))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -321,12 +340,6 @@ If the new path's directories does not exist, create them."
 
 ;; Searching
 (define-key global-map (kbd "C-c r") 'counsel-rg)
-
-;; Magit
-(define-key global-map (kbd "C-x g") 'magit-status)
-(setq magit-completing-read-function 'ivy-completing-read)
-(add-hook 'magit-mode-hook
-          '(lambda () (magit-todos-mode)))
 
 ;; Ace window
 (define-key global-map (kbd "M-o") 'ace-window)
@@ -694,9 +707,11 @@ If the new path's directories does not exist, create them."
     ("~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family_shared.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
+ '(org-tags-column -100)
  '(package-selected-packages
    (quote
     (wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+ '(safe-local-variable-values (quote ((org-tags-column . -150))))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
