@@ -34,7 +34,7 @@
 (setq deft-directory "~/Sync/Dropbox/deft")
 (setq lsp-java-server-install-dir "~/Sync/repos/java-ls/")
 (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
-(setq org-directory "~/Sync/Dropbox/beorg")
+(setq org-directory "~/Sync/beorg")
 
 ;; ITERM2 MOUSE SUPPORT
 ;; (unless window-system
@@ -68,9 +68,9 @@
 ;; Good packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package lsp-java
-  :after lsp
-  :config (add-hook 'java-mode-hook 'lsp))
+;; (use-package lsp-java
+;;   :after lsp
+;;   :config (add-hook 'java-mode-hook 'lsp))
 
 ;; Turn off key dimming
 (use-package ace-window
@@ -713,7 +713,7 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/Dropbox/beorg/school.org" "~/Sync/Dropbox/beorg/family_shared.org" "~/Sync/Dropbox/beorg/writing.org" "~/Sync/Dropbox/beorg/projects.org" "~/Sync/Dropbox/beorg/research.org" "~/Sync/Dropbox/beorg/work.org" "~/Sync/Dropbox/beorg/mobile_inbox.org" "~/Sync/Dropbox/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org" "~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(org-tags-column -100)
