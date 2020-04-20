@@ -668,13 +668,22 @@ If the new path's directories does not exist, create them."
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
 	("famhist/person" . "https://www.familysearch.org/tree/person/details/%s")))
 
+;; TODO: fix this up---why are the other things not showing up?
+(setq org-refile-use-outline-path 'file)
 (setq org-refile-targets
       ;; `((org-agenda-files . (:level . 1))
-      `(((,org-project-notes-file) . (:level . 1))
-        ((,org-writing-notes-file) . (:level . 1))
+      `(((,org-project-notes-file) . (:level . 0))
+        ((,org-writing-notes-file) . (:level . 0))
         ((,org-general-notes-file) . (:level . 1))
         ((,org-family-notes-file) . (:maxlevel . 1))
         ((,org-school-file) . (:maxlevel . 1))))
+;; (setq org-refile-targets
+;;       ;; `((org-agenda-files . (:level . 1))
+;;       `(((,org-project-notes-file) . (:level . 0))
+;;         ((,org-writing-notes-file) . (:level . 0))
+;;         ((,org-general-notes-file) . (:level . 0))
+;;         ((,org-family-notes-file) . (:maxlevel . 1))
+;;         ((,org-school-file) . (:maxlevel . 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Display/mode line customizations
