@@ -242,17 +242,22 @@ as running the sequence `C-M-<SPC> (`"
 
 ;;; Insert Date
 (global-set-key (kbd "C-c d") 'insert-date)
-(defun insert-date (prefix)
-    "Insert the current date. With prefix-argument, use ISO format. With
+(defun format-date (prefix)
+    "Format the current date. With prefix-argument, use ISO format. With
    two prefix arguments, write out the day and month name."
-    (interactive "P")
     (let ((format (cond
                    ((not prefix) "%F")
                    ((equal prefix '(4)) "%F %T")
                    ((equal prefix '(16)) "%A, %e %B %Y")))
           (system-time-locale))
           ;; (system-time-locale "de_DE"))
-      (insert (format-time-string format))))
+      (format-time-string format)))
+
+(defun insert-date (prefix)
+    "Insert the current date. With prefix-argument, use ISO format. With
+   two prefix arguments, write out the day and month name."
+    (interactive "P")
+    (insert (format-date prefix)))
 
 ;;; call perltidy on region
 (defun perltidy (beg end)
@@ -410,7 +415,9 @@ If the new path's directories does not exist, create them."
 
 (use-package yasnippet
   :diminish (yas-minor-mode . " y")
-  :ensure t)
+  :ensure t
+  :config
+  (yas-global-mode))
 
 (use-package smartparens
   :ensure t)
@@ -713,7 +720,7 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org" "~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org" "~/Personal/study_journal/HEAD.org")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(org-tags-column -100)
@@ -798,7 +805,7 @@ If the new path's directories does not exist, create them."
  '(org-document-info ((t (:foreground "deepskyblue1"))))
  '(org-document-title ((t (:foreground "turquoise" :weight bold))))
  '(org-drawer ((t (:foreground "steelblue1"))))
- '(org-quote ((t (:foreground "green"))))
+ '(org-quote ((t (:foreground "green" :slant italic))))
  '(org-scheduled-today ((t (:foreground "limegreen"))))
  '(org-table ((t (:foreground "#4F9EFF"))))
  '(org-todo ((t (:foreground "#ee3030" :weight bold))))
