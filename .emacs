@@ -34,6 +34,7 @@
 (setq deft-directory "~/Sync/Dropbox/deft")
 (setq lsp-java-server-install-dir "~/Sync/repos/java-ls/")
 (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
+(setq lsp-file-watch-threshold 10000)
 (setq org-directory "~/Sync/beorg")
 
 ;; ITERM2 MOUSE SUPPORT
@@ -79,6 +80,23 @@
   (setq aw-background nil)
   (ace-window-display-mode))
 
+(use-package multiple-cursors
+  :bind
+  (("C-x 4 e" . mc/edit-lines)
+   ("C-x 4 >" . mc/mark-next-like-this)
+   ("C-x 4 <" . mc/mark-next-previous-this)
+   ("C-x 4 d" . mc/mark-all-dwim)))
+
+;; (use-package lastfm
+;;   :defer 3)
+
+;; (use-package vuiet
+;;   :after lastfm)
+
+;; (use-package lispy
+;;   :ensure t)
+
+
 ;; (use-package org-alert
 ;;   :ensure t
 ;;   :config
@@ -116,7 +134,9 @@
   :demand
   :bind
   ((:map ivy-mode-map
-	 ("C-c '" . ivy-avy)))
+	 ("C-c '" . ivy-avy))
+   (:map ivy-minibuffer-map
+         ("C-c >" . ivy-restrict-to-matches)))
   :config
   (ivy-mode 1)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
@@ -434,8 +454,7 @@ If the new path's directories does not exist, create them."
   (("C-c C-d" . lsp-describe-thing-at-point))
   :config
   (setq lsp-clients-elixir-server-executable lsp-elixir-server)
-  (setq lsp-enable-file-watchers t)
-  (setq lsp-file-watch-threshold 10000))
+  (setq lsp-enable-file-watchers t))
 
 
 (add-hook 'cperl-mode-hook
@@ -455,7 +474,7 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'elixir-mode-hook
           '(lambda () (progn
-                        (define-key elixir-mode-map (kbd "M-q") 'elixir-mode-fill-doc-string)
+                        (define-key elixir-mode-map (kbd "C-M-q") 'elixir-mode-fill-doc-string)
                         ;; (alchemist-mode)
                         ;; (sp-local-pair 'elixir-mode "do\n" "\nend")
                         ;; (poly-alchemist-mode)
@@ -708,6 +727,8 @@ If the new path's directories does not exist, create them."
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
+ '(counsel-rg-base-command
+   "rg -M 200 --with-filename --no-heading --line-number --color never %s")
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
@@ -757,9 +778,9 @@ If the new path's directories does not exist, create them."
  '(font-lock-builtin-face ((t (:foreground "#74758c"))))
  '(font-lock-comment-face ((t (:foreground "orangered"))))
  '(font-lock-function-name-face ((t (:foreground "#0087ff"))))
- '(font-lock-keyword-face ((t (:foreground "#c040f0"))))
+ ;; '(font-lock-keyword-face ((t (:foreground "#c040f0"))))
  '(font-lock-string-face ((t (:foreground "green"))))
- '(font-lock-variable-name-face ((t (:foreground "peru"))))
+ ;; '(font-lock-variable-name-face ((t (:foreground "peru"))))
  '(geiser-font-lock-autodoc-identifier ((t (:foreground "color-27"))))
  '(git-commit-summary ((t (:foreground "green"))))
  '(helm-buffer-directory ((t (:foreground "blue" :underline t))))
@@ -780,6 +801,7 @@ If the new path's directories does not exist, create them."
  '(ivy-minibuffer-match-face-2 ((t (:foreground "green3" :underline t :weight bold))))
  '(link ((t (:foreground "#1e90ff" :underline t))))
  '(link-visited ((t (:inherit link :foreground "magenta2"))))
+ '(lsp-lsp-flycheck-warning-unnecessary-face ((t (:background "color-238" :slant italic))) t)
  '(magit-diff-added ((t (:background "#bbddbb" :foreground "#119911"))))
  '(magit-diff-added-highlight ((t (:background "#005000"))))
  '(magit-diff-base ((t (:background "#ffffcc" :foreground "#777711"))))
