@@ -833,3 +833,7 @@ If the new path's directories does not exist, create them."
 (put 'narrow-to-page 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; Load device-specific customizations
+(if (file-exists-p "~/.emacs.d/device_local.el")
+    (load-file "~/.emacs.d/device_local.el"))
