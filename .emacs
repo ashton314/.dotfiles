@@ -36,6 +36,7 @@
 (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
 (setq lsp-file-watch-threshold 10000)
 (setq org-directory "~/Sync/beorg")
+(setq scripture-directory "~/Docs/Scriptures")
 
 ;; ITERM2 MOUSE SUPPORT
 ;; (unless window-system
@@ -43,6 +44,7 @@
 ;;   (xterm-mouse-mode t)
 ;;   (defun track-mouse (e)) 
 ;;   (setq mouse-sel-mode t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Variables
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -64,6 +66,14 @@
 
 ;; In case you want emacs to save automatically after n seconds, use:
 ;; (run-with-timer 10 10 (lambda () (save-some-buffers t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Load device-specific variable bindings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(if (file-exists-p "~/.emacs.d/device_vars.el")
+    (load-file "~/.emacs.d/device_vars.el"))
+
+;; See also at the end of the file for tail-end customizations
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Good packages
@@ -195,6 +205,9 @@
 ;; Custom functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(if (file-exists-p "~/.dotfiles/emacs_aux.el")
+    (load-file "~/.dotfiles/emacs_aux.el"))
+
 (defun install-my-packages ()
   (interactive)
   (dolist (pkg package-selected-packages)
@@ -229,10 +242,10 @@ as running the sequence `C-M-<SPC> (`"
 
 (defun insert-scripture-ref ()
   (interactive)
-  ;; TODO: Look up "completing-read" and build a hash table of all
-  ;; scriptures. Here's a link to the docs:
+  ;; Pure-emacs solution: Look up "completing-read" and build a hash
+  ;; table of all scriptures. Here's a link to the docs:
   ;; [[help:completing-read][completing-read]]
-  (let ((ref (read-from-minibuffer "Scripture Reference: ")))
+  (let ((ref (completing-scripture-read)))
     (insert (format "[[scrip:%s][%s]]" ref ref))))
 
 (defun toggle-auto-writer-mode ()
@@ -690,7 +703,7 @@ If the new path's directories does not exist, create them."
 (define-key global-map (kbd "C-c C>") 'org-demote-subtree)
 (define-key global-map (kbd "C-c C<") 'org-promote-subtree)
 (setq org-link-abbrev-alist
-      '(("scrip" . "file:~/Docs/Scriptures/lds_scriptures.txt::<<%s>>")
+      `(("scrip" . ,(concat "file:" scripture-directory "/lds_scriptures.txt::<<%s>>"))
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
 	("famhist/person" . "https://www.familysearch.org/tree/person/details/%s")))
 
@@ -778,9 +791,7 @@ If the new path's directories does not exist, create them."
  '(font-lock-builtin-face ((t (:foreground "#74758c"))))
  '(font-lock-comment-face ((t (:foreground "orangered"))))
  '(font-lock-function-name-face ((t (:foreground "#0087ff"))))
- ;; '(font-lock-keyword-face ((t (:foreground "#c040f0"))))
  '(font-lock-string-face ((t (:foreground "green"))))
- ;; '(font-lock-variable-name-face ((t (:foreground "peru"))))
  '(geiser-font-lock-autodoc-identifier ((t (:foreground "color-27"))))
  '(git-commit-summary ((t (:foreground "green"))))
  '(helm-buffer-directory ((t (:foreground "blue" :underline t))))
