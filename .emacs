@@ -650,6 +650,32 @@ If the new path's directories does not exist, create them."
 (setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
 (setq org-log-into-drawer t)            ; Move log notes into a drawer
 
+(setq org-tag-alist '(
+                      ;; locale
+                      (:startgroup)
+                      ("church")
+                      ("home" . ?h)
+                      ("work" . ?w)
+                      ("school" . ?s)
+                      ("research" . ?r)
+                      (:endgroup)
+                      (:newline)
+                      ;; context
+                      ("computer" . ?c)
+                      ("phone" . ?p)
+                      ("emacs" . ?e)
+                      ("mail" . ?m)
+                      (:newline)
+                      ;; scale
+                      (:startgroup)
+                      ("project" . ?j)
+                      ("tiny" . ?t)
+                      (:endgroup)
+                      ;; misc
+                      ("meta")
+                      ("review")
+                      ))
+
 (setq org-todo-keywords
       '((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
 
