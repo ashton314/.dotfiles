@@ -804,7 +804,7 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org" "~/Personal/study_journal/HEAD.org")))
+    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(org-tags-column -100)
