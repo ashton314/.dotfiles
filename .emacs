@@ -640,9 +640,10 @@ If the new path's directories does not exist, create them."
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
 (setq org-project-notes-file (concat org-directory "/projects.org"))
 (setq org-work-notes-file (concat org-directory "/work.org"))
-(setq org-writing-notes-file (concat org-directory "/writing.org"))
-(setq org-20bn-file (concat org-directory "/20bn.org"))
+(setq org-notes-file (concat org-directory "/notes.org"))
+;(setq org-20bn-file (concat org-directory "/20bn.org"))
 (setq org-school-file (concat org-directory "/school.org"))
+(setq org-for-later-file (concat org-directory "/for_later.org"))
 (setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
 (setq org-research-tasks (concat org-research-directory "/research_tasks.org"))
 (setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
@@ -733,19 +734,20 @@ If the new path's directories does not exist, create them."
 ;;      '(("scrip" . "https://www.lds.org/languages/eng/content/scriptures/%(scripture-ref)")
 	("famhist/person" . "https://www.familysearch.org/tree/person/details/%s")))
 
-;; TODO: fix this up---why are the other things not showing up?
+(setq org-outline-path-complete-in-steps nil)
 (setq org-refile-use-outline-path 'file)
 (setq org-refile-targets
       ;; `((org-agenda-files . (:level . 1))
       `(((,org-project-notes-file) . (:level . 0))
-        ((,org-writing-notes-file) . (:level . 0))
+        ((,org-notes-file) . (:level . 0))
         ((,org-general-notes-file) . (:level . 1))
+        ((,org-for-later-file) . (:level . 0))
         ((,org-family-notes-file) . (:maxlevel . 1))
         ((,org-school-file) . (:maxlevel . 1))))
 ;; (setq org-refile-targets
 ;;       ;; `((org-agenda-files . (:level . 1))
 ;;       `(((,org-project-notes-file) . (:level . 0))
-;;         ((,org-writing-notes-file) . (:level . 0))
+;;         ((,org-notes-file) . (:level . 0))
 ;;         ((,org-general-notes-file) . (:level . 0))
 ;;         ((,org-family-notes-file) . (:maxlevel . 1))
 ;;         ((,org-school-file) . (:maxlevel . 1))))
@@ -780,7 +782,7 @@ If the new path's directories does not exist, create them."
  '(olivetti-body-width 80)
  '(org-agenda-files
    (quote
-    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org")))
+    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
  '(org-tags-column -100)
