@@ -42,7 +42,7 @@
 ;; (unless window-system
 ;;   (require 'mouse)
 ;;   (xterm-mouse-mode t)
-;;   (defun track-mouse (e)) 
+;;   (defun track-mouse (e))
 ;;   (setq mouse-sel-mode t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,6 +247,30 @@ as running the sequence `C-M-<SPC> (`"
   ;; [[help:completing-read][completing-read]]
   (let ((ref (completing-scripture-read)))
     (insert (format "[[scrip:%s][%s]]" ref ref))))
+
+(defun notes-this-day ()
+  "Display files of the form '*-mm-dd*' in the current directory,
+where 'mm-dd' are the current month and day."
+  (interactive)
+  (let* ((month-day (format-time-string "%m-%d"))
+         (this-day-matching (concat "[[:digit:]]+-" month-day))
+         (note-files-this-day (directory-files-recursively "." this-day-matching)))
+
+    ;; make a buffer and fill it with the contents
+    (let ((buff (generate-new-buffer "*Notes on this day*")))
+      (set-buffer buff)                   ; Make this buffer current
+      (org-mode)
+      (insert "* Notes on this day *\n")
+      (mapc (lambda (notes-file)
+              (progn
+                (insert "\n------------------------------------------------------------\n")
+                (insert (concat "[[file:" notes-file "][" notes-file "]]"))          ; File name, as a hyperlink
+                (insert "\n")
+                (insert-file-contents notes-file)
+                (end-of-buffer)))
+            note-files-this-day)
+      (read-only-mode)
+      (display-buffer-pop-up-window buff nil))))
 
 (defun toggle-auto-writer-mode ()
   (interactive)
