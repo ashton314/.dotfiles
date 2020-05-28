@@ -79,6 +79,16 @@
 ;; Good packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package selectrum-prescient
+  :ensure t
+  :after 'selectrum)
+
+(use-package selectrum
+  :ensure t
+  :config
+  (selectrum-mode +1)
+  (selectrum-prescient-mode +1))
+
 ;; (use-package lsp-java
 ;;   :after lsp
 ;;   :config (add-hook 'java-mode-hook 'lsp))
@@ -148,7 +158,7 @@
    (:map ivy-minibuffer-map
          ("C-c >" . ivy-restrict-to-matches)))
   :config
-  (ivy-mode 1)
+  ;; (ivy-mode 1)
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   ;; number of result lines to display
@@ -175,8 +185,8 @@
 (use-package counsel
   :ensure t
   :after ivy
-  :bind
-  (("M-x" . counsel-M-x))
+  ;; :bind
+  ;; (("M-x" . counsel-M-x))
   :config
   (ivy-configure 'counsel-M-x :initial-input ""))
 
@@ -898,6 +908,9 @@ If the new path's directories does not exist, create them."
  '(org-verbatim ((t (:foreground "#7cfc00"))))
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
+ '(selectrum-current-candidate ((t (:background "color-27"))))
+ '(selectrum-primary-highlight ((t (:foreground "brightgreen" :underline t))))
+ '(selectrum-secondary-highlight ((t (:underline t :weight bold))))
  '(shadow ((t (:foreground "slategray"))))
  '(show-paren-match ((t (:background "#5aa"))))
  '(show-paren-match-expression ((t (:background "#232323"))))
