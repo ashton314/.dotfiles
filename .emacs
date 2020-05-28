@@ -202,14 +202,20 @@
   :ensure t
   :bind
   (("C-x g" . magit-status))
-  :config
-  (setq magit-completing-read-function 'ivy-completing-read))
+  ;; :config
+  ;; (setq magit-completing-read-function 'ivy-completing-read)
+  )
 
 (use-package magit-todos
   :after (magit)
   :config
   (let ((inhibit-message t))            ; This is to suppress the "not overriding jT keybinding" message
     (magit-todos-mode 1)))
+
+(use-package magit-delta
+  :after (magit)
+  :config
+  (magit-delta-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
@@ -822,7 +828,7 @@ If the new path's directories does not exist, create them."
  '(org-tags-column -100)
  '(package-selected-packages
    (quote
-    (wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(safe-local-variable-values (quote ((org-tags-column . -150))))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
