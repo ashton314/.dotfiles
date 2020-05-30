@@ -213,10 +213,11 @@
   (let ((inhibit-message t))            ; This is to suppress the "not overriding jT keybinding" message
     (magit-todos-mode 1)))
 
-(use-package magit-delta
-  :after (magit)
-  :config
-  (magit-delta-mode))
+;; (use-package magit-delta
+;;   :diminish (magit-delta-mode . " Δ")
+;;   :after (magit)
+;;   :config
+;;   (magit-delta-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
