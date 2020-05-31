@@ -87,7 +87,8 @@
   :ensure t
   :config
   (selectrum-mode +1)
-  (selectrum-prescient-mode +1))
+  (selectrum-prescient-mode +1)
+  (prescient-persist-mode +1))
 
 ;; (use-package lsp-java
 ;;   :after lsp
@@ -213,6 +214,7 @@
     (magit-todos-mode 1)))
 
 ;; (use-package magit-delta
+;;   :diminish (magit-delta-mode . " Δ")
 ;;   :after (magit)
 ;;   :config
 ;;   (magit-delta-mode))
