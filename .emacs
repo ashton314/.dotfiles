@@ -212,10 +212,10 @@
   (let ((inhibit-message t))            ; This is to suppress the "not overriding jT keybinding" message
     (magit-todos-mode 1)))
 
-(use-package magit-delta
-  :after (magit)
-  :config
-  (magit-delta-mode))
+;; (use-package magit-delta
+;;   :after (magit)
+;;   :config
+;;   (magit-delta-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
@@ -914,7 +914,7 @@ If the new path's directories does not exist, create them."
  '(org-verbatim ((t (:foreground "#7cfc00"))))
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
- '(selectrum-current-candidate ((t (:background "color-27"))))
+ '(selectrum-current-candidate ((t (:background "#1111ee"))))
  '(selectrum-primary-highlight ((t (:foreground "brightgreen" :underline t))))
  '(selectrum-secondary-highlight ((t (:underline t :weight bold))))
  '(shadow ((t (:foreground "slategray"))))
