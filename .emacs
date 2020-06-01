@@ -86,6 +86,7 @@
 (use-package selectrum
   :ensure t
   :config
+  (setq enable-recursive-minibuffers t)
   (selectrum-mode +1)
   (selectrum-prescient-mode +1)
   (prescient-persist-mode +1))
