@@ -299,7 +299,7 @@ where 'mm-dd' are the current month and day."
 (defun writer-mode ()
   (interactive)
   (progn
-    (writeroom-mode)
+    (darkroom-tentative-mode)
     (centered-cursor-mode)
     ;; (imenu-list-noselect)
     ;; (olivetti-mode)
@@ -845,6 +845,8 @@ If the new path's directories does not exist, create them."
  '(avy-lead-face-0 ((t (:background "grey30" :foreground "white"))))
  '(avy-lead-face-2 ((t (:background "grey55" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
+ '(company-tooltip-search ((t (:inherit highlight :background "#1096ff" :foreground "brightwhite"))))
+ '(company-tooltip-search-selection ((t (:inherit company-tooltip-search))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
  '(custom-state ((t (:foreground "#00ff70"))))
