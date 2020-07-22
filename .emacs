@@ -17,6 +17,15 @@
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; UI-Only customizations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(when (display-graphic-p)
+  (set-frame-font "Input Mono 12" nil t)
+  (load-theme 'doom-acario-dark)
+  (tool-bar-mode -1)
+  (blink-cursor-mode -1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -223,6 +232,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun stretches ()
+  (interactive)
+  (let ((stretches '("up" "down" "pronate" "supinate")))
+    (mapc #'(lambda (stretch) (message (format "Stretch right hand %s" stretch)) (sleep-for 15)) stretches)
+    (mapc #'(lambda (stretch) (message (format "Stretch left hand %s" stretch)) (sleep-for 15)) stretches)))
 
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
@@ -816,11 +831,15 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
+ '(custom-safe-themes
+   (quote
+    ("fe94e2e42ccaa9714dd0f83a5aa1efeef819e22c5774115a9984293af609fce7" "2cdc13ef8c76a22daa0f46370011f54e79bae00d5736340a5ddfe656a767fddf" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "bf387180109d222aee6bb089db48ed38403a1e330c9ec69fe1f52460a8936b66" "1068ae7acf99967cc322831589497fee6fb430490147ca12ca7dd3e38d9b552a" default)))
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
@@ -839,7 +858,7 @@ If the new path's directories does not exist, create them."
  '(org-tags-column -100)
  '(package-selected-packages
    (quote
-    (multiple-cursors magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
+    (lsp-ui doom-themes zenburn-theme amx god-mode evil magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
  '(safe-local-variable-values (quote ((org-tags-column . -150))))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
@@ -858,7 +877,7 @@ If the new path's directories does not exist, create them."
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
  '(custom-state ((t (:foreground "#00ff70"))))
- '(custom-variable-tag ((t (:foreground "color-33" :weight bold))))
+ '(custom-variable-tag ((t (:foreground "gray100" :weight bold))))
  '(ediff-current-diff-A ((t (:background "#aa0000"))))
  '(ediff-current-diff-Ancestor ((t (:background "#bb9aaa"))))
  '(ediff-current-diff-B ((t (:background "#00bb00" :foreground "color-255"))))
@@ -932,7 +951,7 @@ If the new path's directories does not exist, create them."
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
  '(selectrum-current-candidate ((t (:background "#0030ff"))))
- '(selectrum-primary-highlight ((t (:foreground "brightgreen" :underline t))))
+ '(selectrum-primary-highlight ((t (:foreground "#00ff00" :underline t))))
  '(selectrum-secondary-highlight ((t (:underline t :weight bold))))
  '(shadow ((t (:foreground "slategray"))))
  '(show-paren-match ((t (:background "#5aa"))))
