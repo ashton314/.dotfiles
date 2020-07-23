@@ -20,9 +20,14 @@
 ;; UI-Only customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (display-graphic-p)
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+  (setq initial-frame-alist '((width . 130) (height . 100) (vertical-scroll-bars)))
+  (setq default-frame-alist '((width . 130) (height . 100) (vertical-scroll-bars)))
   (set-frame-font "Input Mono 12" nil t)
-  (load-theme 'doom-acario-dark)
+  (load-theme 'doom-acario-dark t)
   (tool-bar-mode -1)
+  (scroll-bar-mode -1)
   (blink-cursor-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -838,12 +843,11 @@ If the new path's directories does not exist, create them."
  '(counsel-rg-base-command
    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
  '(custom-safe-themes
-   (quote
-    ("fe94e2e42ccaa9714dd0f83a5aa1efeef819e22c5774115a9984293af609fce7" "2cdc13ef8c76a22daa0f46370011f54e79bae00d5736340a5ddfe656a767fddf" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "bf387180109d222aee6bb089db48ed38403a1e330c9ec69fe1f52460a8936b66" "1068ae7acf99967cc322831589497fee6fb430490147ca12ca7dd3e38d9b552a" default)))
+   '("fe94e2e42ccaa9714dd0f83a5aa1efeef819e22c5774115a9984293af609fce7" "2cdc13ef8c76a22daa0f46370011f54e79bae00d5736340a5ddfe656a767fddf" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "2f1518e906a8b60fac943d02ad415f1d8b3933a5a7f75e307e6e9a26ef5bf570" "bf387180109d222aee6bb089db48ed38403a1e330c9ec69fe1f52460a8936b66" "1068ae7acf99967cc322831589497fee6fb430490147ca12ca7dd3e38d9b552a" default))
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
- '(initial-major-mode (quote text-mode))
+ '(initial-major-mode 'text-mode)
  '(initial-scratch-message
    ";; This space intentionally left blank. Try \\[find-file].
 
@@ -851,19 +855,17 @@ If the new path's directories does not exist, create them."
  '(ispell-query-replace-choices t)
  '(olivetti-body-width 80)
  '(org-agenda-files
-   (quote
-    ("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org")))
+   '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
  '(org-fontify-quote-and-verse-blocks t)
- '(org-ref-insert-link-function (quote org-ref-helm-insert-cite-link))
+ '(org-ref-insert-link-function 'org-ref-helm-insert-cite-link)
  '(org-tags-column -100)
  '(package-selected-packages
-   (quote
-    (lsp-ui doom-themes zenburn-theme amx god-mode evil magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft)))
- '(safe-local-variable-values (quote ((org-tags-column . -150))))
+   '(exec-path-from-shell lsp-ui doom-themes zenburn-theme amx god-mode evil magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
+ '(safe-local-variable-values '((org-tags-column . -150)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(show-paren-style (quote expression)))
+ '(show-paren-style 'expression))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -876,6 +878,7 @@ If the new path's directories does not exist, create them."
  '(company-tooltip-search-selection ((t (:inherit company-tooltip-search))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
+ '(cursor ((t (:background "#adddff"))))
  '(custom-state ((t (:foreground "#00ff70"))))
  '(custom-variable-tag ((t (:foreground "gray100" :weight bold))))
  '(ediff-current-diff-A ((t (:background "#aa0000"))))
@@ -888,6 +891,7 @@ If the new path's directories does not exist, create them."
  '(ediff-odd-diff-A ((t (:background "green"))))
  '(ediff-odd-diff-B ((t (:background "red"))))
  '(elixir-atom-face ((t (:foreground "RoyalBlue3"))))
+ '(fixed-pitch-serif ((t (:family "Input Mono"))))
  '(font-lock-builtin-face ((t (:foreground "#74758c"))))
  '(font-lock-comment-face ((t (:foreground "orangered"))))
  '(font-lock-function-name-face ((t (:foreground "#0087ff"))))
@@ -924,7 +928,7 @@ If the new path's directories does not exist, create them."
  '(magit-diff-hunk-heading-selection ((t (:inherit magit-diff-hunk-heading-highlight :foreground "salmon4"))))
  '(magit-diff-removed ((t (:background "#300000"))))
  '(magit-diff-removed-highlight ((t (:background "#500000"))))
- '(magit-section-highlight ((t (:background "color-233"))))
+ '(magit-section-highlight ((t (:extend t :background "#303030" :weight bold))))
  '(markdown-bold-face ((t (:foreground "color-208" :slant normal :weight bold))))
  '(markdown-header-face ((t (:foreground "blue" :weight bold))))
  '(markdown-header-face-1 ((t (:foreground "deepskyblue1" :weight bold :height 1.0))))
@@ -938,7 +942,7 @@ If the new path's directories does not exist, create them."
  '(mode-line ((t (:background "dodgerblue4" :foreground "grey96" :box (:line-width -1 :style released-button)))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey70" :foreground "grey20" :box (:line-width -1 :color "grey75") :weight light))))
  '(org-agenda-structure ((t (:foreground "#0087ff"))))
- '(org-babel-load-languages (quote (emacs-lisp elixir)))
+ '(org-babel-load-languages '(emacs-lisp elixir))
  '(org-document-info ((t (:foreground "deepskyblue1"))))
  '(org-document-title ((t (:foreground "turquoise" :weight bold))))
  '(org-drawer ((t (:foreground "steelblue1"))))
