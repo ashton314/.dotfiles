@@ -21,6 +21,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (display-graphic-p)
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
+  (define-key global-map (kbd "s-t") 'tab-new)
+  (define-key global-map (kbd "s-[") 'tab-previous)
+  (define-key global-map (kbd "s-]") 'tab-next)
 
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
