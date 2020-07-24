@@ -22,12 +22,16 @@
 (when (display-graphic-p)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
+
   (setq initial-frame-alist '((width . 130) (height . 100) (vertical-scroll-bars)))
   (setq default-frame-alist '((width . 130) (height . 100) (vertical-scroll-bars)))
+
   (set-frame-font "Input Mono 12" nil t)
+  (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
+
   (load-theme 'doom-acario-dark t)
-  (tool-bar-mode -1)
   (scroll-bar-mode -1)
+  (tool-bar-mode -1)
   (blink-cursor-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -496,12 +500,16 @@ If the new path's directories does not exist, create them."
 ;; Hooks and other sweet packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package company-emoji
+  :ensure t)
+
 (use-package company
   :diminish (company-mode . "")
   :ensure t
   :pin melpa
   :config
-  (global-company-mode))
+  (global-company-mode)
+  (add-to-list 'company-backends 'company-emoji))
 
 (use-package company-prescient
   :ensure t
@@ -847,12 +855,14 @@ If the new path's directories does not exist, create them."
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
+ '(inhibit-startup-screen t)
  '(initial-major-mode 'text-mode)
  '(initial-scratch-message
    ";; This space intentionally left blank. Try \\[find-file].
 
 ")
  '(ispell-query-replace-choices t)
+ '(lsp-ui-sideline-show-hover t)
  '(olivetti-body-width 80)
  '(org-agenda-files
    '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
@@ -860,7 +870,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function 'org-ref-helm-insert-cite-link)
  '(org-tags-column -100)
  '(package-selected-packages
-   '(exec-path-from-shell lsp-ui doom-themes zenburn-theme amx god-mode evil magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
+   '(company-emoji emojify exec-path-from-shell lsp-ui doom-themes zenburn-theme amx god-mode evil magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
  '(safe-local-variable-values '((org-tags-column . -150)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
@@ -876,6 +886,7 @@ If the new path's directories does not exist, create them."
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
  '(company-tooltip-search ((t (:inherit highlight :background "#1096ff" :foreground "brightwhite"))))
  '(company-tooltip-search-selection ((t (:inherit company-tooltip-search))))
+ '(company-tooltip-selection ((t (:background "#0C415E" :weight bold))))
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
  '(cursor ((t (:background "#adddff"))))
@@ -896,6 +907,7 @@ If the new path's directories does not exist, create them."
  '(font-lock-comment-face ((t (:foreground "orangered"))))
  '(font-lock-function-name-face ((t (:foreground "#0087ff"))))
  '(font-lock-string-face ((t (:foreground "green"))))
+ '(fringe ((t (:inherit default :foreground "#585C6C"))))
  '(geiser-font-lock-autodoc-identifier ((t (:foreground "color-27"))))
  '(git-commit-summary ((t (:foreground "green"))))
  '(helm-buffer-directory ((t (:foreground "blue" :underline t))))
@@ -947,6 +959,7 @@ If the new path's directories does not exist, create them."
  '(org-document-title ((t (:foreground "turquoise" :weight bold))))
  '(org-drawer ((t (:foreground "steelblue1"))))
  '(org-quote ((t (:foreground "green" :slant italic))))
+ '(org-scheduled-previously ((t (:foreground "#f0a0a0"))))
  '(org-scheduled-today ((t (:foreground "limegreen"))))
  '(org-table ((t (:foreground "#4F9EFF"))))
  '(org-todo ((t (:foreground "#ee3030" :weight bold))))
@@ -969,6 +982,9 @@ If the new path's directories does not exist, create them."
  '(smerge-upper ((t (:background "#350000"))))
  '(sp-pair-overlay-face ((t (:background "color-236"))))
  '(sp-show-pair-match-content-face ((t (:background "#666"))) t)
+ '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
+ '(tooltip ((t (:background "#303040" :foreground "#CEDBE5"))))
+ '(vertical-border ((t (:background "#0F1019" :foreground "#333"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "brightwhite"))))
  '(web-mode-html-tag-face ((t (:foreground "brightblue"))))
  '(widget-field ((t (:background "yellow3" :foreground "black")))))
