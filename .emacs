@@ -20,6 +20,8 @@
 ;; UI-Only customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (display-graphic-p)
+  (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
+
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
   (setq initial-frame-alist '((width . 130) (height . 100) (vertical-scroll-bars)))
@@ -37,7 +39,9 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")))
+			 ;; ("melpa" . "http://melpa.org/packages")
+			 ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Device-specific customizations
@@ -237,6 +241,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun study-journal ()
+  (interactive)
+  (let ((deft-directory "~/Personal/study_journal"))
+    (deft)))
 
 (defun stretches ()
   (interactive)
