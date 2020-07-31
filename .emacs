@@ -227,6 +227,41 @@
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
 
+(defun counsel-projectile-rg-subdir (&optional options)
+  "Search the current project in a subdirectory with rg.
+
+OPTIONS, if non-nil, is a string containing additional options to
+be passed to rg. It is read from the minibuffer if the function
+is called with a prefix argument."
+  (interactive)
+  (if (and (eq projectile-require-project-root 'prompt)
+           (not (projectile-project-p)))
+      (counsel-projectile-rg-action-switch-project)
+    (let* ((ivy--actions-list (copy-sequence ivy--actions-list))
+           (dir-to-search (read-file-name "Subdirectory to search: " (projectile-project-root) nil t "" #'directory-name-p))
+           (ignored
+            (mapconcat (lambda (i)
+                         (concat "--glob !" (shell-quote-argument i)))
+                       (append
+                        (projectile--globally-ignored-file-suffixes-glob)
+                        (projectile-ignored-files-rel)
+                        (projectile-ignored-directories-rel))
+                       " "))
+           (counsel-rg-base-command
+            (let ((counsel-ag-command counsel-rg-base-command))
+              (counsel--format-ag-command ignored "%s"))))
+      (ivy-add-actions
+       'counsel-rg
+       counsel-projectile-rg-extra-actions)
+      (counsel-rg (eval counsel-projectile-rg-initial-input)
+                  dir-to-search
+                  options
+                  (projectile-prepend-project-name
+                   (concat (car (if (listp counsel-rg-base-command)
+                                    counsel-rg-base-command
+                                  (split-string counsel-rg-base-command)))
+                           ": "))))))
+
 (defun install-my-packages ()
   (interactive)
   (dolist (pkg package-selected-packages)
