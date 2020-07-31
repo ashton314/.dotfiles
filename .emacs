@@ -844,6 +844,9 @@ If the new path's directories does not exist, create them."
  '(show-paren-delay 0)
  '(show-paren-mode t)
  '(show-paren-style 'expression)
+ '(tab-bar-close-button-show nil)
+ '(tab-bar-mode t)
+ '(tab-bar-new-button-show nil)
  '(tab-bar-show nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
