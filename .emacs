@@ -227,18 +227,31 @@
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
 
-(defun counsel-projectile-rg-subdir (&optional options)
-  "Search the current project in a subdirectory with rg.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Consider creating a variable that remembers the last directory given ;;
+;; to the rg-subdir function. That way, on successive calls the user    ;;
+;; could keep using the subdirectory.                                   ;;
+;;                                                                      ;;
+;; Alternativley, find a way to add a counsel command to limit searches ;;
+;; to a particular subdirectory.                                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun counsel-projectile-rg-subdir (prefix)
+  "Search the current project with rg.
 
-OPTIONS, if non-nil, is a string containing additional options to
-be passed to rg. It is read from the minibuffer if the function
-is called with a prefix argument."
-  (interactive)
+If called with a prefix argument, prompt the user for a
+subdirectory of the project to search.
+
+If called with two prefix arguments (`C-u C-u`) prompt user for
+the subdirectory AND extra arguments to pass to rg."
+  (interactive "P")
   (if (and (eq projectile-require-project-root 'prompt)
            (not (projectile-project-p)))
       (counsel-projectile-rg-action-switch-project)
     (let* ((ivy--actions-list (copy-sequence ivy--actions-list))
-           (dir-to-search (read-file-name "Subdirectory to search: " (projectile-project-root) nil t "" #'directory-name-p))
+           (dir-to-search (if prefix
+                              (read-file-name "Subdirectory to search: " (projectile-project-root) nil t "" #'directory-name-p)
+                            (projectile-project-root)))
+           (extra-args (if (equal prefix '(16)) (read-string "Extra arguments for rg: ")))
            (ignored
             (mapconcat (lambda (i)
                          (concat "--glob !" (shell-quote-argument i)))
@@ -255,7 +268,7 @@ is called with a prefix argument."
        counsel-projectile-rg-extra-actions)
       (counsel-rg (eval counsel-projectile-rg-initial-input)
                   dir-to-search
-                  options
+                  extra-args
                   (projectile-prepend-project-name
                    (concat (car (if (listp counsel-rg-base-command)
                                     counsel-rg-base-command
@@ -451,11 +464,12 @@ If the new path's directories does not exist, create them."
         ((equal prefix '(4)) (racket-doc))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Key Definitions (key bindings)
+;; Custom Key Definitions (key bindings)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Searching
-(define-key global-map (kbd "C-c r") 'counsel-rg)
+(define-key global-map (kbd "C-c C-r") 'counsel-rg)
+(define-key global-map (kbd "C-c r") 'counsel-projectile-rg-subdir)
 
 ;; Ace window
 (define-key global-map (kbd "M-o") 'ace-window)
