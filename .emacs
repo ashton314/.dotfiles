@@ -118,7 +118,6 @@
 ;; (use-package lispy
 ;;   :ensure t)
 
-
 ;; (use-package org-alert
 ;;   :ensure t
 ;;   :config
@@ -143,6 +142,15 @@
    ;; ("C-x j" . avy-goto-char)
    ;; ("C-x J" . avy-goto-char-2)
    ))
+
+(use-package origami
+  :diminish (origami-mode . " ori")
+  :ensure t
+  :config
+  (global-origami-mode)
+  :bind
+  (("C-c TAB" . origami-recursively-toggle-node)
+   ("C-c <backtab>" . origami-toggle-all-nodes)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ivy configurations
@@ -887,7 +895,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function 'org-ref-helm-insert-cite-link)
  '(org-tags-column -100)
  '(package-selected-packages
-   '(multiple-cursors magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile lsp-java projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq company-lsp lsp-elixir poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
+   '(company-lsp dap-mode lsp-elixir lsp-ui lsp-mode origami multiple-cursors magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
  '(safe-local-variable-values '((org-tags-column . -150)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
@@ -971,15 +979,26 @@ If the new path's directories does not exist, create them."
  '(mode-line-inactive ((t (:inherit mode-line :background "grey70" :foreground "grey20" :box (:line-width -1 :color "grey75") :weight light))))
  '(org-agenda-structure ((t (:foreground "#0087ff"))))
  '(org-babel-load-languages '(emacs-lisp elixir))
+ '(org-date ((t (:foreground "#d3b957"))))
  '(org-document-info ((t (:foreground "deepskyblue1"))))
  '(org-document-title ((t (:foreground "turquoise" :weight bold))))
  '(org-drawer ((t (:foreground "steelblue1"))))
+ '(org-meta-line ((t (:foreground "#aadd78"))))
  '(org-quote ((t (:foreground "green" :slant italic))))
  '(org-scheduled-today ((t (:foreground "limegreen"))))
+ '(org-special-keyword ((t (:foreground "#aadd78"))))
  '(org-table ((t (:foreground "#4F9EFF"))))
  '(org-todo ((t (:foreground "#ee3030" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "orange"))))
  '(org-verbatim ((t (:foreground "#7cfc00"))))
+ '(outline-1 ((t (:foreground "#467ad1"))))
+ '(outline-2 ((t (:foreground "#774bd0"))))
+ '(outline-3 ((t (:foreground "#9c32d0"))))
+ '(outline-4 ((t (:foreground "#729bdb"))))
+ '(outline-5 ((t (:foreground "#9876da"))))
+ '(outline-6 ((t (:foreground "#a0bce7"))))
+ '(outline-7 ((t (:foreground "#baa3e6"))))
+ '(outline-8 ((t (:foreground "#d8e4f5"))))
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
  '(selectrum-current-candidate ((t (:background "#0030ff"))))
