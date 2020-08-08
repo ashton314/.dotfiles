@@ -25,6 +25,23 @@
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; GUI-only customizations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(when (display-graphic-p)
+  ;; Load theme
+  ;; (use-package vscode-dark-plus-theme
+  ;;   :config
+  ;;   (load-theme 'vscode-dark-plus t))
+
+  (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
+
+  (blink-cursor-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Device-specific customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -905,7 +922,7 @@ If the new path's directories does not exist, create them."
  '(org-ref-insert-link-function 'org-ref-helm-insert-cite-link)
  '(org-tags-column -100)
  '(package-selected-packages
-   '(company-lsp dap-mode lsp-elixir lsp-ui lsp-mode origami multiple-cursors magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
+   '(vterm vscode-dark-plus-theme company-lsp dap-mode lsp-elixir lsp-ui lsp-mode origami multiple-cursors magit-delta wgrep magit-todos kotlin-mode company-prescient minimap counsel-projectile projectile json-mode ivy-prescient flx counsel diminish org-pomodoro number nov org bind-key use-package markdown-mode+ poly-markdown esup bbdb ioccur csv-mode alert org-alert edit-indirect magit ace-window htmlize keyfreq poly-org imenu-list olivetti elixir-yasnippets haskell-snippets auto-yasnippet centered-cursor-mode writeroom-mode pcre2el company-web flycheck-mix smartparens julia-mode racket-mode free-keys swiper swift-mode haskell-mode toml-mode define-word pandoc pandoc-mode clojure-mode clojure-mode-extra-font-locking lorem-ipsum yaml-mode darkroom cargo racer rust-mode rust-playground web-mode elixir-mode ob-elixir erlang dockerfile-mode perl6-mode sos deft))
  '(safe-local-variable-values '((org-tags-column . -150)))
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
@@ -919,6 +936,7 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#0e0e13" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
  '(avy-lead-face-0 ((t (:background "grey30" :foreground "white"))))
  '(avy-lead-face-2 ((t (:background "grey55" :foreground "white"))))
  '(cider-debug-code-overlay-face ((t (:background "color-238"))))
@@ -927,7 +945,7 @@ If the new path's directories does not exist, create them."
  '(cperl-array-face ((t (:foreground "cyan" :underline t :weight bold))))
  '(cperl-hash-face ((t (:foreground "magenta" :underline t :slant normal :weight bold))))
  '(custom-state ((t (:foreground "#00ff70"))))
- '(custom-variable-tag ((t (:foreground "color-33" :weight bold))))
+ '(custom-variable-tag ((t (:foreground "#088fff" :weight bold))))
  '(ediff-current-diff-A ((t (:background "#aa0000"))))
  '(ediff-current-diff-Ancestor ((t (:background "#bb9aaa"))))
  '(ediff-current-diff-B ((t (:background "#00bb00" :foreground "color-255"))))
@@ -1012,7 +1030,7 @@ If the new path's directories does not exist, create them."
  '(region ((t (:background "#000087"))))
  '(secondary-selection ((t (:background "yellow1" :foreground "black"))))
  '(selectrum-current-candidate ((t (:background "#0030ff"))))
- '(selectrum-primary-highlight ((t (:foreground "brightgreen" :underline t))))
+ '(selectrum-primary-highlight ((t (:foreground "#00ff00" :underline t))))
  '(selectrum-secondary-highlight ((t (:underline t :weight bold))))
  '(shadow ((t (:foreground "slategray"))))
  '(show-paren-match ((t (:background "#5aa"))))
