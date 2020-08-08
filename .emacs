@@ -243,6 +243,8 @@
 ;; Alternativley, find a way to add a counsel command to limit searches ;;
 ;; to a particular subdirectory.                                        ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar counsel-projectile-rg-last-directory nil "Last directory searched with `counsel-projectile-rg-subdir'.")
+
 (defun counsel-projectile-rg-subdir (prefix)
   "Search the current project with rg.
 
@@ -257,8 +259,12 @@ the subdirectory AND extra arguments to pass to rg."
       (counsel-projectile-rg-action-switch-project)
     (let* ((ivy--actions-list (copy-sequence ivy--actions-list))
            (dir-to-search (if prefix
-                              (read-file-name "Subdirectory to search: " (projectile-project-root) nil t "" #'directory-name-p)
-                            (projectile-project-root)))
+                              (read-file-name "Subdirectory to search: "
+                                              (or counsel-projectile-rg-last-directory (projectile-project-root))
+                                              nil
+                                              t "" #'directory-name-p)
+                            (or counsel-projectile-rg-last-directory
+                                (projectile-project-root))))
            (extra-args (if (equal prefix '(16)) (read-string "Extra arguments for rg: ")))
            (ignored
             (mapconcat (lambda (i)
@@ -271,6 +277,10 @@ the subdirectory AND extra arguments to pass to rg."
            (counsel-rg-base-command
             (let ((counsel-ag-command counsel-rg-base-command))
               (counsel--format-ag-command ignored "%s"))))
+
+      (if prefix
+          (setq counsel-projectile-rg-last-directory dir-to-search))
+
       (ivy-add-actions
        'counsel-rg
        counsel-projectile-rg-extra-actions)
