@@ -43,6 +43,7 @@
 
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
+  (define-key global-map (kbd "s-u") 'toggle-frame-transparency)
 
   ;; A few GUI-specific variables
   (setq default-frame-alist '((width . 87) (height . 60)))
@@ -266,6 +267,14 @@
 
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
+
+(defvar transparency--toggle-var nil)
+(defun toggle-frame-transparency ()
+  (interactive)
+  (if transparency--toggle-var
+      (set-frame-parameter (selected-frame) 'alpha '(80 80))
+    (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+  (setq transparency--toggle-var (not transparency--toggle-var)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Consider creating a variable that remembers the last directory given ;;
@@ -958,7 +967,8 @@ If the new path's directories does not exist, create them."
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(magit-diff-added-highlight ((t (:extend t :background "#3b7332" :foreground "#f4f4f4"))))
  '(show-paren-match-expression ((t (:background "#272727"))))
- '(sp-pair-overlay-face ((t (:background "#353535")))))
+ '(sp-pair-overlay-face ((t (:background "#353535"))))
+ '(underline ((t (:underline "#ffc125")))))
  ;; (custom-set-faces
  ;; ;; custom-set-faces was added by Custom.
  ;; ;; If you edit it by hand, you could mess it up, so be careful.

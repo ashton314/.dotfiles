@@ -16,7 +16,7 @@ LESS=-RFiX;     export LESS
 
 alias ll='ls -AlFG'
 alias l='ls -lahF'
-alias 'e'='emacs'
+alias 'e'='emacs -nw'
 alias 'ce'='carton exec'
 alias 'j'='jobs -l'
 alias 'whoamip'='ipconfig getifaddr en0'
