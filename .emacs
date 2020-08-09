@@ -38,15 +38,19 @@
 
   ;; Load GUI-only packages
   (use-package company-box
+    :diminish (company-box-mode . " cbox")
     :hook
     (company-mode . company-box-mode))
 
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
   (define-key global-map (kbd "s-u") 'toggle-frame-transparency)
+  (define-key global-map (kbd "s-]") 'tab-next)
+  (define-key global-map (kbd "s-[") 'tab-previous)
+  (define-key global-map (kbd "s-t") 'tab-new)
 
   ;; A few GUI-specific variables
-  (setq default-frame-alist '((width . 87) (height . 60)))
+  (setq default-frame-alist '((width . 100) (height . 60)))
   (setq inhibit-startup-screen t)
 
   ;; Do this to get emoji (macOS at least)
@@ -172,6 +176,7 @@
   (("C-c j" . avy-goto-line)
    ("C-M-j" . avy-goto-char)
    ("C-c J" . avy-goto-word-0)
+   ("s-j" . avy-goto-line)
    ;; ("C-x j" . avy-goto-char)
    ;; ("C-x J" . avy-goto-char-2)
    ))
@@ -245,6 +250,7 @@
   :ensure t
   :bind
   (("C-x g" . magit-status))
+  ;; The following is commented out because I've started using selectrum
   ;; :config
   ;; (setq magit-completing-read-function 'ivy-completing-read)
   )
@@ -924,7 +930,7 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-box-doc-delay 0)
+ '(company-box-doc-delay 0.3)
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
@@ -963,11 +969,12 @@ If the new path's directories does not exist, create them."
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#1c1c1c" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width condensed :foundry "nil" :family "Input Mono"))))
  '(highlight ((t (:background "#3131c1"))))
- '(hl-line ((t (:extend t :background "#292929"))))
+ '(hl-line ((t (:extend t :background "#232323"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(magit-diff-added-highlight ((t (:extend t :background "#3b7332" :foreground "#f4f4f4"))))
- '(show-paren-match-expression ((t (:background "#272727"))))
- '(sp-pair-overlay-face ((t (:background "#353535"))))
+ '(org-scheduled-today ((t (:foreground "#dcdcaa" :weight normal))))
+ '(show-paren-match-expression ((t (:background "#303030"))))
+ '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(underline ((t (:underline "#ffc125")))))
  ;; (custom-set-faces
  ;; ;; custom-set-faces was added by Custom.
