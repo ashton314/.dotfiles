@@ -45,6 +45,7 @@
   (setq default-frame-alist '((width . 87) (height . 60)))
   (setq inhibit-startup-screen t)
 
+  (global-hl-line-mode)
   (blink-cursor-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1))
