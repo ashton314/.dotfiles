@@ -42,6 +42,9 @@
 
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
 
+  (setq default-frame-alist '((width . 87) (height . 60)))
+  (setq inhibit-startup-screen t)
+
   (blink-cursor-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1))
@@ -942,9 +945,12 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#1c1c1c" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width condensed :foundry "nil" :family "Input Mono"))))
+ '(highlight ((t (:background "#3131c1"))))
+ '(hl-line ((t (:extend t :background "#292929"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(magit-diff-added-highlight ((t (:extend t :background "#3b7332" :foreground "#f4f4f4"))))
- '(show-paren-match-expression ((t (:background "#272727")))))
+ '(show-paren-match-expression ((t (:background "#272727"))))
+ '(sp-pair-overlay-face ((t (:background "#353535")))))
  ;; (custom-set-faces
  ;; ;; custom-set-faces was added by Custom.
  ;; ;; If you edit it by hand, you could mess it up, so be careful.
