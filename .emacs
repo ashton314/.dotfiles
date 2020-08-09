@@ -36,14 +36,21 @@
     :config
     (load-theme 'vscode-dark-plus t))
 
+  ;; Load GUI-only packages
   (use-package company-box
     :hook
     (company-mode . company-box-mode))
 
+  ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
 
+  ;; A few GUI-specific variables
   (setq default-frame-alist '((width . 87) (height . 60)))
   (setq inhibit-startup-screen t)
+
+  ;; Do this to get emoji (macOS at least)
+  (set-fontset-font
+   t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 
   (global-hl-line-mode)
   (blink-cursor-mode -1)
