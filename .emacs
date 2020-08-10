@@ -2,9 +2,8 @@
 ;; Ashton Wiersdorf
 
 ;; Set GC level higher to prevent so many garbage collection cycles
-;; during startup. Shaves off 0.2 seconds. Disabled because it might
-;; hurt performance later and my startup is already at just 1s
-;; (setq gc-cons-threshold 10000000)
+;; during startup and elsewhere.
+(setq gc-cons-threshold 10000000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load paths
@@ -33,18 +32,25 @@
 (when (display-graphic-p)
   ;; Load theme
   (use-package vscode-dark-plus-theme
+    :ensure t
     :config
     (load-theme 'vscode-dark-plus t))
 
   ;; Load GUI-only packages
   (use-package company-box
     :diminish (company-box-mode . " cbox")
+    :ensure t
     :hook
     (company-mode . company-box-mode))
 
   ;; Fix shell (so we can use rg and stuff from Emacs)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
+
+  (defun repair-mouse ()
+    (interactive)
+    (setq mouse-wheel-down-event 'wheel-down)
+    (setq mouse-wheel-up-event 'wheel-up))
 
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
@@ -474,8 +480,7 @@ be piped defined by `system-clipboard-program`"
   (let (passphrase command)
     (setq passphrase (read-passwd "Passphrase: "))
     (setq command (concat "openssl enc -bf -a -e -pass pass:'" passphrase "'"))
-    (shell-command-on-region beg end command (current-buffer) t)
-    ))
+    (shell-command-on-region beg end command (current-buffer) t)))
 
 ;;; decrypt region
 (defun decrypt-region (beg end)
@@ -484,8 +489,7 @@ be piped defined by `system-clipboard-program`"
   (let (passphrase command)
     (setq passphrase (read-passwd "Passphrase: "))
     (setq command (concat "openssl enc -bf -a -d -pass pass:'" passphrase "'"))
-    (shell-command-on-region beg end command (current-buffer) t)
-    ))
+    (shell-command-on-region beg end command (current-buffer) t)))
 ;;(define-key global-map (kbd "C-c C-e") 'encrypt-region)
 ;;(define-key global-map (kbd "C-c C-r") 'decrypt-region)
 
@@ -971,13 +975,14 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#1c1c1c" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width condensed :foundry "nil" :family "Input Mono"))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(fringe ((t (:background "#171717" :foreground "#fafafa"))))
  '(highlight ((t (:background "#3131c1"))))
  '(hl-line ((t (:extend t :background "#232323"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(magit-diff-added-highlight ((t (:extend t :background "#3b7332" :foreground "#f4f4f4"))))
  '(org-scheduled-today ((t (:foreground "#dcdcaa" :weight normal))))
- '(show-paren-match-expression ((t (:background "#303030"))))
+ '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(underline ((t (:underline "#ffc125")))))
  ;; (custom-set-faces
