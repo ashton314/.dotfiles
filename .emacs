@@ -42,6 +42,10 @@
     :hook
     (company-mode . company-box-mode))
 
+  ;; Fix shell (so we can use rg and stuff from Emacs)
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
   (define-key global-map (kbd "s-u") 'toggle-frame-transparency)
@@ -274,7 +278,7 @@
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
 
-(defvar transparency--toggle-var nil)
+(defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
   (interactive)
   (if transparency--toggle-var
