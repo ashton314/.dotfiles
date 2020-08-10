@@ -472,8 +472,7 @@ be piped defined by `system-clipboard-program`"
   (let (passphrase command)
     (setq passphrase (read-passwd "Passphrase: "))
     (setq command (concat "openssl enc -bf -a -e -pass pass:'" passphrase "'"))
-    (shell-command-on-region beg end command (current-buffer) t)
-    ))
+    (shell-command-on-region beg end command (current-buffer) t)))
 
 ;;; decrypt region
 (defun decrypt-region (beg end)
@@ -482,8 +481,7 @@ be piped defined by `system-clipboard-program`"
   (let (passphrase command)
     (setq passphrase (read-passwd "Passphrase: "))
     (setq command (concat "openssl enc -bf -a -d -pass pass:'" passphrase "'"))
-    (shell-command-on-region beg end command (current-buffer) t)
-    ))
+    (shell-command-on-region beg end command (current-buffer) t)))
 ;;(define-key global-map (kbd "C-c C-e") 'encrypt-region)
 ;;(define-key global-map (kbd "C-c C-r") 'decrypt-region)
 
