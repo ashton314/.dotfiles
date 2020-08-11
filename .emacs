@@ -38,11 +38,11 @@
 
   ;; Load GUI-only packages
   ;; Fancy, but has bugs
-  ;; (use-package company-box
-  ;;   :diminish (company-box-mode . " cbox")
-  ;;   :ensure t
-  ;;   :hook
-  ;;   (company-mode . company-box-mode))
+  (use-package company-box
+    :diminish (company-box-mode . " cbox")
+    :ensure t
+    :hook
+    (company-mode . company-box-mode))
 
   (defun repair-mouse ()
     (interactive)
