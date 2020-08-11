@@ -980,6 +980,7 @@ If the new path's directories does not exist, create them."
  '(org-scheduled-today ((t (:foreground "#dcdcaa" :weight normal))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
+ '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
  '(underline ((t (:underline "#ffc125")))))
  ;; (custom-set-faces
  ;; ;; custom-set-faces was added by Custom.
