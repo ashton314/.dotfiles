@@ -5,10 +5,6 @@
 ;; during startup and elsewhere.
 (setq gc-cons-threshold 10000000)
 
-;; Native-comp stuff
-(setq comp-speed 2
-      comp-deferred-compilation t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,21 +37,17 @@
     (load-theme 'vscode-dark-plus t))
 
   ;; Load GUI-only packages
-  (use-package company-box
-    :diminish (company-box-mode . " cbox")
-    :ensure t
-    :hook
-    (company-mode . company-box-mode))
-
-  ;; Fix shell (so we can use rg and stuff from Emacs)
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
+  ;; Fancy, but has bugs
+  ;; (use-package company-box
+  ;;   :diminish (company-box-mode . " cbox")
+  ;;   :ensure t
+  ;;   :hook
+  ;;   (company-mode . company-box-mode))
 
   (defun repair-mouse ()
     (interactive)
-    ;; Inverted because I like the natural scroll
-    (setq mouse-wheel-down-event 'wheel-up)
-    (setq mouse-wheel-up-event 'wheel-down))
+    (setq mouse-wheel-down-event 'wheel-down)
+    (setq mouse-wheel-up-event 'wheel-up))
 
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
@@ -289,7 +281,7 @@
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
 
-(defvar transparency--toggle-var t)
+(defvar transparency--toggle-var nil)
 (defun toggle-frame-transparency ()
   (interactive)
   (if transparency--toggle-var
