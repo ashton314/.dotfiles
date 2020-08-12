@@ -51,8 +51,9 @@
 
   (defun repair-mouse ()
     (interactive)
-    (setq mouse-wheel-down-event 'wheel-down)
-    (setq mouse-wheel-up-event 'wheel-up))
+    ;; Inverted because I like the natural scroll
+    (setq mouse-wheel-down-event 'wheel-up)
+    (setq mouse-wheel-up-event 'wheel-down))
 
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
