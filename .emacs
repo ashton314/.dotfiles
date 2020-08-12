@@ -6,8 +6,9 @@
 (setq gc-cons-threshold 10000000)
 
 ;; Native-comp stuff
-(setq comp-speed 2
-      comp-deferred-compilation t)
+;; (setq comp-speed 3)
+;; (defun recompile-natively (threads)
+;;   (native-compile-async "~/.emacs.d/elpa/" threads t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load paths
@@ -944,6 +945,7 @@ If the new path's directories does not exist, create them."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-box-doc-delay 0.3)
+ '(company-box-show-single-candidate 'always)
  '(company-idle-delay 0.2)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
