@@ -287,7 +287,7 @@
 (if (file-exists-p "~/.dotfiles/emacs_aux.el")
     (load-file "~/.dotfiles/emacs_aux.el"))
 
-(defvar transparency--toggle-var nil)
+(defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
   (interactive)
   (if transparency--toggle-var
