@@ -70,7 +70,6 @@
   (set-fontset-font
    t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 
-  (global-hl-line-mode)
   (blink-cursor-mode -1)
   (scroll-bar-mode -1)
   (tool-bar-mode -1))
@@ -953,6 +952,7 @@ If the new path's directories does not exist, create them."
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
+ '(hl-line-sticky-flag nil)
  '(initial-major-mode 'text-mode)
  '(initial-scratch-message
    ";; This space intentionally left blank. Try \\[find-file].
