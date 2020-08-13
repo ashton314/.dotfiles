@@ -644,6 +644,7 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'prog-mode-hook
           '(lambda ()
+             (hl-line-mode 1)
              (yas-global-mode 1)
              (setq dabbrev-case-fold-search nil)))
 
@@ -725,6 +726,7 @@ If the new path's directories does not exist, create them."
           '(lambda ()
              (require 'org-attach-git)
 	     (require 'ox-md nil t)
+             (hl-line-mode 1)
 	     ;; (org-babel-do-load-languages
 	     ;;  'org-babel-load-languages
 	     ;;  '((emacs-lisp . t)
