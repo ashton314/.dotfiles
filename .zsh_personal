@@ -3,12 +3,15 @@
 # This file is for relatively portable configurations on top of what I do in my .zshrc
 
 # Enable 24-bit color (see https://stackoverflow.com/questions/14672875/true-color-24-bit-in-terminal-emacs)
-# TERM=xterm-24bit
 
-EMACS="*term*"; export EMACS
-EDITOR=emacs;   export EDITOR
-PAGER=less;     export PAGER
-LESS=-RFiX;     export LESS
+TERM=xterm-24bit; export TERM
+EMACS="*term*";   export EMACS
+EDITOR=emacs;     export EDITOR
+PAGER=less;       export PAGER
+LESS=-RFiX;       export LESS
+
+# PS1="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )%{$fg[cyan]%}%~%{$reset_color%} \$(git_prompt_info)"; export PS1
+
 
 ##############################
 # Aliases
@@ -16,10 +19,23 @@ LESS=-RFiX;     export LESS
 
 alias ll='ls -AlFG'
 alias l='ls -lahF'
-# alias 'e'='emacs -nw'
+alias 'notebook'='emacs --eval "(progn (setq deft-directory \".\") (deft))"'
+alias 'sj'='cd ~/Wiersdorf/study_journal/; notebook'
+alias 'e'='emacsclient -nw --alternate-editor= '
 alias 'ce'='carton exec'
 alias 'j'='jobs -l'
 alias 'whoamip'='ipconfig getifaddr en0'
 alias 'r~'='rm -f *~ .*~'
 
-. /usr/local/opt/asdf/asdf.sh
+# init asdf
+. $(brew --prefix asdf)/asdf.sh
+
+
+# Run aliases
+if [[ -r ~/.bash_aliases ]]; then
+    . ~/.bash_aliases
+fi
+
+# Setup direnv
+export XDG_DATA_HOME=/Users/ashton/.config
+eval "$(direnv hook zsh)"
