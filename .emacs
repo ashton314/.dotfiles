@@ -34,20 +34,26 @@
 ;; GUI-only customizations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(when (display-graphic-p)
-  ;; Load theme
-  (use-package vscode-dark-plus-theme
-    :ensure t
-    :config
-    (load-theme 'vscode-dark-plus t))
+;; Load theme
+(use-package vscode-dark-plus-theme
+  :ensure t
+  :config
+  (load-theme 'vscode-dark-plus t))
 
+
+(when (display-graphic-p)
   ;; Load GUI-only packages
-  ;; Fancy, but has bugs
+
+  ;; Fancy, emacs 27.1 doesn't have the fix for child frames on macOS like 28 does
   (use-package company-box
     :diminish (company-box-mode . " cbox")
     :ensure t
     :hook
     (company-mode . company-box-mode))
+
+  ;; But you can set this and it will just fill up the full screen:
+  (if (version< emacs-version "28.0")
+      (setq ns-use-native-fullscreen nil))
 
   (defun repair-mouse ()
     (interactive)
@@ -643,7 +649,8 @@ If the new path's directories does not exist, create them."
 
 (add-hook 'prog-mode-hook
           '(lambda ()
-             (hl-line-mode 1)
+             (when (display-graphic-p)
+               (hl-line-mode 1))
              (yas-global-mode 1)
              (setq dabbrev-case-fold-search nil)))
 
@@ -725,7 +732,8 @@ If the new path's directories does not exist, create them."
           '(lambda ()
              (require 'org-attach-git)
 	     (require 'ox-md nil t)
-             (hl-line-mode 1)
+             (when (display-graphic-p)
+               (hl-line-mode 1))
 	     ;; (org-babel-do-load-languages
 	     ;;  'org-babel-load-languages
 	     ;;  '((emacs-lisp . t)
