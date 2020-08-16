@@ -40,20 +40,18 @@
   :config
   (load-theme 'vscode-dark-plus t))
 
-
 (when (display-graphic-p)
   ;; Load GUI-only packages
 
-  ;; Fancy, emacs 27.1 doesn't have the fix for child frames on macOS like 28 does
+  ;; Fancy, but Emacs 27.1 doesn't have the fix for child frames when
+  ;; using native full-screen on macOS like 28 does. Set
+  ;; `ns-use-native-fullscreen' to `nil' to make this work without
+  ;; glitching on Emacs <28
   (use-package company-box
     :diminish (company-box-mode . " cbox")
     :ensure t
     :hook
     (company-mode . company-box-mode))
-
-  ;; But you can set this and it will just fill up the full screen:
-  (if (version< emacs-version "28.0")
-      (setq ns-use-native-fullscreen nil))
 
   (defun repair-mouse ()
     (interactive)
@@ -61,16 +59,21 @@
     (setq mouse-wheel-down-event 'wheel-up)
     (setq mouse-wheel-up-event 'wheel-down))
 
+  ;; A few GUI-specific variables
+  (setq default-frame-alist '((width . 100) (height . 60)))
+  (setq inhibit-startup-screen t)
+
+  ;; Set with Customize:
+  ;; (setq ns-use-native-fullscreen nil)   ; Use the non-native fullscreen on macOS
+  ;; (setq frame-resize-pixelwise t)
+
   ;; Nice keybindings for GUI
   (define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
   (define-key global-map (kbd "s-u") 'toggle-frame-transparency)
   (define-key global-map (kbd "s-]") 'tab-next)
   (define-key global-map (kbd "s-[") 'tab-previous)
   (define-key global-map (kbd "s-t") 'tab-new)
-
-  ;; A few GUI-specific variables
-  (setq default-frame-alist '((width . 100) (height . 60)))
-  (setq inhibit-startup-screen t)
+  (define-key global-map (kbd "C-S-j") 'avy-goto-line)
 
   ;; Do this to get emoji (macOS at least)
   (set-fontset-font
@@ -960,6 +963,7 @@ If the new path's directories does not exist, create them."
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(find-file-visit-truename t)
+ '(frame-resize-pixelwise t)
  '(hl-line-sticky-flag nil)
  '(initial-major-mode 'text-mode)
  '(initial-scratch-message
@@ -968,6 +972,8 @@ If the new path's directories does not exist, create them."
 ")
  '(ispell-query-replace-choices t)
  '(lsp-ui-sideline-enable nil)
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+ '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
  '(org-agenda-files
    '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))

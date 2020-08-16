@@ -1,0 +1,11 @@
+#+TITLE: macOS Setup
+
+* Key Repeat
+
+  # Source: @iLemming on Twitter, 2020-08-14
+#+begin_src bash
+  defaults write NSGlobalDomain KeyRepeat -int 1
+  defaults write NSGlobalDomain InitialKeyRepeat -int 12
+#+end_src
+
+Don't touch key repeat settings in System Preferences; it will reset these.
