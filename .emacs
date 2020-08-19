@@ -6,6 +6,24 @@
 (setq gc-cons-threshold 10000000)
 
 ;; Native-comp stuff
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize)
+  (if (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+      (progn
+        (message "Native comp is available")
+        (add-to-list 'exec-path (expand-file-name "/usr/local/opt/gccemacs/bin"))
+        (setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
+                                       (when (getenv "LIBRARY_PATH")
+                                         ":")
+                                       (car (file-expand-wildcards
+                                             (expand-file-name "/usr/local/opt/gcc/lib/gcc/*")))))
+        ;; Only set after LIBRARY_PATH can find gcc libraries.
+        (setq comp-deferred-compilation t))
+    (message "Native comp is *not* available")))
+
 ;; (setq comp-speed 3)
 ;; (defun recompile-natively (threads)
 ;;   (native-compile-async "~/.emacs.d/elpa/" threads t))
@@ -28,6 +46,11 @@
 			 ("org" . "https://orgmode.org/elpa/")
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; GCC Emacs customizations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -58,6 +81,9 @@
     ;; Inverted because I like the natural scroll
     (setq mouse-wheel-down-event 'wheel-up)
     (setq mouse-wheel-up-event 'wheel-down))
+
+  ;; Debugging
+  (add-variable-watcher 'mouse-wheel-down-event '(lambda (a b c d) (message "mouse-wheel-down changed")))
 
   ;; A few GUI-specific variables
   (setq default-frame-alist '((width . 100) (height . 60)))
