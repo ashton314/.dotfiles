@@ -1,0 +1,33 @@
+;; -*- mode: emacs-lisp -*-
+
+;; Load GUI-only packages
+
+(defun repair-mouse ()
+  (interactive)
+  ;; Inverted because I like the natural scroll
+  (setq mouse-wheel-down-event 'wheel-up)
+  (setq mouse-wheel-up-event 'wheel-down))
+
+;; A few GUI-specific variables
+(setq default-frame-alist '((width . 100) (height . 60)))
+(setq inhibit-startup-screen t)
+
+;; Set with Customize:
+;; (setq ns-use-native-fullscreen nil)   ; Use the non-native fullscreen on macOS
+;; (setq frame-resize-pixelwise t)
+
+;; Nice keybindings for GUI
+(define-key global-map (kbd "s-<return>") 'toggle-frame-fullscreen)
+(define-key global-map (kbd "s-u") 'toggle-frame-transparency)
+(define-key global-map (kbd "s-]") 'tab-next)
+(define-key global-map (kbd "s-[") 'tab-previous)
+(define-key global-map (kbd "s-t") 'tab-new)
+(define-key global-map (kbd "C-S-j") 'avy-goto-line)
+
+;; Do this to get emoji (macOS at least)
+(set-fontset-font
+ t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
+
+(blink-cursor-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
