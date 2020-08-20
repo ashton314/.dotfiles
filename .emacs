@@ -109,6 +109,8 @@
 ;; lsp-mode
 (straight-use-package 'lsp-mode)
 (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release")
+(straight-use-package 'lsp-ui)
+;; TODO: enable lsp-ui when lsp-mode comes on line
 
 ;; Do not use this one!
 ;; (straight-use-package 'lsp-elixir)
