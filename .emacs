@@ -26,11 +26,12 @@
 (straight-use-package 'vscode-dark-plus-theme)
 (load-theme 'vscode-dark-plus t)
 
-;; Mode-line nicities
+;; Mode-line nicities, basic customizations
 (display-time)
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq tool-bar-mode -1)
+;(toggle-word-wrap +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Special-Use Files
@@ -227,6 +228,111 @@
 (define-key global-map (kbd "C-c L") 'org-insert-link-global)
 (define-key global-map (kbd "C-c O") 'org-open-at-point-global)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org-mode customizations (org mode customizations)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun org-return--around (old-fn &rest args)
+  (let ((context (org-element-lineage (org-element-at-point) '(item))))
+    (if (and context (not args))
+        (org-insert-item (org-element-property :checkbox context))
+      (apply old-fn args))))
+
+(advice-add 'org-return :around 'org-return--around)
+
+;; (defun scripture-ref (ref)
+;;   "Given a standardized scripture reference, return the last part of the URL to access this online."
+;;   "bofm/alma/1")
+
+;; This was in custom-set-variables
+;     '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
+;; Put it back to turn on org-trello niceties
+;; This showed up later:
+;  '(org-trello-current-prefix-keybinding "C-c o")
+
+(setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
+(setq org-family-notes-file (concat org-directory "/family_shared.org"))
+(setq org-general-notes-file (concat org-directory "/general.org"))
+(setq org-bishopric-file (concat org-directory "/bishopric.org"))
+(setq org-ward-council-file (concat org-directory "/ward_council.org"))
+(setq org-project-notes-file (concat org-directory "/projects.org"))
+(setq org-work-notes-file (concat org-directory "/work.org"))
+(setq org-notes-file (concat org-directory "/notes.org"))
+;(setq org-20bn-file (concat org-directory "/20bn.org"))
+(setq org-school-file (concat org-directory "/school.org"))
+(setq org-for-later-file (concat org-directory "/for_later.org"))
+(setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
+(setq org-research-tasks (concat org-research-directory "/research_tasks.org"))
+(setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
+
+(setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
+(setq org-log-into-drawer t)            ; Move log notes into a drawer
+
+(setq org-tag-alist '(
+                      ;; locale
+                      (:startgroup)
+                      ("church")
+                      ("home" . ?h)
+                      ("work" . ?w)
+                      ("school" . ?s)
+                      ("research" . ?r)
+                      (:endgroup)
+                      (:newline)
+                      ;; context
+                      ("computer" . ?c)
+                      ("phone" . ?p)
+                      ("emacs" . ?e)
+                      ("mail" . ?m)
+                      (:newline)
+                      ;; scale
+                      (:startgroup)
+                      ("project" . ?j)
+                      ("tiny" . ?t)
+                      (:endgroup)
+                      ;; misc
+                      ("meta")
+                      ("review")
+                      ))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
+
+(setq org-capture-templates
+      '(("t" "General Todo" entry (file org-default-notes-file)
+	 "* TODO %?\n   %U\n%i\n%a")
+        ("s" "Scripture Study" entry (file+headline org-scripture-study-file "HEAD")
+         "** %?\n    %U")
+        ("c" "Computer Science")
+        ("r" "Religion Classes")
+        ("p" "Programming Language Research")
+	("g" "General Homework" entry (file+headline org-school-file "General")
+	 "** TODO %?\n   %U\n%i\n%a")
+        ;; CS
+        ("cs" "CS 324 (Systems Programming)" entry (file+headline org-school-file "CS 324 (Systems)")
+         "** TODO %? :homework:cs_324:\n %U\n %i\n %a")
+        ("cd" "CS 340 (Software Design)" entry (file+headline org-school-file "CS 340 (Software Design)")
+         "** TODO %? :homework:cs_340:\n %U\n %i\n %a")
+        ;; Religion
+        ("rp" "REL A 327 (Pearl of Great Price)" entry (file+headline org-school-file "REL A 327 (Pearl of Great Price)")
+         "** TODO %? :homework:rel_327:\n %U\n %i\n %a")
+        ("ri" "REL A 304 (Writings of Isaiah)" entry (file+headline org-school-file "REL A 304 (Writings of Isaiah)")
+         "** TODO %? :homework:rel_304:\n %U\n %i\n %a")
+        ;; PL Research
+        ("pt" "Research Task" entry (file org-research-tasks)
+         "* TODO %?\n  %U\n %i\n %a")
+        ;; ("pn" "Research Note" entry ;; FIXME: add file
+        ;;  "** %?\n   %U\n %i\n %a")
+	))
+
+(setq org-agenda-custom-commands
+      '(("n" "Agenda and All Todos"
+	 ((agenda)
+	  (todo)))
+	("g" "Gospel Study"
+	 ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
+	  (tags-todo "gospel")))))
+
+
 ;; Other org-related keys
 (define-key global-map (kbd "C-c o c") 'org-capture)
 (define-key global-map (kbd "C-c o a") 'org-agenda)
@@ -251,7 +357,7 @@
 ;;         ((,org-school-file) . (:maxlevel . 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Hook defintions
+;; Hook defintions (hooks)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (mapc (lambda (mode)
        (add-hook mode
@@ -266,6 +372,9 @@
                (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
                (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))))
 
+(add-hook 'org-mode-hook
+	  '(lambda ()
+	     (electric-indent-local-mode -1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customization Settings
@@ -276,44 +385,46 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
- '(ns-use-native-fullscreen nil)
- '(frame-resize-pixelwise t)
- '(counsel-rg-base-command
-   "rg -M 200 --with-filename --no-heading --line-number --color never %s")
- '(ispell-query-replace-choices t)
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
- '(company-idle-delay 0)
+ '(company-idle-delay 0.1)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
+ '(counsel-rg-base-command
+   "rg -M 200 --with-filename --no-heading --line-number --color never %s")
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
+ '(enable-recursive-minibuffers t)
  '(find-file-visit-truename t)
+ '(frame-resize-pixelwise t)
  '(initial-major-mode 'text-mode)
  '(initial-scratch-message
    ";; This space intentionally left blank. Try \\[find-file].
 
 ")
+ '(ispell-query-replace-choices t)
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+ '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
  '(org-agenda-files
    '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
  '(org-fontify-quote-and-verse-blocks t)
+ '(org-startup-folded t)
  '(org-tags-column -100)
  '(scheme-program-name "racket")
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(show-paren-style 'expression)
-)
+ '(show-paren-style 'expression))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(fixed-pitch ((t nil)))
  '(fringe ((t (:background "#171717" :foreground "#fafafa"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
- '(underline ((t (:underline "#ffc125"))))
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono")))))
+ '(underline ((t (:underline "#ffc125")))))
