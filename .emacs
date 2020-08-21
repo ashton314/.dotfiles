@@ -3,7 +3,7 @@
 
 ;; Set GC level higher to prevent so many garbage collection cycles
 ;; during startup and elsewhere.
-(setq gc-cons-threshold 10000000)
+;; (setq gc-cons-threshold 10000000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; straight.el setup
@@ -94,7 +94,12 @@
 (straight-use-package 'company-box)
 (global-company-mode +1)
 (diminish 'company-mode " c")
-(add-hook 'company-mode-hook '(lambda () (company-box-mode) (diminish 'company-box-mode " cbox")))
+(add-hook 'company-mode-hook
+	  '(lambda ()
+             (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
+             (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+	     (company-box-mode)
+	     (diminish 'company-box-mode " cbox")))
 
 (straight-use-package 'company-prescient)
 (company-prescient-mode +1)
@@ -361,6 +366,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hook defintions (hooks)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Quotes for lisp-like languages
 (mapc (lambda (mode)
        (add-hook mode
                  '(lambda () (progn
@@ -368,12 +375,14 @@
                                (sp-pair "'" nil :actions :rem)))))
      '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook racket-mode-hook))
 
-(add-hook 'company-mode-hook
-          '(lambda ()
-             (progn
-               (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-               (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort))))
+;; Writing modes
+(mapc (lambda (mode)
+       (add-hook mode
+                 '(lambda ()
+		    (word-wrap t))))
+     '(markdown-mode-hook org-mode-hook text-mode-hook))
 
+;; org-mode stuffs
 (add-hook 'org-mode-hook
 	  '(lambda ()
 	     (electric-indent-local-mode -1)))
@@ -424,7 +433,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
  '(fixed-pitch ((t nil)))
- '(fringe ((t (:background "#171717" :foreground "#fafafa"))))
+ '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
