@@ -81,6 +81,8 @@
 
 ;; Org
 (straight-use-package 'org)
+(straight-use-package 'org-ql)
+;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -98,8 +100,9 @@
 	  '(lambda ()
              (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
              (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
-	     (company-box-mode)
-	     (diminish 'company-box-mode " cbox")))
+	     ;; (company-box-mode)
+	     ;; (diminish 'company-box-mode " cbox")
+	     ))
 
 (straight-use-package 'company-prescient)
 (company-prescient-mode +1)
@@ -379,13 +382,17 @@
 (mapc (lambda (mode)
        (add-hook mode
                  '(lambda ()
-		    (word-wrap t))))
+		    (toggle-truncate-lines -1)
+		    (toggle-word-wrap t))))
      '(markdown-mode-hook org-mode-hook text-mode-hook))
 
 ;; org-mode stuffs
 (add-hook 'org-mode-hook
 	  '(lambda ()
 	     (electric-indent-local-mode -1)))
+
+;; lsp
+(add-hook 'elixir-mode-hook 'lsp-deferred)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customization Settings
@@ -423,6 +430,7 @@
  '(org-startup-folded t)
  '(org-tags-column -100)
  '(scheme-program-name "racket")
+ '(sentence-end-double-space nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
  '(show-paren-style 'expression))
