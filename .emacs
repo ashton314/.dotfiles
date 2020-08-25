@@ -167,6 +167,7 @@
 ;; Writing
 (straight-use-package 'olivetti)
 (straight-use-package 'define-word)
+(straight-use-package 'lorem-ipsum)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Key Definitions (key bindings)
