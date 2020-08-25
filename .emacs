@@ -118,7 +118,6 @@
 (straight-use-package 'lsp-mode)
 (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release")
 (straight-use-package 'lsp-ui)
-;; TODO: enable lsp-ui when lsp-mode comes on line
 
 ;; Do not use this one!
 ;; (straight-use-package 'lsp-elixir)
@@ -387,6 +386,15 @@
 		    (toggle-word-wrap t))))
      '(markdown-mode-hook org-mode-hook text-mode-hook))
 
+(add-hook 'markdown-mode-hook
+	  '(lambda ()
+	     (require 'org)
+	     (orgtbl-mode)
+
+	     (define-key markdown-mode-map (kbd "C-c f m") 'open-current-file-macdown)
+	     (define-key markdown-mode-map [(shift right)] 'org-cycle-list-bullet)
+	     (define-key markdown-mode-map [(shift left)] 'org-cycle-list-backwards)))
+
 ;; org-mode stuffs
 (add-hook 'org-mode-hook
 	  '(lambda ()
@@ -394,6 +402,16 @@
 
 ;; lsp
 (add-hook 'elixir-mode-hook 'lsp-deferred)
+
+;; These two hooks run `elixir-format` on save. Original post: https://github.com/elixir-editors/emacs-elixir#add-elixir-mode-hook-to-run-elixir-format-on-file-save
+(add-hook 'elixir-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'elixir-format nil t)))
+(add-hook 'elixir-format-hook (lambda ()
+                                (setq elixir-format-arguments
+                                      (list "--dot-formatter"
+                                            (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customization Settings
@@ -444,6 +462,7 @@
  '(fixed-pitch ((t nil)))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
