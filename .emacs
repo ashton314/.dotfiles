@@ -174,7 +174,7 @@
 (define-key global-map (kbd "C-s") 'swiper)
 (straight-use-package 'counsel-projectile)
 
-;; magit
+;; Magit (Mah-jit---like "magi{-c+t}")
 (straight-use-package 'magit)
 (define-key global-map (kbd "C-x g") 'magit-status)
 
@@ -188,6 +188,10 @@
 (straight-use-package 'olivetti)
 (straight-use-package 'define-word)
 (straight-use-package 'lorem-ipsum)
+(straight-use-package 'pandoc)
+
+;; Dependencies for certain functions I've written
+(straight-use-package 'f)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Key Definitions (key bindings)

@@ -1,3 +1,12 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom Emacs Functions					 ;;
+;; 								 ;;
+;; Author: Ashton Wiersdorf					 ;;
+;; 								 ;;
+;; What follows is a list of my personal functions for Emacs. No ;;
+;; warranty. Good luck decoding the regexes.			 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
   (interactive)
@@ -6,14 +15,35 @@
     (set-frame-parameter (selected-frame) 'alpha '(100 100)))
   (setq transparency--toggle-var (not transparency--toggle-var)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Consider creating a variable that remembers the last directory given ;;
-;; to the rg-subdir function. That way, on successive calls the user    ;;
-;; could keep using the subdirectory.                                   ;;
-;;                                                                      ;;
-;; Alternativley, find a way to add a counsel command to limit searches ;;
-;; to a particular subdirectory.                                        ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Pandoc conversion functions (for Sarah)
+;; Requires f.el
+(defcustom pandoc-converter-args "--filter pandoc-citeproc --pdf-engine=xelatex" "Additional arguments to pass to pandoc when running `convert-with-pandoc'")
+
+(defun convert-with-pandoc ()
+  "Convert a file between formats with Pandoc.
+
+This will place the outputted function in the same directory as
+the source folder.
+
+Opens the file in a new window if the output format is a plain-text format."
+  (interactive)
+
+  (let* ((in-file (read-file-name "File to convert: " nil nil t))
+	 (out-format (completing-read "Output format: " '("md" "docx" "html" "org" "txt" "pdf")))
+	 (out-file (f-swap-ext in-file out-format)))
+    (cd (f-dirname in-file))
+    (shell-command (concat "pandoc " pandoc-converter-args " " (f-filename in-file) " -o " (f-filename out-file)))
+    (if (member out-format '("md" "txt" "html" "org"))
+	(find-file (f-filename out-file)))))
+
+;; Consider creating a variable that remembers the last directory given
+;; to the rg-subdir function. That way, on successive calls the user
+;; could keep using the subdirectory.
+;;
+;; Alternativley, find a way to add a counsel command to limit searches
+;; to a particular subdirectory.
+
 (defvar counsel-projectile-rg-last-directory nil "Last directory searched with `counsel-projectile-rg-subdir'.")
 
 (defun counsel-projectile-rg-subdir (prefix)
