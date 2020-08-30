@@ -33,7 +33,7 @@ Opens the file in a new window if the output format is a plain-text format."
 	 (out-format (completing-read "Output format: " '("md" "docx" "html" "org" "txt" "pdf")))
 	 (out-file (f-swap-ext in-file out-format)))
     (cd (f-dirname in-file))
-    (shell-command (concat "pandoc " pandoc-converter-args " " (f-filename in-file) " -o " (f-filename out-file)))
+    (shell-command (concat "pandoc " pandoc-converter-args " \"" (f-filename in-file) "\" -o \"" (f-filename out-file) "\""))
     (if (member out-format '("md" "txt" "html" "org"))
 	(find-file (f-filename out-file)))))
 
