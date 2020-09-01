@@ -150,6 +150,8 @@
 (straight-use-package 'yaml-mode)
 (straight-use-package 'web-mode)
 (straight-use-package 'json-mode)
+(straight-use-package 'proof-general)	; Coq IDE-ness
+(straight-use-package 'company-coq)
 
 ;; lsp-mode
 (straight-use-package 'lsp-mode)
