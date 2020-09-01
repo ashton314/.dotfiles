@@ -1,12 +1,27 @@
 ;; Emacs Config file
 ;; Ashton Wiersdorf
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Table of Contents
+;;
+;;  - Straight setup [[straight.el]]
+;;  - Default device-specific variables [[default vars]]
+;;  - Special-use files [[special files]]
+;;  - GCC Emacs config [[gcc emacs]]
+;;  - Packages [[packages]]
+;;  - Custom key definitions [[key bindings]]
+;;  - Org-mode customizations [[org mode]]
+;;  - Hook defintions [[hooks]]
+;;  - Customizations [[custom]]
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;; Set GC level higher to prevent so many garbage collection cycles
 ;; during startup and elsewhere.
 ;; (setq gc-cons-threshold 10000000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; straight.el setup
+;; straight.el setup <<straight.el>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar bootstrap-version)
@@ -37,7 +52,7 @@
 (setq fill-prefix "") ; See https://emacs.stackexchange.com/questions/38941/wrong-type-argument-char-or-string-p-nil-when-doing-ret-in-org-mode
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Default device-specific variables
+;; Default device-specific variables <<default vars>>
 ;;
 ;; These are variables that point to paths on my filesystem. These are
 ;; those that need to be changed on a per-install basis
@@ -52,7 +67,7 @@
 (setq org-roam-directory "")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Special-Use Files
+;; Special-use files <<special files>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; GUI-only customizations
@@ -71,7 +86,7 @@
   (load-file "~/.dotfiles/functions.el"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; GCC Emacs config
+;; GCC Emacs config <<gcc emacs>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (straight-use-package 'exec-path-from-shell)
@@ -91,7 +106,7 @@
   (message "Native comp is *not* available"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Packages
+;; Packages <<packages>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Diminish
@@ -104,6 +119,7 @@
 
 ;; Org-Roam
 (straight-use-package 'org-roam)
+(diminish 'org-roam-mode " roam")
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -164,6 +180,7 @@
 (setq projectile-completion-system 'ivy)
 (define-key global-map (kbd "C-x p") 'projectile-command-map)
 (projectile-mode +1)
+(diminish 'projectile-mode " proj")
 
 (straight-use-package 'yasnippet)
 (yas-global-mode +1)
@@ -194,7 +211,7 @@
 (straight-use-package 'f)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom Key Definitions (key bindings)
+;; Custom key definitions <<key bindings>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Searching
@@ -264,7 +281,7 @@
 (define-key global-map (kbd "C-c O") 'org-open-at-point-global)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Org-mode customizations (org mode customizations)
+;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun org-return--around (old-fn &rest args)
@@ -396,7 +413,7 @@
 ;;         ((,org-school-file) . (:maxlevel . 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Hook defintions (hooks)
+;; Hook defintions <<hooks>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
@@ -446,7 +463,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Customization Settings
+;; Customizations <<custom>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
