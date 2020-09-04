@@ -121,8 +121,8 @@
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
 
 ;; Org-Roam
-;; (straight-use-package 'org-roam)
-;; (diminish 'org-roam-mode " roam")
+(straight-use-package 'org-roam)
+(diminish 'org-roam-mode " roam")
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -422,7 +422,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-;; (add-hook 'after-init-hook 'org-roam-mode)
+(add-hook 'after-init-hook 'org-roam-mode)
 
 ;; Coq
 (add-hook coq-mode-hook
