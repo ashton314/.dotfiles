@@ -112,14 +112,17 @@
 ;; Diminish
 (straight-use-package 'diminish)
 
+;; Evil
+(straight-use-package 'evil)
+
 ;; Org
 (straight-use-package 'org)
 (straight-use-package 'org-ql)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
 
 ;; Org-Roam
-(straight-use-package 'org-roam)
-(diminish 'org-roam-mode " roam")
+;; (straight-use-package 'org-roam)
+;; (diminish 'org-roam-mode " roam")
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -419,7 +422,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-(add-hook 'after-init-hook 'org-roam-mode)
+;; (add-hook 'after-init-hook 'org-roam-mode)
+
+;; Coq
+(add-hook coq-mode-hook
+	  '(lambda () (company-coq-mode)))
 
 ;; Quotes for lisp-like languages
 (mapc (lambda (mode)
@@ -513,7 +520,9 @@
  '(fixed-pitch ((t nil)))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(org-priority ((t (:foreground "#ee7600"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
+ '(proof-locked-face ((t (:extend t :background "#101050"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
