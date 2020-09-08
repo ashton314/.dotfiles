@@ -12,4 +12,11 @@ while (readdir $dh) {
     symlink "$home/.dotfiles/$_", "$home/$_";
 }
 close $dh;
+
+# Try moving the snippets into place
+mkdir "$home/.emacs.d"
+  unless -d "$home/.emacs.d";
+
+symlink "$home/.dotfiles/snippets", "$home/.emacs.d/snippets";
+
 print "Done\n";

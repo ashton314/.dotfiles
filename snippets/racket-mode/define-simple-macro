@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: define-simple-macro
+# key: dsm
+# --
+(define-simple-macro ($1)
+  $2)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: title_date
+# key: td
+# --
+#+TITLE: `(format-date nil)`
