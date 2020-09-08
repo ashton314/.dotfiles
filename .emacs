@@ -46,6 +46,7 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq tool-bar-mode -1)
+;(global-visual-line-mode +1)
 ;(toggle-word-wrap +1)
 
 ;; Error squelching
@@ -133,13 +134,17 @@
 
 ;; Company
 (straight-use-package 'company)
-(straight-use-package 'company-box)
+;; (straight-use-package 'company-box)
 (global-company-mode +1)
 (diminish 'company-mode " c")
 (add-hook 'company-mode-hook
 	  '(lambda ()
              (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
              (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+
+	     ;; Alternate, evil-like bindings
+             (define-key company-active-map (kbd "C-j") 'company-select-next-or-abort)
+             (define-key company-active-map (kbd "C-k") 'company-select-previous-or-abort)
 	     ;; (company-box-mode)
 	     ;; (diminish 'company-box-mode " cbox")
 	     ))
@@ -425,7 +430,7 @@
 (add-hook 'after-init-hook 'org-roam-mode)
 
 ;; Coq
-(add-hook coq-mode-hook
+(add-hook 'coq-mode-hook
 	  '(lambda () (company-coq-mode)))
 
 ;; Quotes for lisp-like languages
@@ -441,7 +446,10 @@
        (add-hook mode
                  '(lambda ()
 		    (toggle-truncate-lines -1)
-		    (toggle-word-wrap t))))
+		    (turn-on-visual-line-mode)
+		    ;; I don't think this is necessary with visual-line-mode turned on
+		    ;(toggle-word-wrap t)
+		    )))
      '(markdown-mode-hook org-mode-hook text-mode-hook))
 
 (add-hook 'markdown-mode-hook
@@ -464,6 +472,8 @@
 ;; These two hooks run `elixir-format` on save. Original post: https://github.com/elixir-editors/emacs-elixir#add-elixir-mode-hook-to-run-elixir-format-on-file-save
 (add-hook 'elixir-mode-hook
           (lambda ()
+	    (define-key elixir-mode-map (kbd "C-M-q") 'elixir-mode-fill-doc-string)
+
             (add-hook 'before-save-hook 'elixir-format nil t)))
 (add-hook 'elixir-format-hook (lambda ()
                                 (setq elixir-format-arguments
@@ -510,7 +520,8 @@
  '(sentence-end-double-space nil)
  '(show-paren-delay 0)
  '(show-paren-mode t)
- '(show-paren-style 'expression))
+ '(show-paren-style 'expression)
+ '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -520,10 +531,15 @@
  '(fixed-pitch ((t nil)))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(org-headline-done ((t (:foreground "#556655"))))
+ '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
+ '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
  '(org-priority ((t (:foreground "#ee7600"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
+ '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
  '(proof-locked-face ((t (:extend t :background "#101050"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
  '(underline ((t (:underline "#ffc125")))))
+(put 'narrow-to-region 'disabled nil)
