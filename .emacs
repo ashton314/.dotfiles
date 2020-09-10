@@ -46,6 +46,7 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq tool-bar-mode -1)
+(global-auto-revert-mode)
 ;(global-visual-line-mode +1)
 ;(toggle-word-wrap +1)
 
@@ -192,14 +193,16 @@
 (projectile-mode +1)
 (diminish 'projectile-mode " proj")
 
+;; Yasnippets
 (straight-use-package 'yasnippet)
 (yas-global-mode +1)
 
-;; Searching
+;; Searching/mass editing
 (straight-use-package 'counsel)
 (straight-use-package 'swiper)
 (define-key global-map (kbd "C-s") 'swiper)
 (straight-use-package 'counsel-projectile)
+(straight-use-package 'wgrep)
 
 ;; Magit (Mah-jit---like "magi{-c+t}")
 (straight-use-package 'magit)
