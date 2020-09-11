@@ -121,6 +121,7 @@
 (straight-use-package 'org)
 (straight-use-package 'org-ql)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
+(straight-use-package 'org-fragtog)
 
 ;; Org-Roam
 (straight-use-package 'org-roam)
@@ -467,6 +468,7 @@
 ;; org-mode stuffs
 (add-hook 'org-mode-hook
 	  '(lambda ()
+	     (org-fragtog-mode)
 	     (electric-indent-local-mode -1)))
 
 ;; lsp
