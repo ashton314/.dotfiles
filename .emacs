@@ -122,6 +122,7 @@
 (straight-use-package 'org-ql)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
 (straight-use-package 'org-fragtog)
+;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
 ;; Org-Roam
 (straight-use-package 'org-roam)
