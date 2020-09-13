@@ -125,8 +125,9 @@
 ;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
 ;; Org-Roam
-(straight-use-package 'org-roam)
-(diminish 'org-roam-mode " roam")
+(unless (equal org-roam-directory "")
+  (straight-use-package 'org-roam)
+  (diminish 'org-roam-mode " roam"))
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -432,7 +433,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-(add-hook 'after-init-hook 'org-roam-mode)
+(unless (equal org-roam-directory "")
+  (add-hook 'after-init-hook 'org-roam-mode))
 
 ;; Coq
 (add-hook 'coq-mode-hook
