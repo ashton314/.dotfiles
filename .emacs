@@ -544,7 +544,7 @@
  '(org-priority ((t (:foreground "#ee7600"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
- '(proof-locked-face ((t (:extend t :background "#101050"))))
+ '(proof-locked-face ((t (:extend t :background "#101430"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
