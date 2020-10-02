@@ -124,6 +124,9 @@
 (straight-use-package 'org-fragtog)
 ;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
+;; Org-Babel
+(straight-use-package 'ob-elixir)
+
 ;; Org-Roam
 (unless (equal org-roam-directory "")
   (straight-use-package 'org-roam))
@@ -564,6 +567,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
  '(fixed-pitch ((t nil)))
+ '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
