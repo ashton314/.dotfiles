@@ -129,8 +129,7 @@
 
 ;; Org-Roam
 (unless (equal org-roam-directory "")
-  (straight-use-package 'org-roam)
-  (diminish 'org-roam-mode " roam"))
+  (straight-use-package 'org-roam))
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -433,13 +432,39 @@
 ;;         ((,org-family-notes-file) . (:maxlevel . 1))
 ;;         ((,org-school-file) . (:maxlevel . 1))))
 
+;; org-roam keybindings
+(define-key global-map (kbd "C-c o r c") 'org-roam-capture)
+(define-key global-map (kbd "C-c o r f") 'org-roam-find-file)
+(define-key global-map (kbd "C-c o r i") 'org-roam-insert)
+
+;; org-roam capture templates
+(setq org-roam-capture-templates
+      '(("d" "default" plain (function org-roam--capture-get-point)
+	 "%?"
+	 :file-name "%<%Y%m%d%H%M%S>-${slug}"
+	 :head "#+title: ${title}\n"
+	 :unnarrowed nil)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hook defintions <<hooks>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
 (unless (equal org-roam-directory "")
-  (add-hook 'after-init-hook 'org-roam-mode))
+  (add-hook 'after-init-hook 'org-roam-mode)
+  (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
+
+;; org roam deft function
+(defun roam-deft ()
+  "Open up `deft' in the org-roam directory."
+  (interactive)
+  (let ((deft-directory org-roam-directory))
+    (deft)))
+
+(defun chdir-roam ()
+  "Open up the org-roam directory. (Probably a hack.)"
+  (interactive)
+  (find-file org-roam-directory))
 
 ;; Coq
 (add-hook 'coq-mode-hook
