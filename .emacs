@@ -126,8 +126,7 @@
 
 ;; Org-Roam
 (unless (equal org-roam-directory "")
-  (straight-use-package 'org-roam)
-  (diminish 'org-roam-mode " roam"))
+  (straight-use-package 'org-roam))
 
 ;; Selectrum
 (straight-use-package 'selectrum)
@@ -434,7 +433,14 @@
 
 ;; Org-roam
 (unless (equal org-roam-directory "")
-  (add-hook 'after-init-hook 'org-roam-mode))
+  (add-hook 'after-init-hook 'org-roam-mode)
+  (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
+
+(defun roam-deft ()
+  "Open up `deft' in the org-roam directory."
+  (interactive)
+  (let ((deft-directory org-roam-directory))
+    (deft)))
 
 ;; Coq
 (add-hook 'coq-mode-hook
