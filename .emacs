@@ -214,6 +214,8 @@
 (straight-use-package 'magit)
 (define-key global-map (kbd "C-x g") 'magit-status)
 
+(straight-use-package 'git-timemachine)
+
 ;; Programming
 (straight-use-package 'smartparens)
 (smartparens-global-mode +1)
