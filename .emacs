@@ -48,7 +48,6 @@
 (setq tool-bar-mode -1)
 (global-auto-revert-mode)
 ;(global-visual-line-mode +1)
-;(toggle-word-wrap +1)
 
 ;; Error squelching
 (setq fill-prefix "") ; See https://emacs.stackexchange.com/questions/38941/wrong-type-argument-char-or-string-p-nil-when-doing-ret-in-org-mode
