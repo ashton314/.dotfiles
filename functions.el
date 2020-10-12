@@ -16,6 +16,12 @@
   (setq transparency--toggle-var (not transparency--toggle-var)))
 
 
+;; Update functions
+(defun update-how-i-like ()
+  (interactive)
+  (straight-normalize-all)
+  (straight-pull-package 'lsp-mode))
+
 ;; Pandoc conversion functions (for Sarah)
 ;; Requires f.el
 (defcustom pandoc-converter-args "--filter pandoc-citeproc --pdf-engine=xelatex" "Additional arguments to pass to pandoc when running `convert-with-pandoc'")
