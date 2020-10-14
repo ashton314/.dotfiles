@@ -200,6 +200,7 @@
 ;; Yasnippets
 (straight-use-package 'yasnippet)
 (yas-global-mode +1)
+(straight-use-package 'auto-yasnippet)
 
 ;; Searching/mass editing
 (straight-use-package 'counsel)
@@ -567,6 +568,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(company-coq-features/code-folding-bullet-face ((t (:foreground "#5882ce"))))
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
