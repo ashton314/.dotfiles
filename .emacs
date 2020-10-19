@@ -1,4 +1,4 @@
-;; Emacs Config file
+;; Emacs Config File
 ;; Ashton Wiersdorf
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -568,12 +568,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
- '(company-coq-features/code-folding-bullet-face ((t (:foreground "#5882ce"))))
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
  '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
@@ -581,6 +581,7 @@
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
  '(org-scheduled-today ((t (:foreground "#4cff5a" :weight normal :height 1.2))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
+ '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
