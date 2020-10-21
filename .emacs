@@ -90,7 +90,7 @@
 ;; Gilded Selection (my package)
 (load-when-there "~/.dotfiles/gilded_select.el")
 (define-key global-map (kbd "M-x") 'gilded-mx)
-(add-hook 'after-init-hook 'rehash-key-bindings)
+(add-hook 'after-init-hook 'gilded-rehash-key-bindings)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>

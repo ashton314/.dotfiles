@@ -6,10 +6,10 @@
 ;; modes.							   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar command-keybinding-hash (make-hash-table) "Cache of commands to the keys they are bound to.")
+(defvar gilded-command-keybinding-hash (make-hash-table) "Cache of commands to the keys they are bound to.")
 
-(defun rehash-key-bindings ()
-  "Rebuild `command-keybinding-hash' so that calling
+(defun gilded-rehash-key-bindings ()
+  "Rebuild `gilded-command-keybinding-hash' so that calling
 `execute-extended-command' will show the proper keybindings next
 to the functions they're bound to."
   (interactive)
@@ -18,7 +18,7 @@ to the functions they're bound to."
      (when (and (commandp sym) (where-is-internal sym))
        (puthash sym (format "%s %s" (symbol-name sym)
 			    (keybind-propertize (key-description (car (where-is-internal sym)))))
-		command-keybinding-hash)
+		gilded-command-keybinding-hash)
        ))
    obarray)
   (message "Finished building keybinding cache"))
@@ -28,13 +28,14 @@ to the functions they're bound to."
 the keybinding without any frills."
   (format "(%s)" (propertize str 'face 'font-lock-doc-face)))
 
-(defun gen-times (n str acc)
-  (if (= n 0) acc (gen-times (- n 1) str (cons str acc))))
+(defun string-gen-times (n str acc)
+  (if (= n 0) acc (string-gen-times (- n 1) str (cons str acc))))
 
-(defun prompt-string (prefix)
+(defun gilded-prompt-string (prefix)
+  "Given a prefix argument, builds a prompt string for `gilded-mx'."
   (format "%sM-x "
 	  (if (and prefix (listp prefix) (not (= (car prefix) 0)) (memq (car prefix) '(4 16 32 128)))
-	      (apply #'concat (gen-times (log (car prefix) 4) "C-u " '()))
+	      (apply #'concat (string-gen-times (log (car prefix) 4) "C-u " '()))
 	    (if prefix (format "(%s) " prefix) ""))))
 
 (defun gilded-mx (prefix)
@@ -45,7 +46,7 @@ the keybinding without any frills."
      (intern				; This strips off the annotations since they're all just propertized on
       (car (split-string			; Remove the keybind annotation if present
 	    (completing-read
-	     (prompt-string prefix)
+	     (gilded-prompt-string prefix)
 	     (let ((modes (make-hash-table :test #'equal))
 		   (keymap (make-hash-table :test #'equal))
 		   (cmds nil))
@@ -68,7 +69,7 @@ the keybinding without any frills."
 		  (when (commandp sym)
 		    (push
 		     (or (gethash sym modes)
-			 (gethash sym command-keybinding-hash)
+			 (gethash sym gilded-command-keybinding-hash)
 			 (symbol-name sym))
 		     cmds)))
 		obarray)
