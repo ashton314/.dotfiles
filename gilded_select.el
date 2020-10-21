@@ -6,9 +6,6 @@
 ;; modes.							   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(require 'selectrum)
-
 (defvar command-keybinding-hash (make-hash-table) "Cache of commands to the keys they are bound to.")
 
 (defun rehash-key-bindings ()

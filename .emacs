@@ -71,20 +71,23 @@
 ;; Special-use files <<special files>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun load-when-there (filename)
+  (when (file-exists-p filename)
+    (load-file filename)))
+
 ;; GUI-only customizations
 (when (and (display-graphic-p) (file-exists-p "~/.dotfiles/.emacs_gui"))
   (load-file "~/.dotfiles/.emacs_gui"))
 
 ;; Device-specific variables
-(when (file-exists-p "~/.emacs.d/device_vars.el")
-  (load-file "~/.emacs.d/device_vars.el"))
+(load-when-there "~/.emacs.d/device_vars.el")
 
 ;; Aux functions
-(when (file-exists-p "~/.dotfiles/emacs_aux.el")
-  (load-file "~/.dotfiles/emacs_aux.el"))
+(load-when-there "~/.dotfiles/emacs_aux.el")
 
-(when (file-exists-p "~/.dotfiles/functions.el")
-  (load-file "~/.dotfiles/functions.el"))
+(load-when-there "~/.dotfiles/functions.el")
+
+(load-when-there "~/.dotfiles/gilded_select.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
