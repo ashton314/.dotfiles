@@ -33,8 +33,8 @@ the keybinding without any frills."
 
 (defun prompt-string (prefix)
   (format "%sM-x "
-	  (if (and prefix (listp prefix) (not (= (car prefix) 0)) (= (mod (car prefix) 4) 0))
-	      (apply #'concat (gen-times (/ (car prefix) 4) "C-u " '()))
+	  (if (and prefix (listp prefix) (not (= (car prefix) 0)) (memq (car prefix) '(4 16 32 128)))
+	      (apply #'concat (gen-times (log (car prefix) 4) "C-u " '()))
 	    (if prefix (format "(%s) " prefix) ""))))
 
 (defun gilded-mx (prefix)

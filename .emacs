@@ -589,6 +589,8 @@
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
+ '(selectrum-primary-highlight ((t (:foreground "#98f5ff" :underline t))))
+ '(selectrum-secondary-highlight ((t (:inherit selectrum-primary-highlight :weight bold))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
