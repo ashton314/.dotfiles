@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Minor enhancements to M-x					   ;;
+;; Gilded-Mx: Minor enhancements to M-x				   ;;
 ;; 								   ;;
 ;; This uses Selectrum, but also displays the key the command is   ;;
 ;; bound to, as well as colorizes the currently active major/minor ;;
@@ -28,7 +28,7 @@ to the functions they're bound to."
 the keybinding without any frills."
   (format "(%s)" (propertize str 'face 'font-lock-doc-face)))
 
-(defun guilded-mx ()
+(defun gilded-mx ()
   "Like `execute-extended-command', but with fancy annotations."
   (interactive)
   (command-execute
@@ -66,10 +66,4 @@ the keybinding without any frills."
 	   nil
 	   'require-match) " ")))
    'record))
-
-(define-key global-map (kbd "M-x") 'guilded-mx)
-
-(split-string "foo-bar-baz (foo)" " ")
-
-(add-hook 'after-init-hook 'rehash-key-bindings)
 
