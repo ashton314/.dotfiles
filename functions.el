@@ -15,7 +15,6 @@
     (set-frame-parameter (selected-frame) 'alpha '(100 100)))
   (setq transparency--toggle-var (not transparency--toggle-var)))
 
-
 ;; Update functions
 (defun update-how-i-like ()
   (interactive)
