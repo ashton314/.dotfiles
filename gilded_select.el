@@ -78,3 +78,5 @@ the keybinding without any frills."
 	     'require-match) " ")))
      'record)))
 
+;; Rehash all the keybindings when we change to a new mode
+;; (add-hook 'after-change-major-mode-hook 'gilded-rehash-key-bindings)

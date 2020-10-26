@@ -236,6 +236,25 @@
 ;; Dependencies for certain functions I've written
 (straight-use-package 'f)
 
+;; Polymode
+(straight-use-package 'polymode)
+(define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
+(define-innermode poly-elixir-doc-innermode
+  :mode 'markdown-mode
+  :head-matcher "@\\(module\\)?doc *\"\"\""
+  :tail-matcher "\"\"\""
+  :head-mode 'host
+  :tail-mode 'host)
+(define-innermode poly-elixir-template-innermode
+  :mode 'web-mode
+  :head-matcher "~\\(L\\|E\\)\"\"\""
+  :tail-matcher "\"\"\""
+  :head-mode 'host
+  :tail-mode 'host)
+(define-polymode poly-elixir-mode
+  :hostmode 'poly-elixir-hostmode
+  :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key definitions <<key bindings>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -546,6 +565,7 @@
  '(enable-recursive-minibuffers t)
  '(find-file-visit-truename t)
  '(frame-resize-pixelwise t)
+ '(highlight-indent-guides-method 'character)
  '(initial-major-mode 'text-mode)
  '(initial-scratch-message
    ";; This space intentionally left blank. Try \\[find-file].
