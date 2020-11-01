@@ -42,6 +42,7 @@ the source folder.
 Opens the file in a new window if the output format is a plain-text format."
   (interactive)
 
+  (require 'f)
   (let* ((in-file (read-file-name "File to convert: " nil nil t))
 	 (out-format (completing-read "Output format: " '("md" "docx" "html" "org" "txt" "pdf")))
 	 (out-file (f-swap-ext in-file out-format)))
