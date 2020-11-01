@@ -217,7 +217,7 @@
 
 ;; Magit (Mah-jit---like "magi{-c+t}")
 (straight-use-package 'magit)
-(define-key global-map (kbd "C-x g") 'magit-status)
+(define-keys-globally 'magit-status "C-x g" "s-g")
 
 (straight-use-package 'git-timemachine)
 

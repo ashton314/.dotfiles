@@ -21,6 +21,14 @@
   (straight-normalize-all)
   (straight-pull-package 'lsp-mode))
 
+(defun define-keys-globally (func &rest binds)
+  "Define one or several keys to a particular function in the global keymap.
+
+Example:
+
+(define-keys-globally 'magit-status \"C-x g\" \"s-g\")"
+  (mapc (lambda (bind) (define-key global-map (kbd bind) func)) binds))
+
 ;; Pandoc conversion functions (for Sarah)
 ;; Requires f.el
 (defcustom pandoc-converter-args "--filter pandoc-citeproc --pdf-engine=xelatex" "Additional arguments to pass to pandoc when running `convert-with-pandoc'")
