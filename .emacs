@@ -541,6 +541,7 @@
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
+ '(default-input-method "TeX")
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
  '(enable-recursive-minibuffers t)
