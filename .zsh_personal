@@ -28,6 +28,7 @@ alias 'ce'='carton exec'
 alias 'j'='jobs -l'
 alias 'whoamip'='ipconfig getifaddr en0'
 alias 'r~'='rm -f *~ .*~'
+alias 'ir'='clang -S -emit-llvm'
 
 # init asdf
 . $(brew --prefix asdf)/asdf.sh
