@@ -477,7 +477,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-(unless (equal org-roam-directory "")
+(unless (or (equal org-roam-directory "")
+	    (not enable-org-roam-on-startup))
   (add-hook 'after-init-hook 'org-roam-mode)
   (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
 
