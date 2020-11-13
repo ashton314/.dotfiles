@@ -66,6 +66,7 @@
 (setq org-directory "")
 (setq scripture-directory "")
 (setq org-roam-directory "")
+(setq enable-org-roam-on-startup nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Special-use files <<special files>>
@@ -132,7 +133,8 @@
 (straight-use-package 'ob-elixir)
 
 ;; Org-Roam
-(unless (equal org-roam-directory "")
+(unless (or (equal org-roam-directory "")
+	    (not enable-org-roam-on-startup))
   (straight-use-package 'org-roam))
 
 ;; Selectrum
@@ -474,7 +476,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-(unless (equal org-roam-directory "")
+(unless (or (equal org-roam-directory "")
+	    (not enable-org-roam-on-startup))
   (add-hook 'after-init-hook 'org-roam-mode)
   (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
 
