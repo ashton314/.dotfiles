@@ -88,9 +88,8 @@
 (load-when-there "~/.dotfiles/functions.el")
 
 ;; Gilded Selection (my package)
-(load-when-there "~/.dotfiles/gilded_select.el")
-(define-key global-map (kbd "M-x") 'gilded-mx)
-(add-hook 'after-init-hook 'gilded-rehash-key-bindings)
+(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select" :branch "master"))
+(gilded-select-mode +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
