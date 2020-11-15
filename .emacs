@@ -89,7 +89,7 @@
 (load-when-there "~/.dotfiles/functions.el")
 
 ;; Gilded Selection (my package)
-(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select" :branch "master"))
+(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
 (gilded-select-mode +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -604,7 +604,7 @@
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
- '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4"))))
+ '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
