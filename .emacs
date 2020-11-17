@@ -477,10 +477,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Org-roam
-(unless (or (equal org-roam-directory "")
-	    (not enable-org-roam-on-startup))
+(defun org-roam-setup-hooks ()
+  "Install org-roam hooks"
+  (interactive)
+  (straight-use-package 'org-roam)
   (add-hook 'after-init-hook 'org-roam-mode)
   (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
+
+(unless (or (equal org-roam-directory "")
+	    (not enable-org-roam-on-startup))
+  (org-roam-setup-hooks))
 
 ;; org roam deft function
 (defun roam-deft ()
@@ -607,6 +613,12 @@
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4"))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
+ '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
+ '(markdown-header-face-3 ((t (:inherit org-level-3 :height 1.0))))
+ '(markdown-header-face-4 ((t (:inherit org-level-4a :height 1.0))))
+ '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
+ '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
