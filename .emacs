@@ -89,9 +89,8 @@
 (load-when-there "~/.dotfiles/functions.el")
 
 ;; Gilded Selection (my package)
-(load-when-there "~/.dotfiles/gilded_select.el")
-(define-key global-map (kbd "M-x") 'gilded-mx)
-(add-hook 'after-init-hook 'gilded-rehash-key-bindings)
+(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
+(gilded-select-mode +1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
@@ -611,7 +610,7 @@
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
- '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4"))))
+ '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
  '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
  '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
