@@ -606,6 +606,7 @@
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(magit-tag ((t (:foreground "#fcec2a"))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
@@ -623,3 +624,4 @@
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
  '(underline ((t (:underline "#ffc125")))))
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
