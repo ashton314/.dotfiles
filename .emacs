@@ -561,7 +561,7 @@
  ;; If there is more than one, they won't work right.
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
- '(company-idle-delay 0.1)
+ '(company-idle-delay 0.3)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
