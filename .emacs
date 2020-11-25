@@ -558,6 +558,7 @@
 
 ;; Special mode setup
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\.l?eex\\'" . web-mode))
 
 (custom-set-variables
