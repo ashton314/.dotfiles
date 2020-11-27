@@ -618,6 +618,7 @@
  '(markdown-header-face-4 ((t (:inherit org-level-4a :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
+ '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
