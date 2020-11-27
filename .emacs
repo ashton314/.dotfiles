@@ -558,6 +558,7 @@
 
 ;; Special mode setup
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\.l?eex\\'" . web-mode))
 
 (custom-set-variables
@@ -567,7 +568,7 @@
  ;; If there is more than one, they won't work right.
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
- '(company-idle-delay 0.1)
+ '(company-idle-delay 0.3)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
@@ -612,10 +613,11 @@
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
  '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(magit-tag ((t (:foreground "#fcec2a"))))
  '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
  '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
  '(markdown-header-face-3 ((t (:inherit org-level-3 :height 1.0))))
- '(markdown-header-face-4 ((t (:inherit org-level-4a :height 1.0))))
+ '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
  '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
@@ -636,3 +638,4 @@
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
  '(underline ((t (:underline "#ffc125")))))
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

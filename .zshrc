@@ -3,6 +3,9 @@ if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
+# autoload -Uz compinit
+# compinit
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -67,7 +70,7 @@ DISABLE_AUTO_UPDATE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-
+# source $ZSH/plugins/git/git.plugin.zsh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
