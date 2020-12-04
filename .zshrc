@@ -118,6 +118,17 @@ else
     PROMPT+='%{$fg[cyan]%}%~%{$reset_color%} $(git_prompt_info)'
 fi
 
+# Setup for when Emacs native-comp is turned on
+if [ -f "/Applications/Emacs.app/Contents/MacOS/Emacs" ]; then
+  export EMACS="/Applications/Emacs.app/Contents/MacOS/Emacs"
+  alias emacs="$EMACS"
+  alias e="$EMACS -nw"
+fi
+
+if [ -f "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" ]; then
+  alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+fi
+
 setopt HIST_IGNORE_DUPS
 SHARE_HISTORY=true
 HISTORY_IGNORE='(fg|ll|jobs|cd|j|l|exit)'

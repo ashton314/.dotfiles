@@ -89,8 +89,11 @@
 (load-when-there "~/.dotfiles/functions.el")
 
 ;; Gilded Selection (my package)
-(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
-(gilded-select-mode +1)
+;(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
+;(gilded-select-mode +1)
+(straight-use-package '(consult :type git :host github :repo "minad/consult"))
+(consult-annotate-mode)
+(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
@@ -102,13 +105,14 @@
          (native-comp-available-p))
     (progn
       (message "Native comp is available")
-      (add-to-list 'exec-path (expand-file-name "~/homebrew/opt/gccemacs/bin"))
-      (setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
-                                     (when (getenv "LIBRARY_PATH")
-                                       ":")
-                                     (car (file-expand-wildcards
-                                           (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
+      ;(add-to-list 'exec-path (expand-file-name "~/homebrew/opt/gccemacs/bin"))
+      ;(setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
+      ;                               (when (getenv "LIBRARY_PATH")
+      ;                                 ":")
+      ;                               (car (file-expand-wildcards
+      ;                                     (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
       ;; Only set after LIBRARY_PATH can find gcc libraries.
+      (setq comp-speed 2)
       (setq comp-deferred-compilation t))
   (message "Native comp is *not* available"))
 
