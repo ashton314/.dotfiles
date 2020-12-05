@@ -50,6 +50,11 @@
 (setq line-number-mode t)
 (setq tool-bar-mode -1)
 (global-auto-revert-mode)
+
+;; This stays off: I turn this on so that Emacs acts a little bit more
+;; like a "conventional" word processor with nicely wrapped lines. I
+;; enable it in markdown and org modes. Most of the time when I'm
+;; programming, I want it to stay off, however.
 ;(global-visual-line-mode +1)
 
 ;; Error squelching
@@ -158,6 +163,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; This is necessary to get LSP working properly
+;; Unfortunately, it adds like 1.5 seconds to Emacs startup on my MBP.
+;; I wish I could figure out how to load this lazily.
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
