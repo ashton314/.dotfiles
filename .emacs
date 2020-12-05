@@ -126,7 +126,10 @@
 
   ;; Optionally enable previews. Note that individual previews can be disabled
   ;; via customization variables.
-  (consult-preview-mode))
+
+  ;; Broken 2020-12-05
+  ;(consult-preview-mode)
+  )
 
 (use-package marginalia
   :straight '(marginalia :type git :host github :repo "minad/marginalia" :branch "main")
@@ -136,24 +139,33 @@
 
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
-  (marginalia-mode))
+
+  ; Super slow 2020-12-05
+  ;(marginalia-mode)
+
+  ;; Enable richer annotations for M-x.
+  ;; Only keybindings are shown by default, in order to reduce noise for this very common command.
+  ;; * marginalia-annotate-symbol: Annotate with the documentation string
+  ;; * marginalia-annotate-command-binding (default): Annotate only with the keybinding
+  ;; * marginalia-annotate-command-full: Annotate with the keybinding and the documentation string
+
+  ;; As of 2020-12-05, this makes M-x hang for a good second or two
+  ;;(setf (alist-get 'command marginalia-annotator-alist) #'marginalia-annotate-command-full)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (straight-use-package 'exec-path-from-shell)
-;; (exec-path-from-shell-initialize)
+;; This is necessary to get LSP working properly
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
 (if (and (fboundp 'native-comp-available-p)
          (native-comp-available-p))
     (progn
       (message "Native comp is available")
-      ;(add-to-list 'exec-path (expand-file-name "~/homebrew/opt/gccemacs/bin"))
-      ;(setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
-      ;                               (when (getenv "LIBRARY_PATH")
-      ;                                 ":")
-      ;                               (car (file-expand-wildcards
-      ;                                     (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
       ;; Only set after LIBRARY_PATH can find gcc libraries.
       (setq comp-speed 2)
       (setq comp-deferred-compilation t))
