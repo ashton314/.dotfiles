@@ -99,8 +99,8 @@
 ;; GCC Emacs config <<gcc emacs>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(straight-use-package 'exec-path-from-shell)
-(exec-path-from-shell-initialize)
+;; (straight-use-package 'exec-path-from-shell)
+;; (exec-path-from-shell-initialize)
 (if (and (fboundp 'native-comp-available-p)
          (native-comp-available-p))
     (progn
