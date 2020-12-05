@@ -37,6 +37,9 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+
 ;; Theme
 (straight-use-package 'vscode-dark-plus-theme)
 (load-theme 'vscode-dark-plus t)
@@ -91,9 +94,49 @@
 ;; Gilded Selection (my package)
 ;(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
 ;(gilded-select-mode +1)
-(straight-use-package '(consult :type git :host github :repo "minad/consult"))
-(consult-annotate-mode)
-(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
+
+;(straight-use-package '(consult :type git :host github :repo "minad/consult"))
+;(consult-annotate-mode)
+;(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
+(use-package consult
+  :straight '(consult :type git :host github :repo "minad/consult")
+
+  ;; Replace bindings. Lazily loaded due to use-package.
+  :bind (("s-o" . consult-outline)
+         ("C-x b" . consult-buffer)
+         ("C-x 4 b" . consult-buffer-other-window)
+         ("C-x 5 b" . consult-buffer-other-frame)
+         ("C-x r x" . consult-register)
+         ("C-x r b" . consult-bookmark)
+         ("M-g o" . consult-outline) ;; "M-s o" is a good alternative
+         ("M-g m" . consult-mark)    ;; "M-s m" is a good alternative
+         ("M-g l" . consult-line)    ;; "M-s l" is a good alternative
+         ("M-s m" . consult-multi-occur)
+         ("M-y" . consult-yank-pop)
+         ("<help> a" . consult-apropos))
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Replace functions (consult-multi-occur is a drop-in replacement)
+  (fset 'multi-occur #'consult-multi-occur)
+
+  ;; Configure other variables and modes in the :config section, after lazily loading the package
+  :config
+
+  ;; Optionally enable previews. Note that individual previews can be disabled
+  ;; via customization variables.
+  (consult-preview-mode))
+
+(use-package marginalia
+  :straight '(marginalia :type git :host github :repo "minad/marginalia" :branch "main")
+  
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
