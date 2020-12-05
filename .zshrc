@@ -1,3 +1,6 @@
+# Bail out of rest of setup if we're coming in from TRAMP
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # Add homebrew completions
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
