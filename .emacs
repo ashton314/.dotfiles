@@ -89,8 +89,11 @@
 (load-when-there "~/.dotfiles/functions.el")
 
 ;; Gilded Selection (my package)
-(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
-(gilded-select-mode +1)
+;(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
+;(gilded-select-mode +1)
+(straight-use-package '(consult :type git :host github :repo "minad/consult"))
+(consult-annotate-mode)
+(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
@@ -102,13 +105,14 @@
          (native-comp-available-p))
     (progn
       (message "Native comp is available")
-      (add-to-list 'exec-path (expand-file-name "~/homebrew/opt/gccemacs/bin"))
-      (setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
-                                     (when (getenv "LIBRARY_PATH")
-                                       ":")
-                                     (car (file-expand-wildcards
-                                           (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
+      ;(add-to-list 'exec-path (expand-file-name "~/homebrew/opt/gccemacs/bin"))
+      ;(setenv "LIBRARY_PATH" (concat (getenv "LIBRARY_PATH")
+      ;                               (when (getenv "LIBRARY_PATH")
+      ;                                 ":")
+      ;                               (car (file-expand-wildcards
+      ;                                     (expand-file-name "~/homebrew/opt/gcc/lib/gcc/*")))))
       ;; Only set after LIBRARY_PATH can find gcc libraries.
+      (setq comp-speed 2)
       (setq comp-deferred-compilation t))
   (message "Native comp is *not* available"))
 
@@ -557,6 +561,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Special mode setup
+(add-to-list 'auto-mode-alist '("mutt-" . markdown-mode)) ; email
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\.l?eex\\'" . web-mode))
@@ -620,6 +625,7 @@
  '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
+ '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))

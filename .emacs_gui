@@ -9,7 +9,7 @@
   (setq mouse-wheel-up-event 'wheel-down))
 
 ;; A few GUI-specific variables
-(setq default-frame-alist '((width . 100) (height . 60)))
+(setq default-frame-alist '((width . 87) (height . 60)))
 (setq inhibit-startup-screen t)
 
 ;; Set with Customize:

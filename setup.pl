@@ -19,4 +19,11 @@ mkdir "$home/.emacs.d"
 
 symlink "$home/.dotfiles/snippets", "$home/.emacs.d/snippets";
 
+# Try moving my emacs lockfile into place
+mkdir "$home/.emacs.d/straight"
+    unless -d "$home/.emacs.d/straight";
+
+symlink "$home/.dotfiles/versions", "$home/.emacs.d/straight/versions";
+
+
 print "Done\n";
