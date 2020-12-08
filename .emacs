@@ -133,8 +133,7 @@
   ;; via customization variables.
 
   ;; Broken 2020-12-05
-  ;(consult-preview-mode)
-  )
+  (consult-preview-mode))
 
 (use-package marginalia
   :straight '(marginalia :type git :host github :repo "minad/marginalia" :branch "main")
@@ -146,17 +145,14 @@
   ;; enabled right away. Note that this forces loading the package.
 
   ; Super slow 2020-12-05
-  ;(marginalia-mode)
+  (marginalia-mode)
 
-  ;; Enable richer annotations for M-x.
-  ;; Only keybindings are shown by default, in order to reduce noise for this very common command.
-  ;; * marginalia-annotate-symbol: Annotate with the documentation string
-  ;; * marginalia-annotate-command-binding (default): Annotate only with the keybinding
-  ;; * marginalia-annotate-command-full: Annotate with the keybinding and the documentation string
-
-  ;; As of 2020-12-05, this makes M-x hang for a good second or two
-  ;;(setf (alist-get 'command marginalia-annotator-alist) #'marginalia-annotate-command-full)
-  )
+;; Prefer richer, more heavy, annotations over the lighter default variant.
+  ;; E.g. M-x will show the documentation string additional to the keybinding.
+  ;; By default only the keybinding is shown as annotation.
+  ;; Note that there is the command `marginalia-cycle-annotators` to 
+  ;; switch between the annotators.
+  (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
