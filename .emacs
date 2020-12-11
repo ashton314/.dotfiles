@@ -18,7 +18,7 @@
 
 ;; Set GC level higher to prevent so many garbage collection cycles
 ;; during startup and elsewhere.
-;; (setq gc-cons-threshold 10000000)
+(setq gc-cons-threshold 134217728)	; Got value from DOOM-Emacs
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; straight.el setup <<straight.el>>
