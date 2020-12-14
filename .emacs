@@ -51,6 +51,9 @@
 (setq tool-bar-mode -1)
 (global-auto-revert-mode)
 
+;; Put the underline at the descent line, rather than the baseline
+(setq x-underline-at-descent-line t)
+
 ;; This stays off: I turn this on so that Emacs acts a little bit more
 ;; like a "conventional" word processor with nicely wrapped lines. I
 ;; enable it in markdown and org modes. Most of the time when I'm
@@ -699,6 +702,6 @@
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
- '(underline ((t (:underline "#ffc125")))))
+ '(underline ((t (:underline t)))))
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
