@@ -18,7 +18,7 @@
 
 ;; Set GC level higher to prevent so many garbage collection cycles
 ;; during startup and elsewhere.
-;; (setq gc-cons-threshold 10000000)
+(setq gc-cons-threshold 134217728)	; Got value from DOOM-Emacs
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; straight.el setup <<straight.el>>
@@ -50,6 +50,9 @@
 (setq line-number-mode t)
 (setq tool-bar-mode -1)
 (global-auto-revert-mode)
+
+;; Put the underline at the descent line, rather than the baseline
+(setq x-underline-at-descent-line t)
 
 ;; This stays off: I turn this on so that Emacs acts a little bit more
 ;; like a "conventional" word processor with nicely wrapped lines. I
