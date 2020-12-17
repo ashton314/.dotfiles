@@ -138,6 +138,9 @@
   ;; Broken 2020-12-05
   (consult-preview-mode))
 
+(use-package consult-selectrum
+  :demand t)
+
 (use-package marginalia
   :straight '(marginalia :type git :host github :repo "minad/marginalia" :branch "main")
   
@@ -235,8 +238,8 @@
 (straight-use-package 'yaml-mode)
 (straight-use-package 'web-mode)
 (straight-use-package 'json-mode)
-(straight-use-package 'proof-general)	; Coq IDE-ness
-(straight-use-package 'company-coq)
+;(straight-use-package 'proof-general)	; Coq IDE-ness
+;(straight-use-package 'company-coq)
 
 ;; lsp-mode
 (straight-use-package 'lsp-mode)
