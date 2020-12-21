@@ -41,13 +41,6 @@ HISTORY_IGNORE='(fg|ll|jobs|cd|j|l|exit)'
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# up-line-or-search-prefix () {
-#   local CURSOR_before_search=$CURSOR
-#   zle up-line-or-search "$LBUFFER"
-#   CURSOR=$CURSOR_before_search
-# }
-# zle -N up-line-or-search-prefix
-
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
 setopt histignorespace           # skip cmds w/ leading space from history
@@ -56,6 +49,7 @@ bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode che
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
+# This tells the shell to expand the call to $(git_prompt_info)
 setopt PROMPT_SUBST
 
 git_prompt_info () {
@@ -80,9 +74,9 @@ git_prompt_info () {
 
     if [[ -n $STATUS ]]
     then
-	echo " (%F{yellow}${ref#refs/heads/}%f)%F{red}!%f"
+	echo " %F{red}[%F{yellow}${ref#refs/heads/}%F{red}]%f"
     else
-	echo " (%F{yellow}${ref#refs/heads/}%f)"
+	echo " %F{green}(%F{yellow}${ref#refs/heads/}%F{green})%f"
     fi
 
 }
