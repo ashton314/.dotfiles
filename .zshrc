@@ -36,7 +36,17 @@ compinit
 setopt HIST_IGNORE_DUPS
 SHARE_HISTORY=true
 HISTORY_IGNORE='(fg|ll|jobs|cd|j|l|exit)'
-bindkey -e
+
+# This gets you the fancy "search commands with prefix"
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
+# up-line-or-search-prefix () {
+#   local CURSOR_before_search=$CURSOR
+#   zle up-line-or-search "$LBUFFER"
+#   CURSOR=$CURSOR_before_search
+# }
+# zle -N up-line-or-search-prefix
 
 # HSTR configuration - add this to ~/.zshrc
 alias hh=hstr                    # hh to be alias for hstr
