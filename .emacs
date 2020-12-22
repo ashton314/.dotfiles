@@ -169,6 +169,7 @@
 ;; I wish I could figure out how to load this lazily.
 (use-package exec-path-from-shell
   :config
+  (setq exec-path-from-shell-arguments nil)
   (exec-path-from-shell-initialize))
 
 (if (and (fboundp 'native-comp-available-p)

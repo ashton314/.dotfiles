@@ -3,15 +3,8 @@
 # This file is for relatively portable configurations on top of what I do in my .zshrc
 
 # Enable 24-bit color (see https://stackoverflow.com/questions/14672875/true-color-24-bit-in-terminal-emacs)
-
+# This is here because I want htis separate from my .zshenv
 TERM=xterm-24bit; export TERM
-EMACS="*term*";   export EMACS
-EDITOR=emacs;     export EDITOR
-PAGER=less;       export PAGER
-LESS=-RFiX;       export LESS
-
-# PS1="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )%{$fg[cyan]%}%~%{$reset_color%} \$(git_prompt_info)"; export PS1
-
 
 ##############################
 # Aliases
@@ -40,5 +33,4 @@ if [[ -r ~/.bash_aliases ]]; then
 fi
 
 # Setup direnv
-export XDG_DATA_HOME=/Users/ashton/.config
 eval "$(direnv hook zsh)"

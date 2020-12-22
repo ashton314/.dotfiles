@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+use File::Copy;
+
 my $home = $ENV{HOME};
 opendir my $dh, "$home/.dotfiles/"
   or die "Could not find .dotfiles/ in home directory";
@@ -12,6 +14,17 @@ while (readdir $dh) {
     symlink "$home/.dotfiles/$_", "$home/$_";
 }
 close $dh;
+
+if (-f "$home/.zshenv") {
+    print "~/.zshenv already exists; overwrite? (y/N) ";
+    chomp(my $resp = <STDIN>);
+    unless ($resp eq 'y' or $resp eq 'yes') {
+	copy("$home/.zshenv", "$home/.zshenv_bak");
+	print "Old .zshenv copied to ~/.zshenv_bak\n";
+    }
+}
+print "Recommend setting in ~/.zshenv:\nPATH=\"" . `echo \$PATH` . "\"\n";
+copy("$home/.dotfiles/zshenv_template", "$home/.zshenv");
 
 # Try moving the snippets into place
 mkdir "$home/.emacs.d"
@@ -25,5 +38,7 @@ mkdir "$home/.emacs.d/straight"
 
 symlink "$home/.dotfiles/versions", "$home/.emacs.d/straight/versions";
 
+print "Done\n\n";
 
-print "Done\n";
+print "Be sure to modify ~/.zshenv to suit your needs. It has been
+copied, not symlinked into your home directory.\n\n"
