@@ -13,15 +13,17 @@ TERM=xterm-24bit; export TERM
 alias ll='ls -AlFG'
 alias l='ls -lahFG'
 alias 'notebook'='$EMACS --eval "(progn (setq deft-directory \".\") (deft))"'
-#alias 'sj'='cd ~/Wiersdorf/study_journal/; notebook'
-# alias 'gccemacs'='/usr/local/opt/gccemacs/bin/emacs'
-# alias 'gcce'='/usr/local/opt/gccemacs/bin/emacsclient -nw --alternate-editor= '
-# alias 'e'='emacsclient -nw --alternate-editor= '
+
 alias 'ce'='carton exec'
 alias 'j'='jobs -l'
 alias 'whoamip'='ipconfig getifaddr en0'
 alias 'r~'='rm -f *~ .*~'
 alias 'ir'='clang -S -emit-llvm'
+
+alias 'talaxian'='ssh talaxian'
+alias 'romulan'='ssh romulan'
+alias 'klingon'='ssh klingon'
+alias 'tribble'='ssh tribble'
 
 # init asdf
 . $(brew --prefix asdf)/asdf.sh
