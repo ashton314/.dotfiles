@@ -419,13 +419,11 @@
 
 (setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
 (setq org-family-notes-file (concat org-directory "/family_shared.org"))
-(setq org-general-notes-file (concat org-directory "/general.org"))
-(setq org-bishopric-file (concat org-directory "/bishopric.org"))
+(setq org-general-tasks-file (concat org-directory "/general.org"))
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
 (setq org-project-notes-file (concat org-directory "/projects.org"))
 (setq org-work-notes-file (concat org-directory "/work.org"))
 (setq org-notes-file (concat org-directory "/notes.org"))
-;(setq org-20bn-file (concat org-directory "/20bn.org"))
 (setq org-school-file (concat org-directory "/school.org"))
 (setq org-for-later-file (concat org-directory "/for_later.org"))
 (setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
@@ -464,36 +462,49 @@
 (setq org-todo-keywords
       '((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; I'm going to keep this here because it's a good example of what's									     ;;
+;; possible with capture templates.													     ;;
+;; 																	     ;;
+;; (setq org-capture-templates														     ;;
+;;       '(("t" "General Todo" entry (file org-default-notes-file)									     ;;
+;; 	 "* TODO %?\n   %U\n%i\n%a")													     ;;
+;;         ("s" "Scripture Study" entry (file+headline org-scripture-study-file "HEAD")							     ;;
+;;          "** %?\n    %U")														     ;;
+;;         ("c" "Computer Science")													     ;;
+;;         ;("p" "Programming Language Research")											     ;;
+;; 	("e" "ENGL 211 (Rhetoric and Civ)" entry (file+headline org-school-file "ENGL 211: Rhretoric and Civilization 1")		     ;;
+;; 	 "** TODO %? :homework:engl_211:\n %U\n %i\n %a")										     ;;
+;; 	("p" "PHSCS 121 (Intro to Physics)" entry (file+headline org-school-file "PHSCS 121: Introduction to Newtonian Mechanics")	     ;;
+;; 	 "** TODO %? :homework:phscs_121:\n %U\n %i\n %a")										     ;;
+;; 	("o" "Other")															     ;;
+;; 	("g" "General Homework" entry (file+headline org-school-file "General")								     ;;
+;; 	 "** TODO %?\n   %U\n%i\n%a")													     ;;
+;;         ;; CS															     ;;
+;;         ("cf" "CS 401R (Foundations)" entry (file+headline org-school-file "CS 401R: Software Foundations")				     ;;
+;;          "** TODO %? :homework:cs_401r:\n %U\n %i\n %a")										     ;;
+;;         ("cd" "CS 404 (Ethics)" entry (file+headline org-school-file "CS 404: Ethics & Computers in Society")			     ;;
+;;          "** TODO %? :homework:cs_404:\n %U\n %i\n %a")										     ;;
+;; 	;; Other															     ;;
+;; 	("os" "STDEV 318 (Grad School Prep)" entry (file+headline org-school-file "STDEV 318: Graduate School Preparation")		     ;;
+;; 	 "** TODO %? :homework:stdev_318:\n %U\n %i\n %a")										     ;;
+;; 	("og" "SWELL 132 (Golf)" entry (file+headline org-school-file "SWELL 132: Intermediate Golf")					     ;;
+;; 	 "** TODO %? :homework:swell_132:\n %U\n %i\n %a")										     ;;
+;;         ;; PL Research														     ;;
+;;         ("pt" "Research Task" entry (file org-research-tasks)									     ;;
+;;          "* TODO %?\n  %U\n %i\n %a")												     ;;
+;;         ;; ("pn" "Research Note" entry ;; FIXME: add file										     ;;
+;;         ;;  "** %?\n   %U\n %i\n %a")												     ;;
+;; 	))																     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (setq org-capture-templates
-      '(("t" "General Todo" entry (file org-default-notes-file)
+      '(("c" "Quick Capture" entry (file org-default-notes-file)
 	 "* TODO %?\n   %U\n%i\n%a")
-        ("s" "Scripture Study" entry (file+headline org-scripture-study-file "HEAD")
-         "** %?\n    %U")
-        ("c" "Computer Science")
-        ;("p" "Programming Language Research")
-	("e" "ENGL 211 (Rhetoric and Civ)" entry (file+headline org-school-file "ENGL 211: Rhretoric and Civilization 1")
-	 "** TODO %? :homework:engl_211:\n %U\n %i\n %a")
-	("p" "PHSCS 121 (Intro to Physics)" entry (file+headline org-school-file "PHSCS 121: Introduction to Newtonian Mechanics")
-	 "** TODO %? :homework:phscs_121:\n %U\n %i\n %a")
-	("o" "Other")
-	("g" "General Homework" entry (file+headline org-school-file "General")
-	 "** TODO %?\n   %U\n%i\n%a")
-        ;; CS
-        ("cf" "CS 401R (Foundations)" entry (file+headline org-school-file "CS 401R: Software Foundations")
-         "** TODO %? :homework:cs_401r:\n %U\n %i\n %a")
-        ("cd" "CS 404 (Ethics)" entry (file+headline org-school-file "CS 404: Ethics & Computers in Society")
-         "** TODO %? :homework:cs_404:\n %U\n %i\n %a")
-	;; Other
-	("os" "STDEV 318 (Grad School Prep)" entry (file+headline org-school-file "STDEV 318: Graduate School Preparation")
-	 "** TODO %? :homework:stdev_318:\n %U\n %i\n %a")
-	("og" "SWELL 132 (Golf)" entry (file+headline org-school-file "SWELL 132: Intermediate Golf")
-	 "** TODO %? :homework:swell_132:\n %U\n %i\n %a")
-        ;; PL Research
-        ("pt" "Research Task" entry (file org-research-tasks)
-         "* TODO %?\n  %U\n %i\n %a")
-        ;; ("pn" "Research Note" entry ;; FIXME: add file
-        ;;  "** %?\n   %U\n %i\n %a")
-	))
+	("t" "General TODO Item" entry (file org-general-tasks-file)
+	 "* TODO %?\n   %U\n%i\n%a")
+	("n" "Note for Later" entry (file org-for-later-file)
+	 "* %?\n    %U\n%i\n%a")))
 
 (setq org-agenda-custom-commands
       '(("n" "Agenda and All Todos"
@@ -519,10 +530,17 @@
 
 (setq org-outline-path-complete-in-steps nil)
 (setq org-refile-use-outline-path 'file)
+(setq org-refile-targets
+      `(((,org-for-later-file) . (:level . 0))
+	((,org-for-later-file) . (:level . 1))
+	((,org-general-tasks-file) . (:level . 0))
+	((,org-general-tasks-file) . (:level . 1))
+	((,org-notes-file) . (:level . 0))
+	((,org-notes-file) . (:level . 1))))
 ;; (setq org-refile-targets
 ;;       `(((,org-project-notes-file) . (:level . 0))
 ;;         ((,org-notes-file) . (:level . 0))
-;;         ((,org-general-notes-file) . (:level . 1))
+;;         ((,org-general-tasks-file) . (:level . 1))
 ;;         ((,org-for-later-file) . (:level . 0))
 ;;         ((,org-family-notes-file) . (:maxlevel . 1))
 ;;         ((,org-school-file) . (:maxlevel . 1))))
