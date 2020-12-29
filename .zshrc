@@ -20,11 +20,11 @@ fi
 if [ -f "/Applications/Emacs.app/Contents/MacOS/Emacs" ]; then
   export EMACS="/Applications/Emacs.app/Contents/MacOS/Emacs"
   alias emacs="$EMACS"
-  alias e="$EMACS -nw"
 fi
 
 if [ -f "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient" ]; then
-  alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+  export EMACSCLIENT="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+  alias e="$EMACSCLIENT -nw --alternate-editor= "
 fi
 
 # Completion stuff
