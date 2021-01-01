@@ -186,36 +186,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Diminish
-(straight-use-package 'diminish)
+(use-package diminish)
 
 ;; Evil
-(straight-use-package 'evil)
+(use-package evil
+  :defer t)
 
 ;; Org
-(straight-use-package 'org)
-(straight-use-package 'org-ql)
+(use-package org
+  :defer t)
+(use-package org-ql
+  :defer t)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
-(straight-use-package 'org-fragtog)
+(use-package org-fragtog
+  :defer t)
 ;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
 ;; Org-Babel
-(straight-use-package 'ob-elixir)
+(use-package ob-elixir)
 
 ;; Org-Roam
 (unless (or (equal org-roam-directory "")
 	    (not enable-org-roam-on-startup))
-  (straight-use-package 'org-roam))
+  (use-package org-roam))
 
 ;; Selectrum
-(straight-use-package 'selectrum)
+(use-package selectrum)
 (selectrum-mode +1)
-(straight-use-package 'selectrum-prescient)
+(use-package selectrum-prescient)
 (selectrum-prescient-mode +1)
 (prescient-persist-mode +1)
 
 ;; Company
-(straight-use-package 'company)
-;; (straight-use-package 'company-box)
+(use-package company)
+;; (use-package company-box)
 (global-company-mode +1)
 (diminish 'company-mode " c")
 (add-hook 'company-mode-hook
@@ -230,84 +234,84 @@
 	     ;; (diminish 'company-box-mode " cbox")
 	     ))
 
-(straight-use-package 'company-prescient)
+(use-package company-prescient)
 (company-prescient-mode +1)
 
 ;; Programming language packages
-(straight-use-package 'elixir-mode)
-(straight-use-package 'dockerfile-mode)
-(straight-use-package 'yaml-mode)
-(straight-use-package 'web-mode)
-(straight-use-package 'json-mode)
-;(straight-use-package 'proof-general)	; Coq IDE-ness
-;(straight-use-package 'company-coq)
+(use-package elixir-mode)
+(use-package dockerfile-mode)
+(use-package yaml-mode)
+(use-package web-mode)
+(use-package json-mode)
+;(use-package proof-general)	; Coq IDE-ness
+;(use-package company-coq)
 
 ;; lsp-mode
-(straight-use-package 'lsp-mode)
+(use-package lsp-mode)
 (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release")
-(straight-use-package 'lsp-ui)
+(use-package lsp-ui)
 
 ;; Do not use this one!
-;; (straight-use-package 'lsp-elixir)
+;; (use-package lsp-elixir)
 
 ;; Deft
-(straight-use-package 'deft)
+(use-package deft)
 (setq deft-extensions '("org" "md" "txt" "tex"))
 (setq deft-new-file-format "%Y-%m-%d")
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
 ;; Ace, Avy
-(straight-use-package 'ace-window)
+(use-package ace-window)
 (setq aw-background nil)
 (ace-window-display-mode +1)
 
 ;; Multiple-cursors
-(straight-use-package 'multiple-cursors)
+(use-package multiple-cursors)
 ;; TODO: keybindings
 
 ;; Projectile
-(straight-use-package 'projectile)
+(use-package projectile)
 (setq projectile-completion-system 'ivy)
 (define-key global-map (kbd "C-x p") 'projectile-command-map)
 (projectile-mode +1)
 (diminish 'projectile-mode " proj")
 
 ;; Yasnippets
-(straight-use-package 'yasnippet)
+(use-package yasnippet)
 (yas-global-mode +1)
-(straight-use-package 'auto-yasnippet)
+(use-package auto-yasnippet)
 
 ;; Searching/mass editing
-(straight-use-package 'counsel)
-(straight-use-package 'swiper)
+(use-package counsel)
+(use-package swiper)
 (define-key global-map (kbd "C-s") 'swiper)
-(straight-use-package 'counsel-projectile)
-(straight-use-package 'wgrep)
+(use-package counsel-projectile)
+(use-package wgrep)
 
 ;; Magit (Mah-jit---like "magi{-c+t}")
-(straight-use-package 'magit)
+(use-package magit)
 (define-keys-globally 'magit-status "C-x g" "s-g")
 
-(straight-use-package 'git-timemachine)
+(use-package git-timemachine)
 
 ;; Programming
-(straight-use-package 'smartparens)
+(use-package smartparens)
 (smartparens-global-mode +1)
-(straight-use-package 'racket-mode)
-(straight-use-package 'vterm)
+(use-package racket-mode)
+(use-package vterm)
 
 ;; Writing
-(straight-use-package 'olivetti)
-(straight-use-package 'define-word)
-(straight-use-package 'lorem-ipsum)
-(straight-use-package 'pandoc)
+(use-package olivetti)
+(use-package define-word)
+(use-package lorem-ipsum)
+(use-package pandoc-mode)
 
 ;; Dependencies for certain functions I've written
-(straight-use-package 'f)
+(use-package f)
 
 ;; Polymode
-(straight-use-package 'polymode)
+(use-package polymode)
 (define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
 (define-innermode poly-elixir-doc-innermode
   :mode 'markdown-mode
@@ -566,7 +570,7 @@
 (defun org-roam-setup-hooks ()
   "Install org-roam hooks"
   (interactive)
-  (straight-use-package 'org-roam)
+  (use-package org-roam)
   (add-hook 'after-init-hook 'org-roam-mode)
   (add-hook 'org-roam-mode-hook '(lambda () (diminish 'org-roam-mode " roam"))))
 
@@ -701,7 +705,7 @@
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
  '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
  '(hl-line ((t (:extend t :background "#191919"))))
- '(italic ((t (:foreground "#ffc125" :slant italic))))
+ '(italic ((t (:foreground "#bfefff" :slant italic))))
  '(magit-tag ((t (:foreground "#fcec2a"))))
  '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
  '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
