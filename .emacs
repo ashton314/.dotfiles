@@ -255,11 +255,13 @@
 ;; (use-package lsp-elixir)
 
 ;; Deft
-(use-package deft)
-(setq deft-extensions '("org" "md" "txt" "tex"))
-(setq deft-new-file-format "%Y-%m-%d")
-(setq deft-recursive t)
-(setq deft-use-filename-as-title t)
+(use-package deft
+  :defer t
+  :config
+  (setq deft-extensions '("org" "md" "txt" "tex"))
+  (setq deft-new-file-format "%Y-%m-%d")
+  (setq deft-recursive t)
+  (setq deft-use-filename-as-title t))
 
 ;; Ace, Avy
 (use-package ace-window)
