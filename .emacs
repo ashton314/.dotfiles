@@ -121,6 +121,7 @@
          ("M-g l" . consult-line)    ;; "M-s l" is a good alternative
          ("M-s m" . consult-multi-occur)
          ("M-y" . consult-yank-pop)
+	 ("s-r r" . consult-ripgrep)
          ("<help> a" . consult-apropos))
 
   ;; The :init configuration is always executed (Not lazy!)
@@ -241,14 +242,19 @@
 (use-package elixir-mode)
 (use-package dockerfile-mode)
 (use-package yaml-mode)
-(use-package web-mode)
+(use-package web-mode
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2))
 (use-package json-mode)
 ;(use-package proof-general)	; Coq IDE-ness
 ;(use-package company-coq)
 
 ;; lsp-mode
-(use-package lsp-mode)
-(add-to-list 'exec-path "~/Sync/repos/elixir-ls/release")
+(use-package lsp-mode
+  :config
+  (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
 (use-package lsp-ui)
 
 ;; Do not use this one!
@@ -272,7 +278,7 @@
 
 ;; Projectile
 (use-package projectile)
-(setq projectile-completion-system 'ivy)
+(setq projectile-completion-system 'selectrum)
 (define-key global-map (kbd "C-x p") 'projectile-command-map)
 (projectile-mode +1)
 (diminish 'projectile-mode " proj")
@@ -678,8 +684,9 @@
 
 ")
  '(ispell-query-replace-choices t)
- '(lsp-file-watch-ignored
+ '(lsp-file-watch-ignored-directories
    '("[/\\\\]\\.git$" "[/\\\\]\\.hg$" "[/\\\\]\\.bzr$" "[/\\\\]_darcs$" "[/\\\\]\\.svn$" "[/\\\\]_FOSSIL_$" "[/\\\\]\\.idea$" "[/\\\\]\\.ensime_cache$" "[/\\\\]\\.eunit$" "[/\\\\]node_modules$" "[/\\\\]\\.fslckout$" "[/\\\\]\\.tox$" "[/\\\\]\\.stack-work$" "[/\\\\]\\.bloop$" "[/\\\\]\\.metals$" "[/\\\\]target$" "[/\\\\]\\.ccls-cache$" "[/\\\\]\\.deps$" "[/\\\\]build-aux$" "[/\\\\]autom4te.cache$" "[/\\\\]\\.reference$" "[/\\\\]_build$"))
+ '(lsp-headerline-breadcrumb-enable nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
  '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
