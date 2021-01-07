@@ -107,7 +107,7 @@
 ;(consult-annotate-mode)
 ;(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
 (use-package consult
-  :straight '(consult :type git :host github :repo "minad/consult")
+  :straight '(consult :type git :host github :repo "minad/consult" :branch main)
 
   ;; Replace bindings. Lazily loaded due to use-package.
   :bind (("s-o" . consult-outline)
@@ -132,6 +132,8 @@
 
   ;; Configure other variables and modes in the :config section, after lazily loading the package
   :config
+
+  (setq consult-project-root-function 'projectile-project-root)
 
   ;; Optionally enable previews. Note that individual previews can be disabled
   ;; via customization variables.
@@ -279,11 +281,13 @@
 ;; TODO: keybindings
 
 ;; Projectile
-(use-package projectile)
-(setq projectile-completion-system 'selectrum)
-(define-key global-map (kbd "C-x p") 'projectile-command-map)
-(projectile-mode +1)
-(diminish 'projectile-mode " proj")
+(use-package projectile
+  :diminish " proj"
+
+  :bind (("C-x p" . projectile-command-map))
+  
+  :config
+  (setq projectile-completion-system 'selectrum))
 
 ;; Yasnippets
 (use-package yasnippet)
