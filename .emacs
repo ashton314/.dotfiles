@@ -415,6 +415,10 @@
 ;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Fix strange bug encountered 2021-01-07
+(setq org-priority-highest org-highest-priority)
+(setq org-priority-lowest org-lowest-priority)
+
 (defun org-return--around (old-fn &rest args)
   (let ((context (org-element-lineage (org-element-at-point) '(item))))
     (if (and context (not args))
@@ -670,6 +674,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
  '(company-idle-delay 0.3)
@@ -694,6 +700,14 @@
    '("[/\\\\]\\.git$" "[/\\\\]\\.hg$" "[/\\\\]\\.bzr$" "[/\\\\]_darcs$" "[/\\\\]\\.svn$" "[/\\\\]_FOSSIL_$" "[/\\\\]\\.idea$" "[/\\\\]\\.ensime_cache$" "[/\\\\]\\.eunit$" "[/\\\\]node_modules$" "[/\\\\]\\.fslckout$" "[/\\\\]\\.tox$" "[/\\\\]\\.stack-work$" "[/\\\\]\\.bloop$" "[/\\\\]\\.metals$" "[/\\\\]target$" "[/\\\\]\\.ccls-cache$" "[/\\\\]\\.deps$" "[/\\\\]build-aux$" "[/\\\\]autom4te.cache$" "[/\\\\]\\.reference$" "[/\\\\]_build$"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+ '(mu4e-headers-fields
+   '((:human-date . 16)
+     (:size . 8)
+     (:flags . 6)
+     ;; (:mailing-list . 10)
+     (:maildir . 20)
+     (:from . 22)
+     (:subject)))
  '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
  '(org-agenda-files
