@@ -107,7 +107,7 @@
 ;(consult-annotate-mode)
 ;(setf (alist-get 'execute-extended-command consult-annotate-alist) #'consult-annotate-command-full)
 (use-package consult
-  :straight '(consult :type git :host github :repo "minad/consult" :branch main)
+  :straight '(consult :type git :host github :repo "minad/consult" :branch "main")
 
   ;; Replace bindings. Lazily loaded due to use-package.
   :bind (("s-o" . consult-outline)
@@ -133,13 +133,7 @@
   ;; Configure other variables and modes in the :config section, after lazily loading the package
   :config
 
-  (setq consult-project-root-function 'projectile-project-root)
-
-  ;; Optionally enable previews. Note that individual previews can be disabled
-  ;; via customization variables.
-
-  ;; Broken 2020-12-05
-  (consult-preview-mode))
+  (setq consult-project-root-function 'projectile-project-root))
 
 (use-package consult-selectrum
   :demand t)
