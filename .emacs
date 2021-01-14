@@ -653,6 +653,9 @@
 ;; Customizations <<custom>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Fix default directory on macOS with Emacs 27.1
+(setq default-directory "~/")
+
 ;; Special mode setup
 (add-to-list 'auto-mode-alist '("mutt-" . markdown-mode)) ; email
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
