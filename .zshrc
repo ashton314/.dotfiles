@@ -83,3 +83,6 @@ git_prompt_info () {
 
 # Add "%m" to print the short hostname
 PROMPT="%(?:%F{green}⊢:%F{red}!%?)%f %F{cyan}%~%f\$(git_prompt_info) %(!:# :)"
+
+# ASDF setup
+. $(brew --prefix asdf)/asdf.sh
