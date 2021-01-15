@@ -509,6 +509,7 @@
 (setq org-notes-file (concat org-directory "/notes.org"))
 (setq org-school-file (concat org-directory "/school.org"))
 (setq org-for-later-file (concat org-directory "/for_later.org"))
+(setq org-vocab-file (concat org-directory "/vocab.org"))
 (setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
 (setq org-research-tasks (concat org-research-directory "/research_tasks.org"))
 (setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
@@ -540,6 +541,7 @@
                       ;; misc
                       ("meta")
                       ("review")
+		      ("german" . ?g)
                       ))
 
 (setq org-todo-keywords
@@ -587,7 +589,9 @@
 	("t" "General TODO Item" entry (file org-general-tasks-file)
 	 "* TODO %?\n   %U\n%i\n%a")
 	("n" "Note for Later" entry (file org-for-later-file)
-	 "* %?\n    %U\n%i\n%a")))
+	 "* %?\n    %U\n%i\n%a")
+	("w" "Vocab word" entry (file org-vocab-file)
+	 "* %?\n  %U\n%i")))
 
 (setq org-agenda-custom-commands
       '(("n" "Agenda and All Todos"
