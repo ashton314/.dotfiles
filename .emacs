@@ -315,6 +315,13 @@
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
 (use-package lsp-ui)
 
+;; LSP goodies for python
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))
+
+
 ;; Do not use this one!
 ;; (use-package lsp-elixir)
 
