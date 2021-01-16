@@ -482,6 +482,7 @@
 (setq org-priority-highest org-highest-priority)
 (setq org-priority-lowest org-lowest-priority)
 
+;; Make return key smarter when dealing with lists
 (defun org-return--around (old-fn &rest args)
   (let ((context (org-element-lineage (org-element-at-point) '(item))))
     (if (and context (not args))
@@ -542,6 +543,7 @@
                       ("meta")
                       ("review")
 		      ("german" . ?g)
+		      ("reading")
                       ))
 
 (setq org-todo-keywords
@@ -645,6 +647,13 @@
 	 :head "#+title: ${title}\n"
 	 :unnarrowed nil)))
 
+;; org agenda enhancements
+;; (setq elegant-agenda-font "Input Mono")
+;; (setq elegant-agenda-is-mono-font t)
+;; (use-package elegant-agenda-mode
+;;   :straight (elegant-agenda-mode :type git :host github :repo "justinbarclay/elegant-agenda-mode")
+;;   :hook org-agenda-mode-hook)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hook defintions <<hooks>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -732,6 +741,11 @@
 
 ;; Fix default directory on macOS with Emacs 27.1
 (setq default-directory "~/")
+
+;; Minor speed bump for long lines
+(setq bidi-inhibit-bpa t)
+;setting bidi-paragraph-direction to 'left-to-right has the same effect
+;(setq-default bidi-display-reordering nil)
 
 ;; Special mode setup
 (add-to-list 'auto-mode-alist '("mutt-" . markdown-mode)) ; email
