@@ -460,7 +460,7 @@
 
 ;; helpers
 (define-key global-map (kbd "M-#") 'define-word)
-(define-key global-map (kbd "C-c #") 'define-word-at-point)
+(define-key global-map (kbd "C-M-3") 'define-word-at-point)
 (define-key global-map (kbd "C-x Q") 'query-kill-string)
 (define-key global-map (kbd "C-c f n") 'insert-file-name)
 (define-key global-map (kbd "C-c s i r") 'string-insert-rectangle)
