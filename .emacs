@@ -315,15 +315,25 @@
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
 (use-package lsp-ui)
 
-;; LSP goodies for python
-(use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp-deferred))))
-
-
 ;; Do not use this one!
 ;; (use-package lsp-elixir)
+
+;; LSP goodies for python
+(use-package lsp-pyright
+  :hook
+  (python-mode .
+	       (lambda ()
+		 (setq indent-tabs-mode nil)
+		 (setq tab-width 4)
+		 (setq python-indent-offset 4)
+                 (require 'lsp-pyright)
+                 (lsp-deferred))))
+
+(use-package highlight-indent-guides
+  :hook
+  (python-mode . highlight-indent-guides-mode)
+  :config
+  (setq highlight-indent-guides-method 'character))
 
 ;; Deft
 (use-package deft
