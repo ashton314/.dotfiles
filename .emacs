@@ -333,7 +333,8 @@
   :hook
   (python-mode . highlight-indent-guides-mode)
   :config
-  (setq highlight-indent-guides-method 'character))
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive 'top))
 
 ;; Deft
 (use-package deft
