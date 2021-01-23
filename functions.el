@@ -7,6 +7,16 @@
 ;; warranty. Good luck decoding the regexes.			 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun latexify-quotes ()
+  "Replace the quottations marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
+  (interactive)
+  (save-excursion
+    (progn
+      (goto-char (point-min))
+      (replace-regexp "\"\\(\\w\\)" "``\\1")
+      (goto-char (point-min))
+      (replace-regexp "\\([[:alnum:][:punct:]]\\)\"" "\\1''"))))
+
 (defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
   (interactive)
