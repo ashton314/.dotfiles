@@ -25,10 +25,6 @@ alias 'romulan'='ssh romulan'
 alias 'klingon'='ssh klingon'
 alias 'tribble'='ssh tribble'
 
-# init asdf
-. $(brew --prefix asdf)/asdf.sh
-
-
 # Run aliases
 if [[ -r ~/.bash_aliases ]]; then
     . ~/.bash_aliases
