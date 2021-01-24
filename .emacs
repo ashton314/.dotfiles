@@ -490,6 +490,8 @@
 ;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq org-export-use-smartquotes t)
+
 ;; Fix strange bug encountered 2021-01-07
 (setq org-priority-highest org-highest-priority)
 (setq org-priority-lowest org-lowest-priority)
@@ -796,12 +798,18 @@
    '("[/\\\\]\\.git$" "[/\\\\]\\.hg$" "[/\\\\]\\.bzr$" "[/\\\\]_darcs$" "[/\\\\]\\.svn$" "[/\\\\]_FOSSIL_$" "[/\\\\]\\.idea$" "[/\\\\]\\.ensime_cache$" "[/\\\\]\\.eunit$" "[/\\\\]node_modules$" "[/\\\\]\\.fslckout$" "[/\\\\]\\.tox$" "[/\\\\]\\.stack-work$" "[/\\\\]\\.bloop$" "[/\\\\]\\.metals$" "[/\\\\]target$" "[/\\\\]\\.ccls-cache$" "[/\\\\]\\.deps$" "[/\\\\]build-aux$" "[/\\\\]autom4te.cache$" "[/\\\\]\\.reference$" "[/\\\\]_build$"))
  '(lsp-headerline-breadcrumb-enable nil)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+ '(mu4e-bookmarks
+   '((:name "Inbox" :query "maildir:/INBOX" :key 105)
+     (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key 117)
+     (:name "Today's messages" :query "date:today..now" :key 116)
+     (:name "Last 7 days" :query "date:7d..now" :key 119)
+     (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)))
  '(mu4e-headers-fields
    '((:human-date . 16)
      (:size . 8)
      (:flags . 6)
-     ;; (:mailing-list . 10)
      (:maildir . 20)
+;; (:mailing-list . 10)
      (:from . 22)
      (:subject)))
  '(ns-use-native-fullscreen nil)
