@@ -826,7 +826,8 @@
      (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key 117)
      (:name "Today's messages" :query "date:today..now" :key 116)
      (:name "Last 7 days" :query "date:7d..now" :key 119)
-     (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)))
+     (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
+     (:name "Drafts" :query "maildir:/INBOX.Drafts" :key 100)))
  '(mu4e-headers-fields
    '((:human-date . 16)
      (:size . 8)
