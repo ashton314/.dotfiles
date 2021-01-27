@@ -253,7 +253,24 @@
 
 ;; Org
 (use-package org
-  :defer t)
+  :defer t
+  :config
+  ;; enable exporting of colors!
+  (require 'ox-latex)
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted) 
+
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  (setq org-src-fontify-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (latex . t))))
 (use-package org-ql
   :defer t)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
@@ -416,7 +433,7 @@
   :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom key definitions <<key bindings>>
+;; Custom key definitions keybindings <<key bindings>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Searching
@@ -446,50 +463,54 @@
 (define-key minibuffer-local-map (kbd "C-n") 'next-line-or-history-element)
 
 ;; programming-related
-(define-key global-map (kbd "C-c k") 'compile)
-(define-key global-map (kbd "C-c (") 'wrap-sexp)
-(define-key global-map (kbd "C-c <") 'sp-unwrap-sexp)
-(define-key global-map (kbd "C-c )") 'sp-rewrap-sexp)
-(define-key global-map (kbd "C-c C-d") 'lsp-describe-thing-at-point)
+(define-keys-globally 'compile "C-c k")
+(define-keys-globally 'wrap-sexp "C-c (")
+(define-keys-globally 'sp-unwrap-sexp "C-c <")
+(define-keys-globally 'sp-rewrap-sexp "C-c )")
+(define-keys-globally 'lsp-describe-thing-at-point "C-c C-d")
 
-(define-key global-map (kbd "C-x D") 'dired)
-(define-key global-map (kbd "C-x U") 'undo)
+(define-keys-globally 'dired "C-x D")
+(define-keys-globally 'undo "C-x U")
 
 ;; windowing
-(define-key global-map (kbd "C-x O") 'previous-multiframe-window)
-(define-key global-map (kbd "C-^") 'enlarge-window)
-(define-key global-map (kbd "C-x }") 'sticky-enlarge-window-horizontally)
-(define-key global-map (kbd "C-x {") 'sticky-shrink-window-horizontally)
-(define-key global-map (kbd "<f7>") 'shrink-window-horizontally)
-(define-key global-map (kbd "<f8>") 'balance-windows)
-(define-key global-map (kbd "<f9>") 'enlarge-window-horizontally)
+(define-keys-globally 'previous-multiframe-window "C-x O")
+(define-keys-globally 'enlarge-window "C-^")
+(define-keys-globally 'sticky-enlarge-window-horizontally "C-x }")
+(define-keys-globally 'sticky-shrink-window-horizontally "C-x {")
+(define-keys-globally 'shrink-window-horizontally "<f7>")
+(define-keys-globally 'balance-windows "<f8>")
+(define-keys-globally 'enlarge-window-horizontally "<f9>")
 
 ;; auto-yasnippets
-(define-key global-map (kbd "C-c y w") 'aya-create)
-(define-key global-map (kbd "C-c y y") 'aya-expand)
-(define-key global-map (kbd "C-c y o") 'aya-open-line)
+(define-keys-globally 'aya-create "C-c y w")
+(define-keys-globally 'aya-expand "C-c y y")
+(define-keys-globally 'aya-open-line "C-c y o")
 
 ;; helpers
-(define-key global-map (kbd "M-#") 'define-word)
-(define-key global-map (kbd "C-M-3") 'define-word-at-point)
-(define-key global-map (kbd "C-x Q") 'query-kill-string)
-(define-key global-map (kbd "C-c f n") 'insert-file-name)
-(define-key global-map (kbd "C-c s i r") 'string-insert-rectangle)
-(define-key global-map (kbd "C-c s r") 'insert-scripture-ref)
+(define-keys-globally 'define-word "M-#")
+(define-keys-globally 'define-word-at-point "C-M-3")
+(define-keys-globally 'query-kill-string "C-x Q")
+(define-keys-globally 'insert-file-name "C-c f n")
+(define-keys-globally 'string-insert-rectangle "C-c s i r")
+(define-keys-globally 'insert-scripture-ref "C-c s r")
 
 ;; Registers
-(define-key global-map (kbd "C-c C-SPC") 'point-to-register)
-(define-key global-map (kbd "C-c C-j") 'jump-to-register)
+(define-keys-globally 'point-to-register "C-c C-SPC")
+(define-keys-globally 'jump-to-register "C-c C-j")
 
 ;; Links
-(define-key global-map (kbd "C-c o l") 'org-store-link)
-(define-key global-map (kbd "C-c L") 'org-insert-link-global)
-(define-key global-map (kbd "C-c O") 'org-open-at-point-global)
+(define-keys-globally 'org-store-link "C-c o l")
+(define-keys-globally 'org-insert-link-global "C-c L")
+(define-keys-globally 'org-open-at-point-global "C-c O")
+
+;; Mail
+(define-keys-globally 'mu4e "s-m")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ... this isn't working
 (setq org-export-use-smartquotes t)
 
 ;; Fix strange bug encountered 2021-01-07
@@ -504,6 +525,8 @@
       (apply old-fn args))))
 
 (advice-add 'org-return :around 'org-return--around)
+
+;; Exporting with color!
 
 ;; (defun scripture-ref (ref)
 ;;   "Given a standardized scripture reference, return the last part of the URL to access this online."
