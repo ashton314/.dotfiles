@@ -224,8 +224,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; This is necessary to get LSP working properly
-;; Unfortunately, it adds like 1.5 seconds to Emacs startup on my MBP.
-;; I wish I could figure out how to load this lazily.
 (use-package exec-path-from-shell
   :config
   (setq exec-path-from-shell-arguments nil)
@@ -257,8 +255,8 @@
   :config
   ;; enable exporting of colors!
   (require 'ox-latex)
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted) 
+  ;(add-to-list 'org-latex-packages-alist '("" "minted"))
+  ;(setq org-latex-listings 'minted) 
 
   (setq org-latex-pdf-process
 	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -510,8 +508,7 @@
 ;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ... this isn't working
-(setq org-export-use-smartquotes t)
+(setq org-export-with-smart-quotes t)
 
 ;; Fix strange bug encountered 2021-01-07
 (setq org-priority-highest org-highest-priority)
@@ -842,7 +839,7 @@
    '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-startup-folded t)
- '(org-tags-column -100)
+ '(org-tags-column -90)
  '(scheme-program-name "racket")
  '(sentence-end-double-space nil)
  '(show-paren-delay 0)
@@ -875,7 +872,7 @@
  '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
  '(org-priority ((t (:foreground "#ee7600"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
- '(org-scheduled-today ((t (:foreground "#4cff5a" :weight normal :height 1.2))))
+;; '(org-scheduled-today ((t (:foreground "#4cff5a" :weight normal :height 1))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
