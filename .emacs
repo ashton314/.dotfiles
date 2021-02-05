@@ -247,7 +247,15 @@
 
 ;; Evil
 (use-package evil
-  :defer t)
+  :defer t
+
+  :init
+  (setq evil-respect-visual-line-mode t)
+  ;; (setq evil-undo-system 'undo-fu)
+
+  :config
+  ;; (global-undo-tree-mode -1)
+  (setq evil-auto-indent nil))
 
 ;; Org
 (use-package org
