@@ -461,7 +461,8 @@
 (define-key global-map (kbd "C-c j") 'avy-goto-line)
 (define-key global-map (kbd "C-M-j") 'avy-goto-char)
 (define-key global-map (kbd "C-c J") 'avy-goto-word-0)
-(define-key global-map (kbd "s-j") 'avy-goto-line)
+(define-key global-map (kbd "s-j") 'avy-goto-char)
+(define-key global-map (kbd "s-J") 'avy-goto-line)
 
 ;; Overrides
 (define-key global-map (kbd "C-x C-r") 'revert-buffer) ; C-x C-r is normally like C-x C-f, but opens file in read-only mode
