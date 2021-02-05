@@ -24,7 +24,14 @@
 ;; straight.el setup <<straight.el>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; remove old org version from load path
+(when-let (orglib (locate-library "org" nil load-path))
+  (setq-default load-path (delete (substring (file-name-directory orglib) 0 -1)
+                                  load-path)))
+
 (defvar bootstrap-version)
+(setq straight-repository-branch "develop")
+
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -43,6 +50,27 @@
 ;; Theme
 (straight-use-package 'vscode-dark-plus-theme)
 (load-theme 'vscode-dark-plus t)
+
+;; Load org here so we can use this version elsewhere
+(use-package org
+  ;; Do not defer so we get the right version
+  :config
+  ;; enable exporting of colors!
+  (require 'ox-latex)
+  ;(add-to-list 'org-latex-packages-alist '("" "minted"))
+  ;(setq org-latex-listings 'minted) 
+
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  (setq org-src-fontify-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (latex . t))))
 
 ;; Mode-line nicities, basic customizations
 (display-time)
@@ -257,26 +285,6 @@
   ;; (global-undo-tree-mode -1)
   (setq evil-auto-indent nil))
 
-;; Org
-(use-package org
-  :defer t
-  :config
-  ;; enable exporting of colors!
-  (require 'ox-latex)
-  ;(add-to-list 'org-latex-packages-alist '("" "minted"))
-  ;(setq org-latex-listings 'minted) 
-
-  (setq org-latex-pdf-process
-	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-  (setq org-src-fontify-natively t)
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (latex . t))))
 (use-package org-ql
   :defer t)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
