@@ -676,7 +676,8 @@
 	((,org-general-tasks-file) . (:level . 0))
 	((,org-general-tasks-file) . (:level . 1))
 	((,org-notes-file) . (:level . 0))
-	((,org-notes-file) . (:level . 1))))
+	((,org-notes-file) . (:level . 1))
+	((,org-school-file) . (:level . 1))))
 ;; (setq org-refile-targets
 ;;       `(((,org-project-notes-file) . (:level . 0))
 ;;         ((,org-notes-file) . (:level . 0))
@@ -894,6 +895,7 @@
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
  '(org-scheduled-today ((t (:foreground "#ecec9a" :weight normal :height 1))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
+ '(org-upcoming-distant-deadline ((t (:foreground "#c0c0c0"))))
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(org-warning ((t (:foreground "#f16969" :underline nil))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
@@ -905,3 +907,4 @@
  '(underline ((t (:underline t)))))
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
