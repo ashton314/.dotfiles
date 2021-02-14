@@ -57,8 +57,8 @@
   :config
   ;; enable exporting of colors!
   (require 'ox-latex)
-  ;(add-to-list 'org-latex-packages-alist '("" "minted"))
-  ;(setq org-latex-listings 'minted) 
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (setq org-latex-listings 'minted)
 
   (setq org-latex-pdf-process
 	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -66,6 +66,10 @@
           "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
   (setq org-src-fontify-natively t)
+
+  (setq org-agenda-skip-deadline-prewarning-if-scheduled 3)
+  (setq org-deadline-warning-days 3)
+
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -288,8 +292,8 @@
 (use-package org-ql
   :defer t)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
-(use-package org-fragtog
-  :defer t)
+;; (use-package org-fragtog
+;;   :defer t)
 ;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
 ;; Org-Babel
@@ -463,6 +467,7 @@
 (define-key global-map (kbd "C-c J") 'avy-goto-word-0)
 (define-key global-map (kbd "s-j") 'avy-goto-char)
 (define-key global-map (kbd "s-J") 'avy-goto-line)
+(define-key global-map (kbd "C-s-j") 'avy-goto-word-0)
 
 ;; Overrides
 (define-key global-map (kbd "C-x C-r") 'revert-buffer) ; C-x C-r is normally like C-x C-f, but opens file in read-only mode
@@ -769,7 +774,7 @@
 ;; org-mode stuffs
 (add-hook 'org-mode-hook
 	  '(lambda ()
-	     (org-fragtog-mode)
+	     ;(org-fragtog-mode)
 	     (electric-indent-local-mode -1)))
 
 ;; lsp
@@ -883,21 +888,25 @@
  '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
- '(org-agenda-date ((t (:extend t :foreground "#9cdcfe" :underline t :height 1.1))))
+ '(org-agenda-date ((t (:extend t :foreground "#88c0d0" :underline t :height 1.1))))
  '(org-agenda-date-today ((t (:extend t :foreground "#569cd6" :inverse-video t :underline nil :weight normal :height 1.1))))
  '(org-agenda-date-weekend ((t (:inherit org-agenda-date :foreground "#4a708b" :slant italic :weight normal))))
+ '(org-agenda-done ((t (:foreground "#3b4252"))))
  '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
  '(org-code ((t (:foreground "#b0ffa0"))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
  '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
- '(org-priority ((t (:foreground "#ee7600"))))
+ '(org-priority ((t (:foreground "#b48ead"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
+ '(org-scheduled ((t (:foreground "#a3be8c"))))
  '(org-scheduled-today ((t (:foreground "#ecec9a" :weight normal :height 1))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
+ '(org-time-grid ((t (:foreground "#ebcb8b"))))
+ '(org-upcoming-deadline ((t (:foreground "#d08770"))))
  '(org-upcoming-distant-deadline ((t (:foreground "#c0c0c0"))))
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
- '(org-warning ((t (:foreground "#f16969" :underline nil))))
+ '(org-warning ((t (:foreground "#bf616a" :underline nil))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
  '(selectrum-primary-highlight ((t (:foreground "#98f5ff" :underline t))))
  '(selectrum-secondary-highlight ((t (:inherit selectrum-primary-highlight :weight bold))))
@@ -908,3 +917,4 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
