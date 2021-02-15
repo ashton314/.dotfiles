@@ -57,8 +57,8 @@
   :config
   ;; enable exporting of colors!
   (require 'ox-latex)
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (setq org-latex-listings 'minted)
+  ;(add-to-list 'org-latex-packages-alist '("" "minted"))
+  ;(setq org-latex-listings 'minted)
 
   (setq org-latex-pdf-process
 	'("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -860,6 +860,11 @@
  '(olivetti-body-width 80)
  '(org-agenda-files
    '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
+ '(org-agenda-prefix-format
+   '((agenda . " %i %-12:c%?-12t%-6e% s")
+     (todo . " %i %-12:c")
+     (tags . " %i %-12:c")
+     (search . " %i %-12:c")))
  '(org-fontify-quote-and-verse-blocks t)
  '(org-startup-folded t)
  '(org-tags-column -90)
@@ -894,6 +899,7 @@
  '(org-agenda-done ((t (:foreground "#3b4252"))))
  '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
  '(org-code ((t (:foreground "#b0ffa0"))))
+ '(org-column ((t (:background "grey14" :strike-through nil :underline nil :slant normal :weight normal))))
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
  '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
