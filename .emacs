@@ -296,6 +296,9 @@
 ;;   :defer t)
 ;;(setq org-latex-create-formula-image-program 'dvisvgm) ; doesn't work with the mac version
 
+(use-package org-drill
+  :defer t)
+
 ;; Org-Babel
 (use-package ob-elixir)
 
@@ -343,6 +346,46 @@
 (use-package json-mode)
 ;(use-package proof-general)	; Coq IDE-ness
 ;(use-package company-coq)
+
+(straight-use-package '(mu4e-thread-folding :type git :host github :repo "rougier/mu4e-thread-folding"))
+
+;; Email
+(use-package mu4e
+  :config
+  (require 'mu4e-thread-folding)
+  (add-to-list 'mu4e-header-info-custom
+               '(:empty . (:name "Empty"
+				 :shortname ""
+				 :function (lambda (msg) "  "))))
+
+  (setq mu4e-completing-read-function 'selectrum-completing-read)
+
+  ;; Org-mode integration
+  (setq org-mu4e-link-query-in-headers-mode nil)
+
+  ;; give me ISO(ish) format date-time stamps in the header list
+  (setq  mu4e-headers-date-format "%Y-%m-%d %H:%M")
+
+  ;; allow for updating mail using 'U' in the main view:
+  (setq mu4e-get-mail-command "mbsync -a")
+
+  ;; Fixes problem with duplicate UID errors (see
+  ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/)
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; customize the reply-quote-string
+  ;; M-x find-function RET message-citation-line-format for docs
+  (setq message-citation-line-format "%N on %Y-%m-%d %H:%M %Z:\n")
+  (setq message-citation-line-function 'message-insert-formatted-citation-line)
+
+  ;; Turn on word-wrap automatically when viewing emails
+  (add-hook 'mu4e-view-mode-hook (lambda () (visual-line-mode)))
+
+  ;; Don't hard-wrap my emails as I write!
+  (add-hook 'mu4e-compose-mode-hook (lambda () (auto-fill-mode -1)))
+
+  ;; How to send messages
+  (setq message-send-mail-function 'smtpmail-send-it))
 
 ;; lsp-mode
 (use-package lsp-mode
@@ -849,7 +892,8 @@
      (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
      (:name "Drafts" :query "maildir:/INBOX.Drafts" :key 100)))
  '(mu4e-headers-fields
-   '((:human-date . 16)
+   '((:empty . 2)
+     (:human-date . 16)
      (:size . 8)
      (:flags . 6)
      (:maildir . 20)
@@ -893,6 +937,8 @@
  '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
+ '(mu4e-thread-folding-child-face ((t (:extend t :background "#202020" :underline nil))) t)
+ '(mu4e-thread-folding-root-unfolded-face ((t (:extend t :background "#404040" :overline nil :underline nil))) t)
  '(org-agenda-date ((t (:extend t :foreground "#88c0d0" :underline t :height 1.1))))
  '(org-agenda-date-today ((t (:extend t :foreground "#569cd6" :inverse-video t :underline nil :weight normal :height 1.1))))
  '(org-agenda-date-weekend ((t (:inherit org-agenda-date :foreground "#4a708b" :slant italic :weight normal))))
