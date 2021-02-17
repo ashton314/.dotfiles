@@ -111,6 +111,29 @@
 (setq org-roam-directory "")
 (setq enable-org-roam-on-startup nil)
 
+;; Mu4e variables
+;; Add this:
+;(add-to-list 'load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e")
+(setq mu4e-mu-binary "/usr/local/bin/mu")
+
+;; Folders
+(setq mu4e-sent-folder "/INBOX/Sent")
+(setq mu4e-drafts-folder "/INBOX/Drafts")
+(setq mu4e-trash-folder "/INBOX/Trash")
+(setq mu4e-refile-folder "/INBOX/Archive")
+(setq mu4e-attachment-dir "~/Downloads")
+
+;; Signature stuffs
+(setq user-full-name "")
+(setq user-mail-address "")
+(setq mu4e-compose-signature "")
+
+(setq smtpmail-smtp-server "")
+(setq smtpmail-smtp-user "")
+(setq smtpmail-stream-type 'starttls)
+(setq smtpmail-smtp-service 587)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Special-use files <<special files>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
