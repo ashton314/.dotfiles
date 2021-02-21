@@ -370,16 +370,16 @@
 ;(use-package proof-general)	; Coq IDE-ness
 ;(use-package company-coq)
 
-(straight-use-package '(mu4e-thread-folding :type git :host github :repo "rougier/mu4e-thread-folding"))
+;(straight-use-package '(mu4e-thread-folding :type git :host github :repo "rougier/mu4e-thread-folding"))
 
 ;; Email
 (use-package mu4e
   :config
-  (require 'mu4e-thread-folding)
-  (add-to-list 'mu4e-header-info-custom
-               '(:empty . (:name "Empty"
-				 :shortname ""
-				 :function (lambda (msg) "  "))))
+  ;; (require 'mu4e-thread-folding)
+  ;; (add-to-list 'mu4e-header-info-custom
+  ;;              '(:empty . (:name "Empty"
+  ;; 				 :shortname ""
+  ;; 				 :function (lambda (msg) "  "))))
 
   (setq mu4e-completing-read-function 'selectrum-completing-read)
 
@@ -915,7 +915,7 @@
      (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
      (:name "Drafts" :query "maildir:/INBOX.Drafts" :key 100)))
  '(mu4e-headers-fields
-   '((:empty . 2)
+   '(;(:empty . 2)
      (:human-date . 16)
      (:size . 8)
      (:flags . 6)
