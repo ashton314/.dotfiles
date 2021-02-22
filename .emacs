@@ -48,8 +48,11 @@
 (setq straight-use-package-by-default t)
 
 ;; Theme
-(straight-use-package 'vscode-dark-plus-theme)
-(load-theme 'vscode-dark-plus t)
+;; (straight-use-package 'vscode-dark-plus-theme)
+;; (load-theme 'vscode-dark-plus t)
+(use-package nord-theme
+  :config
+  (load-theme 'nord t))
 
 ;; Load org here so we can use this version elsewhere
 (use-package org
@@ -890,6 +893,8 @@
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
+ '(custom-safe-themes
+   '("e3b2bad7b781a968692759ad12cb6552bc39d7057762eefaf168dbe604ce3a4b" default))
  '(default-input-method "TeX")
  '(deft-auto-save-interval 30.0)
  '(dired-use-ls-dired nil)
@@ -915,13 +920,12 @@
      (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
      (:name "Drafts" :query "maildir:/INBOX.Drafts" :key 100)))
  '(mu4e-headers-fields
-   '(;(:empty . 2)
-     (:human-date . 16)
+   '((:human-date . 16)
      (:size . 8)
      (:flags . 6)
-     (:maildir . 20)
 ;; (:mailing-list . 10)
-     (:from . 22)
+     (:maildir . 15)
+     (:from . 30)
      (:subject)))
  '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
@@ -947,12 +951,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(elixir-atom-face ((t (:foreground "#88c0d0" :weight normal))))
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
+ '(font-lock-function-name-face ((t (:foreground "#88c0d0"))))
+ '(font-lock-keyword-face ((t (:foreground "#b48ead"))))
+ '(font-lock-type-face ((t (:foreground "#a3be8c"))))
+ '(font-lock-warning-face ((t (:foreground "#d08770"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
- '(highlight ((t (:background "#3131b0" :foreground "#f4f4f4" :underline nil))))
+ '(highlight ((t (:background "#3b4252" :foreground "#88C0D0"))))
  '(hl-line ((t (:extend t :background "#191919"))))
  '(italic ((t (:foreground "#bfefff" :slant italic))))
+ '(magit-section-highlight ((t (:extend t :background "#3b4252"))))
  '(magit-tag ((t (:foreground "#fcec2a"))))
  '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
  '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
@@ -972,19 +982,20 @@
  '(org-headline-done ((t (:foreground "#556655"))))
  '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
  '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
+ '(org-link ((t (:underline "#88c0d0"))))
  '(org-priority ((t (:foreground "#b48ead"))))
  '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
  '(org-scheduled ((t (:foreground "#a3be8c"))))
  '(org-scheduled-today ((t (:foreground "#ecec9a" :weight normal :height 1))))
  '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
  '(org-time-grid ((t (:foreground "#ebcb8b"))))
+ '(org-todo ((t (:foreground "#d08770" :weight bold))))
  '(org-upcoming-deadline ((t (:foreground "#d08770"))))
  '(org-upcoming-distant-deadline ((t (:foreground "#c0c0c0"))))
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(org-warning ((t (:foreground "#bf616a" :underline nil))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
- '(selectrum-primary-highlight ((t (:foreground "#98f5ff" :underline t))))
- '(selectrum-secondary-highlight ((t (:inherit selectrum-primary-highlight :weight bold))))
+ '(region ((t (:extend t :background "#2e3440"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#254545"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
