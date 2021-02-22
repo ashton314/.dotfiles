@@ -962,7 +962,7 @@
  '(highlight ((t (:background "#3b4252" :foreground "#88C0D0"))))
  '(hl-line ((t (:extend t :background "#191919"))))
  '(italic ((t (:foreground "#bfefff" :slant italic))))
- '(magit-section-highlight ((t (:extend t :background "#3b4252"))))
+ '(magit-section-highlight ((t (:extend t :background "#2e3440"))))
  '(magit-tag ((t (:foreground "#fcec2a"))))
  '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
  '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
