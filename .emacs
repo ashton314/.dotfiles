@@ -120,10 +120,10 @@
 (setq mu4e-mu-binary "/usr/local/bin/mu")
 
 ;; Folders
-(setq mu4e-sent-folder "/INBOX/Sent")
-(setq mu4e-drafts-folder "/INBOX/Drafts")
-(setq mu4e-trash-folder "/INBOX/Trash")
-(setq mu4e-refile-folder "/INBOX/Archive")
+(setq mu4e-sent-folder "/Sent")
+(setq mu4e-drafts-folder "/Drafts")
+(setq mu4e-trash-folder "/Trash")
+(setq mu4e-refile-folder "/Archive")
 (setq mu4e-attachment-dir "~/Downloads")
 
 ;; Signature stuffs
@@ -626,7 +626,7 @@
 ;; This showed up later:
 ;  '(org-trello-current-prefix-keybinding "C-c o")
 
-(setq org-default-notes-file (concat org-directory "/mobile_inbox.org"))
+(setq org-default-notes-file (concat org-directory "/inbox.org"))
 (setq org-family-notes-file (concat org-directory "/family_shared.org"))
 (setq org-general-tasks-file (concat org-directory "/general.org"))
 (setq org-ward-council-file (concat org-directory "/ward_council.org"))
@@ -661,13 +661,15 @@
                       (:newline)
                       ;; scale
                       (:startgroup)
+		      ("group" . ?g)
                       ("project" . ?j)
                       ("tiny" . ?t)
                       (:endgroup)
                       ;; misc
+		      ("borrowed_item")	; reminders to return or follow-up on things
                       ("meta")
                       ("review")
-		      ("german" . ?g)
+		      ("german")
 		      ("reading")
                       ))
 
@@ -879,6 +881,9 @@
 (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\.l?eex\\'" . web-mode))
 
+;; Reset gc-threshold to prevent stuttering
+(setq gc-cons-threshold 800000)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -918,7 +923,7 @@
      (:name "Today's messages" :query "date:today..now" :key 116)
      (:name "Last 7 days" :query "date:7d..now" :key 119)
      (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
-     (:name "Drafts" :query "maildir:/INBOX.Drafts" :key 100)))
+     (:name "Drafts" :query "maildir:/Drafts" :key 100)))
  '(mu4e-headers-fields
    '((:human-date . 16)
      (:size . 8)
@@ -951,6 +956,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(company-tooltip ((t (:background "#3b4252" :foreground "#D8DEE9"))))
  '(elixir-atom-face ((t (:foreground "#88c0d0" :weight normal))))
  '(fixed-pitch ((t nil)))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
