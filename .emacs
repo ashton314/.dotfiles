@@ -58,8 +58,10 @@
 (use-package org
   ;; Do not defer so we get the right version
   :config
-  ;; enable exporting of colors!
   (require 'ox-latex)
+  (require 'ox-md)
+
+  ;; enable exporting of colors!
   ;(add-to-list 'org-latex-packages-alist '("" "minted"))
   ;(setq org-latex-listings 'minted)
 
@@ -302,6 +304,7 @@
 
 ;; Diminish
 (use-package diminish)
+(diminish 'eldoc-mode "")
 
 ;; Evil
 (use-package evil
@@ -326,7 +329,8 @@
   :defer t)
 
 ;; Org-Babel
-(use-package ob-elixir)
+(use-package ob-elixir
+  :defer t)
 
 ;; Org-Roam
 (unless (or (equal org-roam-directory "")
@@ -334,31 +338,30 @@
   (use-package org-roam))
 
 ;; Selectrum
-(use-package selectrum)
-(selectrum-mode +1)
-(use-package selectrum-prescient)
-(selectrum-prescient-mode +1)
-(prescient-persist-mode +1)
+(use-package selectrum
+  :config
+  (selectrum-mode +1))
+
+(use-package selectrum-prescient
+  :config
+  (selectrum-prescient-mode +1)
+  (prescient-persist-mode +1))
 
 ;; Company
-(use-package company)
-;; (use-package company-box)
-(global-company-mode +1)
-(diminish 'company-mode " c")
-(add-hook 'company-mode-hook
-	  '(lambda ()
-             (define-key company-active-map (kbd "C-n") 'company-select-next-or-abort)
-             (define-key company-active-map (kbd "C-p") 'company-select-previous-or-abort)
+(use-package company
+  :defer t
+  :diminish ""
+  :config
+  (global-company-mode +1)
+  :bind (:map company-active-map
+	      ("C-n" . 'company-select-next-or-abort)
+	      ("C-j" . 'company-select-next-or-abort)
+	      ("C-p" . 'company-select-previous-or-abort)
+	      ("C-k" . 'company-select-previous-or-abort)))
 
-	     ;; Alternate, evil-like bindings
-             (define-key company-active-map (kbd "C-j") 'company-select-next-or-abort)
-             (define-key company-active-map (kbd "C-k") 'company-select-previous-or-abort)
-	     ;; (company-box-mode)
-	     ;; (diminish 'company-box-mode " cbox")
-	     ))
-
-(use-package company-prescient)
-(company-prescient-mode +1)
+(use-package company-prescient
+  :config
+  (company-prescient-mode +1))
 
 ;; Programming language packages
 (use-package elixir-mode)
@@ -417,6 +420,7 @@
 (use-package lsp-mode
   :config
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
+
 (use-package lsp-ui)
 
 ;; Do not use this one!
@@ -450,9 +454,10 @@
   (setq deft-use-filename-as-title t))
 
 ;; Ace, Avy
-(use-package ace-window)
-(setq aw-background nil)
-(ace-window-display-mode +1)
+(use-package ace-window
+  :config
+  (setq aw-background nil)
+  (ace-window-display-mode +1))
 
 ;; Multiple-cursors
 (use-package multiple-cursors)
@@ -460,7 +465,7 @@
 
 ;; Projectile
 (use-package projectile
-  :diminish " proj"
+  :diminish " p"
 
   :bind (("C-x p" . projectile-command-map))
   
@@ -468,34 +473,51 @@
   (setq projectile-completion-system 'selectrum))
 
 ;; Yasnippets
-(use-package yasnippet)
-(yas-global-mode +1)
-(use-package auto-yasnippet)
+(use-package yasnippet
+  :diminish ""
+  :config
+  (yas-global-mode +1))
+
+(use-package auto-yasnippet
+  :diminish "")
 
 ;; Searching/mass editing
-(use-package counsel)
-(use-package swiper)
-(define-key global-map (kbd "C-s") 'swiper)
-(use-package counsel-projectile)
-(use-package wgrep)
+(use-package counsel
+  :defer t)
+(use-package swiper
+  :bind (("C-s" . 'swiper)))
+
+(use-package counsel-projectile
+  :defer t)
+
+(use-package wgrep
+  :defer t)
 
 ;; Magit (Mah-jit---like "magi{-c+t}")
-(use-package magit)
-(define-keys-globally 'magit-status "C-x g" "s-g")
+(use-package magit
+  :defer t
+  :bind (("C-x g" . 'magit-status)
+	 ("s-g" . 'magit-status)))
 
-(use-package git-timemachine)
+(use-package git-timemachine
+  :defer t)
 
 ;; Programming
-(use-package smartparens)
-(smartparens-global-mode +1)
-(use-package racket-mode)
+(use-package smartparens
+  :diminish ""
+  :config
+  (smartparens-global-mode +1))
+
+(use-package racket-mode
+  :defer t)
+
 (use-package vterm)
 
 ;; Writing
 (use-package olivetti)
 (use-package define-word)
 (use-package lorem-ipsum)
-(use-package pandoc-mode)
+;(use-package pandoc-mode)
 
 ;; Dependencies for certain functions I've written
 (use-package f)
@@ -928,14 +950,13 @@
    '((:human-date . 16)
      (:size . 8)
      (:flags . 6)
-;; (:mailing-list . 10)
      (:maildir . 15)
      (:from . 30)
      (:subject)))
  '(ns-use-native-fullscreen nil)
  '(olivetti-body-width 80)
  '(org-agenda-files
-   '("~/Sync/beorg/mobile_inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
+   '("~/Sync/beorg/inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
  '(org-agenda-prefix-format
    '((agenda . " %i %-12:c%?-12t%-6e% s")
      (todo . " %i %-12:c")
@@ -976,6 +997,8 @@
  '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
  '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
  '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
+ '(mode-line ((t (:background "#4C566A" :foreground "#d8dee9"))))
+ '(mode-line-inactive ((t (:background "#2e3440" :foreground "#5e81ac"))))
  '(mu4e-thread-folding-child-face ((t (:extend t :background "#202020" :underline nil))) t)
  '(mu4e-thread-folding-root-unfolded-face ((t (:extend t :background "#404040" :overline nil :underline nil))) t)
  '(org-agenda-date ((t (:extend t :foreground "#88c0d0" :underline t :height 1.1))))
