@@ -306,7 +306,7 @@
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
-;; Evil
+;; Evil (evil-mode)
 (use-package evil
   :defer t
 
@@ -317,6 +317,9 @@
   :config
   ;; (global-undo-tree-mode -1)
   (setq evil-auto-indent nil))
+
+(use-package evil-nerd-commenter
+  :defer t)
 
 (use-package org-ql
   :defer t)
@@ -607,7 +610,7 @@
 
 ;; Registers
 (define-keys-globally 'point-to-register "C-c C-SPC")
-(define-keys-globally 'jump-to-register "C-c C-j")
+(define-keys-globally 'jump-to-register "C-c C-j" "C-M-s-j")
 
 ;; Links
 (define-keys-globally 'org-store-link "C-c o l")
@@ -980,6 +983,7 @@
  '(company-tooltip ((t (:background "#3b4252" :foreground "#D8DEE9"))))
  '(elixir-atom-face ((t (:foreground "#88c0d0" :weight normal))))
  '(fixed-pitch ((t nil)))
+ '(font-lock-comment-face ((t (:foreground "#636f8a"))))
  '(font-lock-doc-face ((t (:foreground "#88e088"))))
  '(font-lock-function-name-face ((t (:foreground "#88c0d0"))))
  '(font-lock-keyword-face ((t (:foreground "#b48ead"))))
