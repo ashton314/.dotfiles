@@ -308,6 +308,22 @@
 
 (use-package undo-fu)
 
+(use-package evil-leader
+  :defer t
+  :config
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key
+   "su" 'backward-up-list
+   "sd" 'down-list
+   "sf" 'forward-sexp
+   "st" 'transpose-sexps
+   "sm" 'mark-sexp
+   "t" 'tab-new
+   "wr" 'sp-wrap-round
+   "ws" 'sp-wrap-square
+   "." 'xref-find-definitions
+   "," 'xref-pop-marker-stack))
+
 ;; Evil (evil-mode)
 (use-package evil
   :defer t
@@ -329,22 +345,6 @@
   (setq evil-auto-indent nil))
 
 (evil-mode)
-
-(use-package evil-leader
-  :defer t
-  :config
-  (evil-leader/set-leader ",")
-  (evil-leader/set-key
-   "su" 'backward-up-list
-   "sd" 'down-list
-   "sf" 'forward-sexp
-   "st" 'transpose-sexps
-   "sm" 'mark-sexp
-   "t" 'tab-new
-   "wr" 'sp-wrap-round
-   "ws" 'sp-wrap-square
-   "." 'xref-find-definitions
-   "," 'xref-pop-marker-stack))
 
 (use-package evil-nerd-commenter
   :defer t)
