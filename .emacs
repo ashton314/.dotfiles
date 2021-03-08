@@ -316,12 +316,15 @@
   (:map evil-normal-state-map
 	("u" . 'undo-fu-only-undo)
 	("C-r" . 'undo-fu-only-redo))
+
   :init
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
 
   :config
   ;; (global-undo-tree-mode -1)
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (add-hook 'git-commit-setup-hook 'evil-insert-state)
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
 
