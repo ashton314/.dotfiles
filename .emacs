@@ -306,17 +306,35 @@
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
+(use-package undo-fu)
+
 ;; Evil (evil-mode)
 (use-package evil
   :defer t
 
+  :bind
+  (:map evil-normal-state-map
+	("u" . 'undo-fu-only-undo)
+	("C-r" . 'undo-fu-only-redo))
   :init
   (setq evil-respect-visual-line-mode t)
-  ;; (setq evil-undo-system 'undo-fu)
+  (setq evil-undo-system 'undo-fu)
 
   :config
   ;; (global-undo-tree-mode -1)
+  (global-evil-leader-mode)
   (setq evil-auto-indent nil))
+
+(use-package evil-leader
+  :defer t
+  :config
+  (evil-leader/set-leader ",")
+  (evil-leader/set-key
+   "s" 'up-list
+   "t" 'tab-new
+   "w" 'sp-wrap-round
+   "." 'xref-find-definitions
+   "," 'xref-pop-marker-stack))
 
 (use-package evil-nerd-commenter
   :defer t)
