@@ -325,14 +325,21 @@
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
 
+(evil-mode)
+
 (use-package evil-leader
   :defer t
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
-   "s" 'up-list
+   "su" 'backward-up-list
+   "sd" 'down-list
+   "sf" 'forward-sexp
+   "st" 'transpose-sexps
+   "sm" 'mark-sexp
    "t" 'tab-new
-   "w" 'sp-wrap-round
+   "wr" 'sp-wrap-round
+   "ws" 'sp-wrap-square
    "." 'xref-find-definitions
    "," 'xref-pop-marker-stack))
 
