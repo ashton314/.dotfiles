@@ -324,7 +324,9 @@
    "wr" 'sp-wrap-round
    "ws" 'sp-wrap-square
    "." 'xref-find-definitions
-   "," 'xref-pop-marker-stack))
+   "," 'xref-pop-marker-stack
+   "pp" 'counsel-projectile-switch-project
+   "pf" 'counsel-projectile-find-file))
 
 ;; Evil (evil-mode)
 (use-package evil
