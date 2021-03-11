@@ -317,7 +317,9 @@
    "sd" 'down-list
    "sf" 'forward-sexp
    "st" 'transpose-sexps
+   "sb" 'backward-sexp
    "sm" 'mark-sexp
+   "sk" 'kill-sexp
    "t" 'tab-new
    "wr" 'sp-wrap-round
    "ws" 'sp-wrap-square
