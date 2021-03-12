@@ -313,20 +313,22 @@
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
-   "su" 'backward-up-list
-   "sd" 'down-list
-   "sf" 'forward-sexp
-   "st" 'transpose-sexps
-   "sb" 'backward-sexp
-   "sm" 'mark-sexp
-   "sk" 'kill-sexp
-   "t" 'tab-new
-   "wr" 'sp-wrap-round
-   "ws" 'sp-wrap-square
-   "." 'xref-find-definitions
-   "," 'xref-pop-marker-stack
-   "pp" 'counsel-projectile-switch-project
-   "pf" 'counsel-projectile-find-file))
+    "x" 'execute-extended-command
+    "/" 'company-complete
+    "su" 'backward-up-list
+    "sd" 'down-list
+    "sf" 'forward-sexp
+    "st" 'transpose-sexps
+    "sb" 'backward-sexp
+    "sm" 'mark-sexp
+    "sk" 'kill-sexp
+    "t" 'tab-new
+    "wr" 'sp-wrap-round
+    "ws" 'sp-wrap-square
+    "." 'xref-find-definitions
+    "," 'xref-pop-marker-stack
+    "pp" 'counsel-projectile-switch-project
+    "pf" 'counsel-projectile-find-file))
 
 ;; Evil (evil-mode)
 (use-package evil
