@@ -117,8 +117,6 @@
 (setq enable-org-roam-on-startup nil)
 
 ;; Mu4e variables
-;; Add this:
-;(add-to-list 'load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e")
 (setq mu4e-mu-binary "/usr/local/bin/mu")
 
 ;; Folders
@@ -416,42 +414,46 @@
 ;(straight-use-package '(mu4e-thread-folding :type git :host github :repo "rougier/mu4e-thread-folding"))
 
 ;; Email
-(use-package mu4e
-  :config
+;; (use-package mu4e
+;;  :load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e"
+(add-to-list 'load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e")
+(require 'mu4e)
+;;  :config
   ;; (require 'mu4e-thread-folding)
   ;; (add-to-list 'mu4e-header-info-custom
   ;;              '(:empty . (:name "Empty"
   ;; 				 :shortname ""
   ;; 				 :function (lambda (msg) "  "))))
 
-  (setq mu4e-completing-read-function 'selectrum-completing-read)
+(setq mu4e-completing-read-function 'selectrum-completing-read)
 
   ;; Org-mode integration
-  (setq org-mu4e-link-query-in-headers-mode nil)
+(setq org-mu4e-link-query-in-headers-mode nil)
 
   ;; give me ISO(ish) format date-time stamps in the header list
-  (setq  mu4e-headers-date-format "%Y-%m-%d %H:%M")
+(setq  mu4e-headers-date-format "%Y-%m-%d %H:%M")
 
   ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "mbsync -a")
+(setq mu4e-get-mail-command "mbsync -a")
 
   ;; Fixes problem with duplicate UID errors (see
   ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/)
-  (setq mu4e-change-filenames-when-moving t)
+(setq mu4e-change-filenames-when-moving t)
 
   ;; customize the reply-quote-string
   ;; M-x find-function RET message-citation-line-format for docs
-  (setq message-citation-line-format "%N on %Y-%m-%d %H:%M %Z:\n")
-  (setq message-citation-line-function 'message-insert-formatted-citation-line)
+(setq message-citation-line-format "%N on %Y-%m-%d %H:%M %Z:\n")
+(setq message-citation-line-function 'message-insert-formatted-citation-line)
 
   ;; Turn on word-wrap automatically when viewing emails
-  (add-hook 'mu4e-view-mode-hook (lambda () (visual-line-mode)))
+(add-hook 'mu4e-view-mode-hook (lambda () (visual-line-mode)))
 
   ;; Don't hard-wrap my emails as I write!
-  (add-hook 'mu4e-compose-mode-hook (lambda () (auto-fill-mode -1)))
+(add-hook 'mu4e-compose-mode-hook (lambda () (auto-fill-mode -1)))
 
   ;; How to send messages
-  (setq message-send-mail-function 'smtpmail-send-it))
+(setq message-send-mail-function 'smtpmail-send-it)
+;; )
 
 ;; lsp-mode
 (use-package lsp-mode
