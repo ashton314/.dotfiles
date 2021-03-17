@@ -313,6 +313,9 @@
   (evil-leader/set-key
     "x" 'execute-extended-command
     "/" 'company-complete
+    "t" 'tab-new
+
+    ;; s-expression related commands
     "su" 'backward-up-list
     "sd" 'down-list
     "sf" 'forward-sexp
@@ -320,9 +323,13 @@
     "sb" 'backward-sexp
     "sm" 'mark-sexp
     "sk" 'kill-sexp
-    "t" 'tab-new
+    "sy" 'sp-copy-sexp
+
+    ;; Wrapping commands
     "wr" 'sp-wrap-round
     "ws" 'sp-wrap-square
+
+    ;; Project/projectile commands
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack
     "pp" 'counsel-projectile-switch-project
