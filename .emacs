@@ -207,7 +207,11 @@
   ;; This gives a consistent display for both `consult-register' and
   ;; the register preview when editing registers.
   (setq register-preview-delay 0
-        register-preview-function #'consult-register-preview)
+        register-preview-function #'consult-register-format)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
 
   ;; Configure other variables and modes in the :config section, after lazily loading the package
   :config
