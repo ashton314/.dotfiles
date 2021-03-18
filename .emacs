@@ -213,22 +213,10 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
 
-  ;; Configure other variables and modes in the :config section, after lazily loading the package
   :config
 
-  ;; Configure preview. Note that the preview-key can also be configured on a
-  ;; per-command basis via `consult-config'.
-  ;; The default value is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key (kbd "M-p"))
-  ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
-
   ;; Optionally configure narrowing key.
-  ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<") ;; (kbd "C-+")
-  ;; Optionally make narrowing help available in the minibuffer.
-  ;; Probably not needed if you are using which-key.
-  ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+  (setq consult-narrow-key "<") ;; Another viable option: (kbd "C-+")
 
   ;; Optional configure a view library to be used by `consult-buffer'.
   ;; The view library must provide two functions, one to open the view by name,
