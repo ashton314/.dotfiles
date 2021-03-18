@@ -466,6 +466,9 @@
 (setq message-send-mail-function 'smtpmail-send-it)
 ;; )
 
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode))
+
 ;; lsp-mode
 (use-package lsp-mode
   :config
