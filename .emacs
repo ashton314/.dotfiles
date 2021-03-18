@@ -315,9 +315,11 @@
   :config
   (evil-leader/set-leader ",")
   (evil-leader/set-key
+    ;; Misc. commands
     "x" 'execute-extended-command
     "/" 'company-complete
     "t" 'tab-new
+    "wk" 'which-key-show-major-mode
 
     ;; s-expression related commands
     "su" 'backward-up-list
@@ -545,6 +547,11 @@
 
 (use-package wgrep
   :defer t)
+
+(use-package which-key
+  :defer t
+  :config
+  (which-key-mode))
 
 ;; Magit (Mah-jit---like "magi{-c+t}")
 (use-package magit
