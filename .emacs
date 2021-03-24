@@ -327,7 +327,8 @@
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack
     "pp" 'counsel-projectile-switch-project
-    "pf" 'counsel-projectile-find-file))
+    "pf" 'counsel-projectile-find-file
+    "pt" 'projectile-toggle-between-implementation-and-test))
 
 ;; Evil (evil-mode)
 (use-package evil
