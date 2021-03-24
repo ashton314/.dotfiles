@@ -538,7 +538,6 @@
   :defer t)
 
 (use-package which-key
-  :defer t
   :config
   (which-key-mode))
 
