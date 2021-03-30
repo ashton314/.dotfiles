@@ -296,7 +296,11 @@
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
-(use-package undo-fu)
+(use-package undo-fu
+  :defer t)
+
+(use-package origami
+  :defer t)
 
 (use-package evil-leader
   :defer t
@@ -348,6 +352,7 @@
 
   :config
   (evil-mode)
+  (global-origami-mode)
   ;; (global-undo-tree-mode -1)
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
@@ -462,7 +467,7 @@
 ;; )
 
 (use-package flycheck
-  :hook (prog-mode . flycheck-mode))
+  :hook (lsp-mode . flycheck-mode))
 
 ;; lsp-mode
 (use-package lsp-mode

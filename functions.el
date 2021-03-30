@@ -8,7 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun latexify-quotes ()
-  "Replace the quottations marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
+  "Replace the quotation marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
   (interactive)
   (save-excursion
     (progn
@@ -19,6 +19,7 @@
 
 (defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
+  "Toggle the transparency of all frames."
   (interactive)
   (if transparency--toggle-var
       (set-frame-parameter (selected-frame) 'alpha '(83 83))
