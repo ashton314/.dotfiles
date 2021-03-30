@@ -237,33 +237,30 @@
 
 (use-package embark
   :ensure t
+
   :bind
-  ("C-S-a" . embark-act)               ; pick some comfortable binding
+  (("C-S-a" . embark-act)
+   ("C-s-a" . embark-act)
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
   :config
-  ;; For Selectrum users:
-  (defun current-candidate+category ()
-    (when selectrum-is-active
-      (cons (selectrum--get-meta 'category)
-            (selectrum-get-current-candidate))))
 
-  (add-hook 'embark-target-finders #'current-candidate+category)
-
-  (defun current-candidates+category ()
-    (when selectrum-is-active
-      (cons (selectrum--get-meta 'category)
-            (selectrum-get-current-candidates
-             ;; Pass relative file names for dired.
-             minibuffer-completing-file-name))))
-
-  (add-hook 'embark-candidate-collectors #'current-candidates+category)
-
-  ;; No unnecessary computation delay after injection.
-  (add-hook 'embark-setup-hook 'selectrum-set-selected-candidate))
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :ensure t
   :after (embark consult)
+  :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
   :hook
@@ -314,6 +311,9 @@
     "wk" 'which-key-show-major-mode
     "fo" 'other-frame
 
+    ;; Evil-Nerd-Commenter
+    "cc" 'evilnc-comment-or-uncomment-lines
+    
     ;; Consult commands
     "b"  'consult-buffer
     "go" 'consult-outline
@@ -390,6 +390,10 @@
   :config
   (selectrum-prescient-mode +1)
   (prescient-persist-mode +1))
+
+;; (use-package vscode-icon
+;;   :ensure t
+;;   :commands (vscode-icon-for-file))
 
 ;; Company
 (use-package company
