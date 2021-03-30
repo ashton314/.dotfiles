@@ -242,14 +242,14 @@
   :config
   ;; For Selectrum users:
   (defun current-candidate+category ()
-    (when selectrum-active-p
+    (when selectrum-is-active
       (cons (selectrum--get-meta 'category)
             (selectrum-get-current-candidate))))
 
   (add-hook 'embark-target-finders #'current-candidate+category)
 
   (defun current-candidates+category ()
-    (when selectrum-active-p
+    (when selectrum-is-active
       (cons (selectrum--get-meta 'category)
             (selectrum-get-current-candidates
              ;; Pass relative file names for dired.
