@@ -308,6 +308,11 @@
     "/" 'company-complete
     "t" 'tab-new
     "wk" 'which-key-show-major-mode
+    "fo" 'other-frame
+
+    ;; Consult commands
+    "b"  'consult-buffer
+    "go" 'consult-outline
 
     ;; s-expression related commands
     "su" 'backward-up-list
@@ -331,8 +336,6 @@
 
 ;; Evil (evil-mode)
 (use-package evil
-  :defer t
-
   :bind
   (:map evil-normal-state-map
 	("u" . 'undo-fu-only-undo)
@@ -343,13 +346,12 @@
   (setq evil-undo-system 'undo-fu)
 
   :config
+  (evil-mode)
   ;; (global-undo-tree-mode -1)
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
-
-(evil-mode)
 
 (use-package evil-nerd-commenter
   :defer t)
@@ -389,6 +391,8 @@
   :diminish ""
   :config
   (global-company-mode +1)
+  ;; For this, see https://github.com/jojojames/vscode-icon-emacs
+  ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
   :bind (:map company-active-map
 	      ("C-n" . 'company-select-next-or-abort)
 	      ("C-j" . 'company-select-next-or-abort)
