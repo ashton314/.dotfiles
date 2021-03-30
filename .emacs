@@ -315,6 +315,7 @@
     "cc" 'evilnc-comment-or-uncomment-lines
     
     ;; Consult commands
+    "m"  'consult-bookmark
     "b"  'consult-buffer
     "go" 'consult-outline
 
