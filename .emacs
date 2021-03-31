@@ -687,6 +687,13 @@
 ;; Org-mode customizations <<org mode>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-to-list 'org-latex-classes
+           '("acmart"
+             "\\documentclass{acmart}"
+             ("\\section{%s}" . "\\section*{%s}")
+             ("\\subsection{%s}" . "\\subsection*{%s}")
+             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
 (setq org-export-with-smart-quotes t)
 
 ;; Fix strange bug encountered 2021-01-07
