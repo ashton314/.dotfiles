@@ -334,7 +334,7 @@
     "ws" 'sp-wrap-square
     "wc" 'sp-wrap-curly
     "wx" 'sp-unwrap-sexp
-    "wr" 'sp-rewrap-sexp
+    "ww" 'sp-rewrap-sexp
 
     ;; Project/projectile commands
     "." 'xref-find-definitions
