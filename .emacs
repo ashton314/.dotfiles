@@ -332,6 +332,9 @@
     ;; Wrapping commands
     "wr" 'sp-wrap-round
     "ws" 'sp-wrap-square
+    "wc" 'sp-wrap-curly
+    "wx" 'sp-unwrap-sexp
+    "wr" 'sp-rewrap-sexp
 
     ;; Project/projectile commands
     "." 'xref-find-definitions
