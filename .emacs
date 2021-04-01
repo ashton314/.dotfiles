@@ -423,15 +423,28 @@
   (company-prescient-mode +1))
 
 ;; Programming language packages
-(use-package elixir-mode)
-(use-package dockerfile-mode)
-(use-package yaml-mode)
+(defvar elixir-outline-regexp
+  "^[[:space:]]*\\(def\\(\\|p\\|module\\|impl\\|overridable\\|exception\\|struct\\|guard\\|record\\)\\|describe\\|test\\)\\([[:space:]]\\|(\\)")
+
+(defun configure-elixir-mode ()
+  (setq-local outline-regexp elixir-outline-regexp))
+
+(use-package elixir-mode
+  :defer t
+  :config
+  (add-hook 'elixir-mode-hook #'configure-elixir-mode))
+
+(use-package dockerfile-mode
+  :defer t)
+(use-package yaml-mode
+  :defer t)
 (use-package web-mode
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
-(use-package json-mode)
+(use-package json-mode
+  :defer t)
 ;(use-package proof-general)	; Coq IDE-ness
 ;(use-package company-coq)
 
