@@ -424,7 +424,11 @@
 
 ;; Programming language packages
 (defvar elixir-outline-regexp
-  "^[[:space:]]*\\(def\\(\\|p\\|module\\|impl\\|overridable\\|exception\\|struct\\|guard\\|record\\)\\|describe\\|test\\)\\([[:space:]]\\|(\\)")
+  (concat "^[[:space:]]*\\("
+	  "def\\(\\|p\\|callback\\|delegate\\|module\\|impl\\|overridable\\|exception\\|struct\\|guard\\|guardp\\|record\\|recordp\\|macro\\|macrop\\|macrocallback\\|protocol\\)"
+	  "\\|describe\\|test\\|setup"
+	  "\\|@type"
+	  "\\)\\([[:space:]]\\|(\\)"))
 
 (defun configure-elixir-mode ()
   (setq-local outline-regexp elixir-outline-regexp))
