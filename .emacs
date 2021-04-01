@@ -336,6 +336,11 @@
     "wx" 'sp-unwrap-sexp
     "ww" 'sp-rewrap-sexp
 
+    ;; Org keys
+    "oc" 'org-capture
+    "oa" 'org-agenda
+    "oe" 'org-export
+
     ;; Project/projectile commands
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack
