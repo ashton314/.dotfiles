@@ -239,9 +239,9 @@
   :ensure t
 
   :bind
-  (("C-S-a" . embark-act)
-   ("C-s-a" . embark-act)
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  (("C-S-a" . embark-act)	; ctrl-shift-a
+   ("C-s-a" . embark-act)	; ctrl-super-a
+   ("C-h B" . embark-bindings)) ; alternative for `describe-bindings'
 
   :init
 
