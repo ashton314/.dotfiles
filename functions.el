@@ -17,6 +17,15 @@
       (goto-char (point-min))
       (replace-regexp "\\([[:alnum:][:punct:]]\\)\"" "\\1''"))))
 
+(defun add-todo-comment ()
+  "Insert a comment starting with `TODO:'."
+  (interactive)
+  (beginning-of-line)
+  (open-line 1)
+  ;; (previous-line)
+  (comment-indent)
+  (insert "TODO: "))
+
 (defvar transparency--toggle-var t)
 (defun toggle-frame-transparency ()
   "Toggle the transparency of all frames."

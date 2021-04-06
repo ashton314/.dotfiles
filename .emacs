@@ -313,6 +313,7 @@
 
     ;; Evil-Nerd-Commenter
     "cc" 'evilnc-comment-or-uncomment-lines
+    "ct" 'add-todo-comment
     
     ;; Consult commands
     "m"  'consult-bookmark
