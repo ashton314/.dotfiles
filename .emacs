@@ -443,6 +443,8 @@
   :defer t)
 (use-package yaml-mode
   :defer t)
+(use-package csv-mode
+  :mode "\\.csv\\'")
 (use-package web-mode
   :config
   (setq web-mode-markup-indent-offset 2)
@@ -599,6 +601,9 @@
 
 (use-package racket-mode
   :defer t)
+
+(use-package scribble-mode
+  :mode "\\.scrbl\\'")
 
 (use-package vterm)
 
@@ -949,7 +954,7 @@
 		    ;; I don't think this is necessary with visual-line-mode turned on
 		    ;(toggle-word-wrap t)
 		    )))
-     '(markdown-mode-hook org-mode-hook text-mode-hook))
+     '(markdown-mode-hook org-mode-hook text-mode-hook scribble-mode-hook))
 
 (add-hook 'markdown-mode-hook
 	  '(lambda ()
