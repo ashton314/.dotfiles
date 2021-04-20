@@ -369,6 +369,7 @@
   (add-hook 'evil-insert-state-exit-hook 'save-buffer) 
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
+  (add-hook 'deft-mode-hook 'evil-insert-state)
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
 
