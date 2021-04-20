@@ -369,7 +369,7 @@
   (add-hook 'evil-insert-state-exit-hook 'save-buffer) 
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
-  (add-hook 'deft-mode-hook 'evil-insert-state)
+  (add-hook 'deft-mode-hook 'evil-emacs-state)
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
 
@@ -540,6 +540,7 @@
   :config
   (setq deft-extensions '("org" "md" "txt" "tex"))
   (setq deft-new-file-format "%Y-%m-%d")
+  (setq deft-default-extension "org")
   (setq deft-recursive t)
   (setq deft-use-filename-as-title t))
 
