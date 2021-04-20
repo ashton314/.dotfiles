@@ -7,6 +7,14 @@
 ;; warranty. Good luck decoding the regexes.			 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun wrap-double-quote (&optional arg)
+  (interactive "P")
+  (sp-wrap-with-pair "\""))
+
+(defun wrap-back-quote (&optional arg)
+  (interactive "P")
+  (sp-wrap-with-pair "`"))
+
 (defun latexify-quotes ()
   "Replace the quotation marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
   (interactive)

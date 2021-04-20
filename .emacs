@@ -336,6 +336,8 @@
     "wc" 'sp-wrap-curly
     "wx" 'sp-unwrap-sexp
     "ww" 'sp-rewrap-sexp
+    "wq" 'wrap-double-quote
+    "wb" 'wrap-back-quote
 
     ;; Org keys
     "oc" 'org-capture
@@ -364,6 +366,7 @@
   (evil-mode)
   (global-origami-mode)
   ;; (global-undo-tree-mode -1)
+  (add-hook 'evil-insert-state-exit-hook 'save-buffer) 
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
   (global-evil-leader-mode)
