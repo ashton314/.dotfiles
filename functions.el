@@ -15,6 +15,13 @@
   (interactive "P")
   (sp-wrap-with-pair "`"))
 
+(defvar evil-auto-save-buffer-modes '(text-mode scribble-mode org-mode markdown-mode racket-mode emacs-lisp-mode))
+
+(defun maybe-save-buffer ()
+  "Save buffer if major mode is listed in `evil-auto-save-buffer-modes'."
+  (when (member major-mode evil-auto-save-buffer-modes)
+    (save-buffer)))
+
 (defun latexify-quotes ()
   "Replace the quotation marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
   (interactive)
