@@ -435,8 +435,20 @@
 	  "\\|@type"
 	  "\\)\\([[:space:]]\\|(\\)"))
 
+(defvar scribble-outline-regexp
+  (concat
+   "^[[:space:]]*\\("
+   "@(?define\\|"
+   "@\\(sub\\)*section{\\|"
+   "@\\(title\\|subtitle\\|abstract\\)"
+   "\\)"
+   ))
+
 (defun configure-elixir-mode ()
   (setq-local outline-regexp elixir-outline-regexp))
+
+(defun configure-scribble-mode ()
+  (setq-local outline-regexp scribble-outline-regexp))
 
 (use-package elixir-mode
   :defer t
@@ -608,7 +620,9 @@
   :defer t)
 
 (use-package scribble-mode
-  :mode "\\.scrbl\\'")
+  :mode "\\.scrbl\\'"
+  :config
+  (add-hook 'scribble-mode-hook #'configure-scribble-mode))
 
 (use-package vterm)
 
