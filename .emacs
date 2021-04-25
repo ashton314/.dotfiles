@@ -313,6 +313,7 @@
 
     ;; Evil-Nerd-Commenter
     "cc" 'evilnc-comment-or-uncomment-lines
+    "cp" 'evilnc-comment-or-uncomment-paragraphs
     "ct" 'add-todo-comment
     
     ;; Consult commands
@@ -372,6 +373,13 @@
   (add-hook 'deft-mode-hook 'evil-emacs-state)
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
+
+;; (use-package evil-org
+;;   :after org
+;;   :hook (org-mode . 'evil-org-mode)
+;;   :config
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys))
 
 (use-package evil-nerd-commenter
   :defer t)
