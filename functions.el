@@ -32,6 +32,14 @@
       (goto-char (point-min))
       (replace-regexp "\\([[:alnum:][:punct:]]\\)\"" "\\1''"))))
 
+(defun latexify-quotes-region (beg end)
+  "Replace the quotation marks with latex-compatable marks so you get the nice curly marks. Operates on the entire buffer."
+  (interactive "r")
+  (save-excursion
+    (progn
+      (replace-regexp "\"\\(\\w\\)" "``\\1" nil beg end)
+      (replace-regexp "\\([[:alnum:][:punct:]]\\)\"" "\\1''" nil beg end))))
+
 (defun add-todo-comment ()
   "Insert a comment starting with `TODO:'."
   (interactive)
