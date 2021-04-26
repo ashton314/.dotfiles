@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: verbatim
+# key: @v
+# --
+@verbatim|{$1}|$0
