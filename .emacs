@@ -176,7 +176,7 @@
          ("M-g g" . consult-goto-line)
          ("M-g M-g" . consult-goto-line)
          ("M-g o" . consult-outline)       ;; "M-s o" is a good alternative.
-         ("M-g l" . consult-line)          ;; "M-s l" is a good alternative.
+         ("C-s"   . consult-line)          ;; "M-s l" is a good alternative.
          ("M-g m" . consult-mark)          ;; I recommend to bind Consult navigation
          ("M-g k" . consult-global-mark)   ;; commands under the "M-g" prefix.
          ("M-g r" . consult-git-grep)      ;; or consult-grep, consult-ripgrep
@@ -348,8 +348,10 @@
     ;; Project/projectile commands
     "." 'xref-find-definitions
     "," 'xref-pop-marker-stack
-    "pp" 'counsel-projectile-switch-project
-    "pf" 'counsel-projectile-find-file
+    ;; "pp" 'counsel-projectile-switch-project
+    ;; "pf" 'counsel-projectile-find-file
+    "pp" 'projectile-switch-project
+    "pf" 'projectile-find-file
     "pt" 'projectile-toggle-between-implementation-and-test))
 
 ;; Evil (evil-mode)
@@ -404,14 +406,42 @@
   (use-package org-roam))
 
 ;; Selectrum
-(use-package selectrum
-  :config
-  (selectrum-mode +1))
+;; (use-package selectrum
+;;   :config
+;;   (selectrum-mode +1))
 
-(use-package selectrum-prescient
-  :config
-  (selectrum-prescient-mode +1)
-  (prescient-persist-mode +1))
+;; (use-package selectrum-prescient
+;;   :config
+;;   (selectrum-prescient-mode +1)
+;;   (prescient-persist-mode +1))
+
+;; Enable vertico
+(use-package vertico
+  :init
+  (vertico-mode))
+
+;; Use the `orderless' completion style.
+;; Enable `partial-completion' for files to allow path expansion.
+;; You may prefer to use `initials' instead of `partial-completion'.
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles . (partial-completion))))))
+
+;; Persist history over Emacs restarts. Vertico sorts by history.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; Configure corfu
+;; (use-package corfu
+;;   :config
+;;   (corfu-global-mode)
+
+;;   ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
+;;   ;; (setq corfu-cycle t)
+;; )
 
 ;; (use-package vscode-icon
 ;;   :ensure t
@@ -493,7 +523,7 @@
   ;; 				 :shortname ""
   ;; 				 :function (lambda (msg) "  "))))
 
-(setq mu4e-completing-read-function 'selectrum-completing-read)
+(setq mu4e-completing-read-function 'completing-read)
 
   ;; Org-mode integration
 (setq org-mu4e-link-query-in-headers-mode nil)
@@ -581,7 +611,7 @@
   :bind (("C-x p" . projectile-command-map))
   
   :config
-  (setq projectile-completion-system 'selectrum))
+  (setq projectile-completion-system 'vertico))
 
 ;; Yasnippets
 (use-package yasnippet
@@ -595,8 +625,8 @@
 ;; Searching/mass editing
 (use-package counsel
   :defer t)
-(use-package swiper
-  :bind (("C-s" . 'swiper)))
+;; (use-package swiper
+;;   :bind (("C-s" . 'swiper)))
 
 (use-package counsel-projectile
   :defer t)
