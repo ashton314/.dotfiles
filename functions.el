@@ -19,7 +19,8 @@
 
 (defun maybe-save-buffer ()
   "Save buffer if major mode is listed in `evil-auto-save-buffer-modes'."
-  (when (member major-mode evil-auto-save-buffer-modes)
+  (when (and (member major-mode evil-auto-save-buffer-modes)
+	     (buffer-file-name))
     (save-buffer)))
 
 (defun latexify-quotes ()
