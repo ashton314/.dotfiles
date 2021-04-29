@@ -434,7 +434,7 @@
   :init
   (savehist-mode))
 
-;; Configure corfu
+;; ;; Configure corfu
 ;; (use-package corfu
 ;;   :config
 ;;   (corfu-global-mode)
@@ -442,6 +442,22 @@
 ;;   ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
 ;;   ;; (setq corfu-cycle t)
 ;; )
+
+;; ;; Dabbrev works with Corfu
+;; (use-package dabbrev
+;;   ;; Swap M-/ and C-M-/
+;;   :bind (("M-/" . dabbrev-completion)
+;;          ("C-M-/" . dabbrev-expand)))
+
+;; ;; A few more useful configurations...
+;; (use-package emacs
+;;   :init
+;;   ;; TAB cycle if there are only few candidates
+;;   (setq completion-cycle-threshold 3)
+
+;;   ;; Enable indentation+completion using the TAB key.
+;;   ;; Completion is often bound to M-TAB.
+;;   (setq tab-always-indent 'complete))
 
 ;; (use-package vscode-icon
 ;;   :ensure t
