@@ -157,115 +157,6 @@
 
 (load-when-there "~/.dotfiles/functions.el")
 
-;; Gilded Selection (my package)
-;(straight-use-package '(gilded-select :type git :host github :repo "ashton314/gilded-select"))
-;(gilded-select-mode +1)
-
-(use-package consult
-  ;; Replace bindings. Lazily loaded due by `use-package'.
-  :bind (("C-x M-:" . consult-complex-command)
-         ("C-c h" . consult-history)
-         ("C-c m" . consult-mode-command)
-         ("C-c k" . consult-keep-lines)
-         ("C-c C-k" . consult-flush-lines)
-         ("C-x b" . consult-buffer)
-         ("C-x 4 b" . consult-buffer-other-window)
-         ("C-x 5 b" . consult-buffer-other-frame)
-         ("C-x r x" . consult-register)
-         ("C-x r b" . consult-bookmark)
-         ("M-g g" . consult-goto-line)
-         ("M-g M-g" . consult-goto-line)
-         ("M-g o" . consult-outline)       ;; "M-s o" is a good alternative.
-         ("C-s"   . consult-line)          ;; "M-s l" is a good alternative.
-         ("M-g m" . consult-mark)          ;; I recommend to bind Consult navigation
-         ("M-g k" . consult-global-mark)   ;; commands under the "M-g" prefix.
-         ("M-g r" . consult-git-grep)      ;; or consult-grep, consult-ripgrep
-	 ("s-r r" . consult-ripgrep)
-         ("M-g f" . consult-find)          ;; or consult-locate, my-fdfind
-         ("M-g i" . consult-project-imenu) ;; or consult-imenu
-         ("M-g e" . consult-error)
-         ("M-s m" . consult-multi-occur)
-         ("M-y" . consult-yank-pop)
-         ("<help> a" . consult-apropos))
-
-  ;; The :init configuration is always executed (Not lazy!)
-  :init
-
-  ;; Custom command wrappers. It is generally encouraged to write your own
-  ;; commands based on the Consult commands. Some commands have arguments which
-  ;; allow tweaking. Furthermore global configuration variables can be set
-  ;; locally in a let-binding.
-  (defun my-fdfind (&optional dir)
-    (interactive "P")
-    (let ((consult-find-command '("fdfind" "--color=never" "--full-path")))
-      (consult-find dir)))
-
-  ;; Replace `multi-occur' with `consult-multi-occur', which is a drop-in replacement.
-  (fset 'multi-occur #'consult-multi-occur)
-
-  ;; Configure register preview function.
-  ;; This gives a consistent display for both `consult-register' and
-  ;; the register preview when editing registers.
-  (setq register-preview-delay 0
-        register-preview-function #'consult-register-format)
-
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-
-  :config
-
-  ;; Optionally configure narrowing key.
-  (setq consult-narrow-key "<") ;; Another viable option: (kbd "C-+")
-
-  ;; Optional configure a view library to be used by `consult-buffer'.
-  ;; The view library must provide two functions, one to open the view by name,
-  ;; and one function which must return a list of views as strings.
-  ;; Example: https://github.com/minad/bookmark-view/
-  ;; (setq consult-view-open-function #'bookmark-jump
-  ;;       consult-view-list-function #'bookmark-view-names)
-
-  ;; Optionally configure a function which returns the project root directory
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-root-function #'projectile-project-root))
-
-(use-package marginalia
-  :ensure t
-  :config
-  (marginalia-mode)
-  (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light)))
-
-(use-package embark
-  :ensure t
-
-  :bind
-  (("C-S-a" . embark-act)	; ctrl-shift-a
-   ("C-s-a" . embark-act)	; ctrl-super-a
-   ("C-h B" . embark-bindings)) ; alternative for `describe-bindings'
-
-  :init
-
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  :config
-
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t
-  :after (embark consult)
-  :demand t ; only necessary if you have the hook below
-  ;; if you want to have consult previews as you move around an
-  ;; auto-updating embark collect buffer
-  :hook
-  (embark-collect-mode . embark-consult-preview-minor-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GCC Emacs config <<gcc emacs>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -442,6 +333,127 @@
 ;;   ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
 ;;   ;; (setq corfu-cycle t)
 ;; )
+;; ;; Dabbrev works with Corfu
+;; (use-package dabbrev
+;;   ;; Swap M-/ and C-M-/
+;;   :bind (("M-/" . dabbrev-completion)
+;;          ("C-M-/" . dabbrev-expand)))
+
+;; ;; A few more useful configurations...
+;; (use-package emacs
+;;   :init
+;;   ;; TAB cycle if there are only few candidates
+;;   ;; (setq completion-cycle-threshold 3)
+
+;;   ;; Enable indentation+completion using the TAB key.
+;;   ;; Completion is often bound to M-TAB.
+;;   (setq tab-always-indent 'complete))
+
+(use-package consult
+  ;; Replace bindings. Lazily loaded due by `use-package'.
+  :bind (("C-x M-:" . consult-complex-command)
+         ("C-c h" . consult-history)
+         ("C-c m" . consult-mode-command)
+         ("C-c k" . consult-keep-lines)
+         ("C-c C-k" . consult-flush-lines)
+         ("C-x b" . consult-buffer)
+         ("C-x 4 b" . consult-buffer-other-window)
+         ("C-x 5 b" . consult-buffer-other-frame)
+         ("C-x r x" . consult-register)
+         ("C-x r b" . consult-bookmark)
+         ("M-g g" . consult-goto-line)
+         ("M-g M-g" . consult-goto-line)
+         ("M-g o" . consult-outline)       ;; "M-s o" is a good alternative.
+         ("C-s"   . consult-line)          ;; "M-s l" is a good alternative.
+         ("M-g m" . consult-mark)          ;; I recommend to bind Consult navigation
+         ("M-g k" . consult-global-mark)   ;; commands under the "M-g" prefix.
+         ("M-g r" . consult-git-grep)      ;; or consult-grep, consult-ripgrep
+	 ("s-r r" . consult-ripgrep)
+         ("M-g f" . consult-find)          ;; or consult-locate, my-fdfind
+         ("M-g i" . consult-project-imenu) ;; or consult-imenu
+         ("M-g e" . consult-error)
+         ("M-s m" . consult-multi-occur)
+         ("M-y" . consult-yank-pop)
+         ("<help> a" . consult-apropos))
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Custom command wrappers. It is generally encouraged to write your own
+  ;; commands based on the Consult commands. Some commands have arguments which
+  ;; allow tweaking. Furthermore global configuration variables can be set
+  ;; locally in a let-binding.
+  (defun my-fdfind (&optional dir)
+    (interactive "P")
+    (let ((consult-find-command '("fdfind" "--color=never" "--full-path")))
+      (consult-find dir)))
+
+  ;; Replace `multi-occur' with `consult-multi-occur', which is a drop-in replacement.
+  (fset 'multi-occur #'consult-multi-occur)
+
+  ;; Configure register preview function.
+  ;; This gives a consistent display for both `consult-register' and
+  ;; the register preview when editing registers.
+  (setq register-preview-delay 0
+        register-preview-function #'consult-register-format)
+
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
+  :config
+
+  ;; Optionally configure narrowing key.
+  (setq consult-narrow-key "<") ;; Another viable option: (kbd "C-+")
+
+  ;; Optional configure a view library to be used by `consult-buffer'.
+  ;; The view library must provide two functions, one to open the view by name,
+  ;; and one function which must return a list of views as strings.
+  ;; Example: https://github.com/minad/bookmark-view/
+  ;; (setq consult-view-open-function #'bookmark-jump
+  ;;       consult-view-list-function #'bookmark-view-names)
+
+  ;; Optionally configure a function which returns the project root directory
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-root-function #'projectile-project-root))
+
+(use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode)
+  (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light)))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-S-a" . embark-act)	; ctrl-shift-a
+   ("C-s-a" . embark-act)	; ctrl-super-a
+   ("C-h B" . embark-bindings)) ; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . embark-consult-preview-minor-mode))
+
 
 ;; ;; Dabbrev works with Corfu
 ;; (use-package dabbrev
