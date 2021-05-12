@@ -309,6 +309,28 @@
 ;;   (selectrum-prescient-mode +1)
 ;;   (prescient-persist-mode +1))
 
+;; (use-package vscode-icon
+;;   :ensure t
+;;   :commands (vscode-icon-for-file))
+
+;; ;; Company
+;; (use-package company
+;;   :defer t
+;;   :diminish ""
+;;   :config
+;;   (global-company-mode +1)
+;;   ;; For this, see https://github.com/jojojames/vscode-icon-emacs
+;;   ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
+;;   :bind (:map company-active-map
+;; 	      ("C-n" . 'company-select-next-or-abort)
+;; 	      ("C-j" . 'company-select-next-or-abort)
+;; 	      ("C-p" . 'company-select-previous-or-abort)
+;; 	      ("C-k" . 'company-select-previous-or-abort)))
+
+;; (use-package company-prescient
+;;   :config
+;;   (company-prescient-mode +1))
+
 ;; Enable vertico
 (use-package vertico
   :init
@@ -328,29 +350,29 @@
   :init
   (savehist-mode))
 
-;; ;; Configure corfu
-;; (use-package corfu
-;;   :config
-;;   (corfu-global-mode)
+;; Configure corfu
+(use-package corfu
+  :config
+  (corfu-global-mode)
 
-;;   ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
-;;   ;; (setq corfu-cycle t)
-;; )
-;; ;; Dabbrev works with Corfu
-;; (use-package dabbrev
-;;   ;; Swap M-/ and C-M-/
-;;   :bind (("M-/" . dabbrev-completion)
-;;          ("C-M-/" . dabbrev-expand)))
+  ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
+  ;; (setq corfu-cycle t)
+)
+;; Dabbrev works with Corfu
+(use-package dabbrev
+  ;; Swap M-/ and C-M-/
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand)))
 
-;; ;; A few more useful configurations...
-;; (use-package emacs
-;;   :init
-;;   ;; TAB cycle if there are only few candidates
-;;   ;; (setq completion-cycle-threshold 3)
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  ;; (setq completion-cycle-threshold 3)
 
-;;   ;; Enable indentation+completion using the TAB key.
-;;   ;; Completion is often bound to M-TAB.
-;;   (setq tab-always-indent 'complete))
+  ;; Enable indentation+completion using the TAB key.
+  ;; Completion is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
 
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -456,45 +478,6 @@
   ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . embark-consult-preview-minor-mode))
-
-
-;; ;; Dabbrev works with Corfu
-;; (use-package dabbrev
-;;   ;; Swap M-/ and C-M-/
-;;   :bind (("M-/" . dabbrev-completion)
-;;          ("C-M-/" . dabbrev-expand)))
-
-;; ;; A few more useful configurations...
-;; (use-package emacs
-;;   :init
-;;   ;; TAB cycle if there are only few candidates
-;;   (setq completion-cycle-threshold 3)
-
-;;   ;; Enable indentation+completion using the TAB key.
-;;   ;; Completion is often bound to M-TAB.
-;;   (setq tab-always-indent 'complete))
-
-;; (use-package vscode-icon
-;;   :ensure t
-;;   :commands (vscode-icon-for-file))
-
-;; Company
-(use-package company
-  :defer t
-  :diminish ""
-  :config
-  (global-company-mode +1)
-  ;; For this, see https://github.com/jojojames/vscode-icon-emacs
-  ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
-  :bind (:map company-active-map
-	      ("C-n" . 'company-select-next-or-abort)
-	      ("C-j" . 'company-select-next-or-abort)
-	      ("C-p" . 'company-select-previous-or-abort)
-	      ("C-k" . 'company-select-previous-or-abort)))
-
-(use-package company-prescient
-  :config
-  (company-prescient-mode +1))
 
 ;; Programming language packages
 (defvar elixir-outline-regexp
