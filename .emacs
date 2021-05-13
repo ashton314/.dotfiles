@@ -381,6 +381,12 @@
   ;; Completion is often bound to M-TAB.
   (setq tab-always-indent 'complete))
 
+(defun my-consult-rg (&optional dir initial)
+  "Same as `consult-ripgrep', but sets `selectrum-group-format' to `nil'."
+  (interactive "P")
+  (let ((selectrum-group-format nil))
+    (consult-ripgrep dir initial)))
+
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (("C-x M-:" . consult-complex-command)
@@ -400,7 +406,7 @@
          ("M-g m" . consult-mark)          ;; I recommend to bind Consult navigation
          ("M-g k" . consult-global-mark)   ;; commands under the "M-g" prefix.
          ("M-g r" . consult-git-grep)      ;; or consult-grep, consult-ripgrep
-	 ("s-r r" . consult-ripgrep)
+	 ("s-r r" . my-consult-rg)
          ("M-g f" . consult-find)          ;; or consult-locate, my-fdfind
          ("M-g i" . consult-project-imenu) ;; or consult-imenu
          ("M-g e" . consult-error)
