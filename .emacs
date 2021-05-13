@@ -358,7 +358,9 @@
 ;; Configure corfu
 (use-package corfu
   :hook ((markdown-mode . corfu-mode)
-	 (org-mode . corfu-mode))
+	 (org-mode . corfu-mode)
+	 (text-mode . corfu-mode)
+	 (scribble-mode . corfu-mode))
   ;; :config
   ;; (corfu-global-mode)
 
@@ -588,7 +590,8 @@
   :config
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
 
-(use-package lsp-ui)
+;; Generally an awesome package, performace took a heavy hit though
+;; (use-package lsp-ui)
 
 ;; Do not use this one!
 ;; (use-package lsp-elixir)
@@ -1123,7 +1126,7 @@
  '(lsp-file-watch-ignored-directories
    '("[/\\\\]\\.git$" "[/\\\\]\\.hg$" "[/\\\\]\\.bzr$" "[/\\\\]_darcs$" "[/\\\\]\\.svn$" "[/\\\\]_FOSSIL_$" "[/\\\\]\\.idea$" "[/\\\\]\\.ensime_cache$" "[/\\\\]\\.eunit$" "[/\\\\]node_modules$" "[/\\\\]\\.fslckout$" "[/\\\\]\\.tox$" "[/\\\\]\\.stack-work$" "[/\\\\]\\.bloop$" "[/\\\\]\\.metals$" "[/\\\\]target$" "[/\\\\]\\.ccls-cache$" "[/\\\\]\\.deps$" "[/\\\\]build-aux$" "[/\\\\]autom4te.cache$" "[/\\\\]\\.reference$" "[/\\\\]_build$"))
  '(lsp-headerline-breadcrumb-enable nil)
- '(lsp-ui-doc-header t)
+ '(lsp-ui-doc-delay 0.5)
  '(lsp-ui-doc-include-signature t)
  '(lsp-ui-doc-position 'at-point)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
