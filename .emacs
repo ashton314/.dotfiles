@@ -300,60 +300,67 @@
   (use-package org-roam))
 
 ;; Selectrum
-;; (use-package selectrum
-;;   :config
-;;   (selectrum-mode +1))
+(use-package selectrum
+  :config
+  (selectrum-mode +1))
 
-;; (use-package selectrum-prescient
-;;   :config
-;;   (selectrum-prescient-mode +1)
-;;   (prescient-persist-mode +1))
+(use-package selectrum-prescient
+  :config
+  (selectrum-prescient-mode +1)
+  (prescient-persist-mode +1))
 
 ;; (use-package vscode-icon
 ;;   :ensure t
 ;;   :commands (vscode-icon-for-file))
 
-;; ;; Company
-;; (use-package company
-;;   :defer t
-;;   :diminish ""
-;;   :config
-;;   (global-company-mode +1)
-;;   ;; For this, see https://github.com/jojojames/vscode-icon-emacs
-;;   ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
-;;   :bind (:map company-active-map
-;; 	      ("C-n" . 'company-select-next-or-abort)
-;; 	      ("C-j" . 'company-select-next-or-abort)
-;; 	      ("C-p" . 'company-select-previous-or-abort)
-;; 	      ("C-k" . 'company-select-previous-or-abort)))
+;; Company
+(use-package company
+  :defer t
+  :diminish ""
+  :hook ((prog-mode . company-mode))
+  :config
+  ;; (setq tab-always-indent 'complete)
+  (setq company-idle-delay nil)
+  (setq company-minimum-prefix-length 3)
+  ;; For this, see https://github.com/jojojames/vscode-icon-emacs
+  ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
+  :bind (:map company-mode-map
+	 ("<tab>" . 'company-indent-or-complete-common)
+	 :map company-active-map
+	      ("C-n" . 'company-select-next-or-abort)
+	      ("C-j" . 'company-select-next-or-abort)
+	      ("C-p" . 'company-select-previous-or-abort)
+	      ("C-k" . 'company-select-previous-or-abort)))
 
-;; (use-package company-prescient
-;;   :config
-;;   (company-prescient-mode +1))
+(use-package company-prescient
+  :config
+  (company-prescient-mode +1))
 
-;; Enable vertico
-(use-package vertico
-  :init
-  (vertico-mode))
+;; ;; Enable vertico
+;; (use-package vertico
+;;   :init
+;;   (vertico-mode))
 
-;; Use the `orderless' completion style.
-;; Enable `partial-completion' for files to allow path expansion.
-;; You may prefer to use `initials' instead of `partial-completion'.
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion))))))
+;; ;; Use the `orderless' completion style.
+;; ;; Enable `partial-completion' for files to allow path expansion.
+;; ;; You may prefer to use `initials' instead of `partial-completion'.
+;; (use-package orderless
+;;   :init
+;;   (setq completion-styles '(orderless)
+;;         completion-category-defaults nil
+;;         completion-category-overrides '((file (styles . (partial-completion))))))
 
-;; Persist history over Emacs restarts. Vertico sorts by history.
-(use-package savehist
-  :init
-  (savehist-mode))
+;; ;; Persist history over Emacs restarts. Vertico sorts by history.
+;; (use-package savehist
+;;   :init
+;;   (savehist-mode))
 
 ;; Configure corfu
 (use-package corfu
-  :config
-  (corfu-global-mode)
+  :hook ((markdown-mode . corfu-mode)
+	 (org-mode . corfu-mode))
+  ;; :config
+  ;; (corfu-global-mode)
 
   ;; Optionally enable cycling for `corfu-next' and `corfu-previous'.
   ;; (setq corfu-cycle t)
@@ -1088,7 +1095,6 @@
    ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
- '(company-idle-delay 0.3)
  '(company-show-numbers t)
  '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
