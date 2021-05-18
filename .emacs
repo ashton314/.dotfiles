@@ -641,7 +641,7 @@
   :bind (("C-x p" . projectile-command-map))
   
   :config
-  (setq projectile-completion-system 'vertico))
+  (setq projectile-completion-system 'selectrum))
 
 ;; Yasnippets
 (use-package yasnippet
@@ -679,6 +679,10 @@
   :defer t)
 
 ;; Programming
+
+;; (straight-use-package
+;;   '(dumbparens :host github :repo "raxod502/dumbparens"))
+
 (use-package smartparens
   :diminish ""
   :config
@@ -1218,7 +1222,7 @@
  '(proof-locked-face ((t (:extend t :background "#101430"))))
  '(region ((t (:extend t :background "#2e3440"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
- '(sp-pair-overlay-face ((t (:background "#254545"))))
+ '(sp-pair-overlay-face ((t (:background "#03040a"))))
  '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
  '(underline ((t (:underline t)))))
 (put 'narrow-to-region 'disabled nil)
