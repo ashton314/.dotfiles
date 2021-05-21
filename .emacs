@@ -190,6 +190,34 @@
 (use-package origami
   :defer t)
 
+;; Evil (evil-mode)
+(use-package evil
+  :bind
+  (:map evil-normal-state-map
+	("u" . 'undo-fu-only-undo)
+	("C-r" . 'undo-fu-only-redo))
+
+  :init
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-undo-system 'undo-fu)
+
+  :config
+  (evil-mode)
+  (global-origami-mode)
+  ;; (global-undo-tree-mode -1)
+  (add-hook 'evil-insert-state-exit-hook 'maybe-save-buffer) 
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  (add-hook 'git-commit-setup-hook 'evil-insert-state)
+  (add-hook 'deft-mode-hook 'evil-emacs-state)
+  (global-evil-leader-mode)
+  (setq evil-auto-indent nil))
+
+(use-package evil-numbers
+  :defer t
+  :bind (:map evil-normal-state-map
+	      ("C-a" . 'evil-numbers/inc-at-pt)
+	      ("C-S-a" . 'evil-numbers/dec-at-pt)))
+
 (use-package evil-leader
   :defer t
   :config
@@ -244,28 +272,6 @@
     "pp" 'projectile-switch-project
     "pf" 'projectile-find-file
     "pt" 'projectile-toggle-between-implementation-and-test))
-
-;; Evil (evil-mode)
-(use-package evil
-  :bind
-  (:map evil-normal-state-map
-	("u" . 'undo-fu-only-undo)
-	("C-r" . 'undo-fu-only-redo))
-
-  :init
-  (setq evil-respect-visual-line-mode t)
-  (setq evil-undo-system 'undo-fu)
-
-  :config
-  (evil-mode)
-  (global-origami-mode)
-  ;; (global-undo-tree-mode -1)
-  (add-hook 'evil-insert-state-exit-hook 'maybe-save-buffer) 
-  (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  (add-hook 'git-commit-setup-hook 'evil-insert-state)
-  (add-hook 'deft-mode-hook 'evil-emacs-state)
-  (global-evil-leader-mode)
-  (setq evil-auto-indent nil))
 
 ;; (use-package evil-org
 ;;   :after org
