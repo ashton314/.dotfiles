@@ -190,6 +190,7 @@
 (use-package origami
   :defer t)
 
+;; Evil (evil-mode)
 (use-package evil-leader
   :defer t
   :config
@@ -245,7 +246,6 @@
     "pf" 'projectile-find-file
     "pt" 'projectile-toggle-between-implementation-and-test))
 
-;; Evil (evil-mode)
 (use-package evil
   :bind
   (:map evil-normal-state-map
@@ -255,11 +255,11 @@
   :init
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
+  (setq evil-digraphs-table-user '(((?. ?.) . ?\x2026)))
 
   :config
   (evil-mode)
   (global-origami-mode)
-  ;; (global-undo-tree-mode -1)
   (add-hook 'evil-insert-state-exit-hook 'maybe-save-buffer) 
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   (add-hook 'git-commit-setup-hook 'evil-insert-state)
