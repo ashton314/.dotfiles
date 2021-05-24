@@ -267,6 +267,12 @@
   (global-evil-leader-mode)
   (setq evil-auto-indent nil))
 
+(use-package evil-numbers
+  :defer t
+  :bind (:map evil-normal-state-map
+	      ("C-a" . 'evil-numbers/inc-at-pt)
+	      ("C-S-a" . 'evil-numbers/dec-at-pt)))
+
 ;; (use-package evil-org
 ;;   :after org
 ;;   :hook (org-mode . 'evil-org-mode)
