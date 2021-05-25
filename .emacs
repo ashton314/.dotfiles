@@ -210,6 +210,7 @@
     
     ;; Consult commands
     "m"  'consult-bookmark
+    "M"  'bookmark-set
     "b"  'consult-buffer
     "go" 'consult-outline
 
