@@ -180,7 +180,6 @@
 ;; Packages <<packages>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Diminish
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
@@ -287,6 +286,8 @@
 ;; (use-package evil-mc
 ;;   :defer t)
 
+
+;; Org modules
 (use-package org-ql
   :defer t)
 ;; (straight-use-package '(elgantt :type git :host github :repo "legalnonsense/elgantt"))
@@ -297,16 +298,14 @@
 (use-package org-drill
   :defer t)
 
-;; Org-Babel
 (use-package ob-elixir
   :defer t)
 
-;; Org-Roam
 (unless (or (equal org-roam-directory "")
 	    (not enable-org-roam-on-startup))
   (use-package org-roam))
 
-;; Selectrum
+;; Selectrum and other completion friends
 (use-package selectrum
   :config
   (selectrum-mode +1))
@@ -531,23 +530,29 @@
 
 (use-package dockerfile-mode
   :defer t)
+
 (use-package yaml-mode
   :defer t)
+
 (use-package csv-mode
   :mode "\\.csv\\'")
+
 (use-package web-mode
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
+
 (use-package json-mode
   :defer t)
+
 ;(use-package proof-general)	; Coq IDE-ness
 ;(use-package company-coq)
 
 ;(straight-use-package '(mu4e-thread-folding :type git :host github :repo "rougier/mu4e-thread-folding"))
 
 ;; Email
+
 ;; (use-package mu4e
 ;;  :load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e"
 (add-to-list 'load-path "/usr/local/Cellar/mu/1.4.15/share/emacs/site-lisp/mu/mu4e")
@@ -620,6 +625,16 @@
   :config
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-responsive 'top))
+
+(use-package tree-sitter
+  :config
+  (require 'tree-sitter)
+  (require 'tree-sitter-langs)
+  (tree-sitter-hl-mode)
+  :hook ((ruby-mode . tree-sitter-mode)))
+
+(use-package tree-sitter-langs
+  :defer t)
 
 ;; Deft
 (use-package deft
