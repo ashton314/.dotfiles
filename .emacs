@@ -273,6 +273,21 @@
 	      ("C-a" . 'evil-numbers/inc-at-pt)
 	      ("C-S-a" . 'evil-numbers/dec-at-pt)))
 
+(use-package evil-args
+  :defer t
+  :bind
+  (:map evil-inner-text-objects-map
+	("a" . 'evil-inner-arg)
+	:map evil-outer-text-objects-map
+	("a" . 'evil-outer-arg)
+	:map evil-normal-state-map
+	("L" . 'evil-forward-arg)
+	("H" . 'evil-backward-arg)
+	("K" . 'evil-jump-out-args)
+	:map evil-motion-state-map
+	("L" . 'evil-forward-arg)
+	("H" . 'evil-backward-arg)))
+
 ;; (use-package evil-org
 ;;   :after org
 ;;   :hook (org-mode . 'evil-org-mode)
@@ -696,6 +711,11 @@
   :defer t
   :bind (("C-x g" . 'magit-status)
 	 ("s-g" . 'magit-status)))
+
+;; (use-package forge
+;;   :defer t
+;;   :after magit)
+;; FIXME: I'll need to figure out how to create and add tokens
 
 (use-package git-timemachine
   :defer t)
