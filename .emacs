@@ -641,12 +641,16 @@
   (setq highlight-indent-guides-method 'character)
   (setq highlight-indent-guides-responsive 'top))
 
+;; Tree-Sitter: epic syntax parsing (unfortunately of limited support)
 (use-package tree-sitter
+  :init
+  (defun setup-tree-sitter ()
+    (tree-sitter-mode)
+    (tree-sitter-hl-mode))
   :config
   (require 'tree-sitter)
   (require 'tree-sitter-langs)
-  (tree-sitter-hl-mode)
-  :hook ((ruby-mode . tree-sitter-mode)))
+  :hook ((ruby-mode . setup-tree-sitter)))
 
 (use-package tree-sitter-langs
   :defer t)
