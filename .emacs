@@ -1183,7 +1183,7 @@
      (:from . 30)
      (:subject)))
  '(ns-use-native-fullscreen nil)
- '(olivetti-body-width 80)
+ '(olivetti-body-width 124)
  '(org-agenda-files
    '("~/Sync/beorg/inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
  '(org-agenda-prefix-format
