@@ -398,7 +398,7 @@
 (use-package emacs
   :init
   ;; TAB cycle if there are only few candidates
-  ;; (setq completion-cycle-threshold 3)
+  (setq completion-cycle-threshold 1)
 
   ;; Enable indentation+completion using the TAB key.
   ;; Completion is often bound to M-TAB.
@@ -479,14 +479,11 @@
   (setq consult-project-root-function #'projectile-project-root))
 
 (use-package marginalia
-  :ensure t
   :config
   (marginalia-mode)
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light)))
 
 (use-package embark
-  :ensure t
-
   :bind
   (("C-S-a" . embark-act)	; ctrl-shift-a
    ("C-s-a" . embark-act)	; ctrl-super-a
@@ -507,7 +504,6 @@
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :ensure t
   :after (embark consult)
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
