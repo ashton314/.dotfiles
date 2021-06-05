@@ -662,7 +662,16 @@
   (setq deft-use-filename-as-title t))
 
 ;; Ace, Avy
+(use-package avy
+  :bind (("C-c j" . 'avy-goto-line)
+	 ("C-M-j" . 'avy-goto-char)
+	 ("C-c J" . 'avy-goto-word-0)
+	 ("s-j" . 'avy-goto-line)
+	 ("s-J" . 'avy-goto-word-0)
+	 ("C-s-j" . 'avy-goto-char)))
+
 (use-package ace-window
+  :bind (("M-o" . 'ace-window))
   :config
   (setq aw-background nil)
   (ace-window-display-mode +1))
@@ -772,25 +781,8 @@
 ;; Custom key definitions keybindings <<key bindings>>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Searching
-(define-key global-map (kbd "C-c C-r") 'counsel-rg)
-(define-key global-map (kbd "C-c r") 'counsel-projectile-rg-subdir)
-
-;; Ace window
-(define-key global-map (kbd "M-o") 'ace-window)
-
-;; Avy
-(define-key global-map (kbd "C-c j") 'avy-goto-line)
-(define-key global-map (kbd "C-M-j") 'avy-goto-char)
-(define-key global-map (kbd "C-c J") 'avy-goto-word-0)
-(define-key global-map (kbd "s-j") 'avy-goto-char)
-(define-key global-map (kbd "s-J") 'avy-goto-line)
-(define-key global-map (kbd "C-s-j") 'avy-goto-word-0)
-
 ;; Overrides
 (define-key global-map (kbd "C-x C-r") 'revert-buffer) ; C-x C-r is normally like C-x C-f, but opens file in read-only mode
-;; (define-key global-map (kbd "C-r SPC") 'point-to-register) ; Normally C-r is isearch-backwards, but now I use swiper
-;; (define-key global-map (kbd "C-r j") 'jump-to-register)
 
 ;; Completion
 (define-key global-map (kbd "C-x /") 'company-complete)
