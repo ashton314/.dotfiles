@@ -620,22 +620,22 @@
 ;; (use-package lsp-elixir)
 
 ;; LSP goodies for python
-(use-package lsp-pyright
-  :hook
-  (python-mode .
-	       (lambda ()
-		 (setq indent-tabs-mode nil)
-		 (setq tab-width 4)
-		 (setq python-indent-offset 4)
-                 (require 'lsp-pyright)
-                 (lsp-deferred))))
+;; (use-package lsp-pyright
+;;   :hook
+;;   (python-mode .
+;; 	       (lambda ()
+;; 		 (setq indent-tabs-mode nil)
+;; 		 (setq tab-width 4)
+;; 		 (setq python-indent-offset 4)
+;;                  (require 'lsp-pyright)
+;;                  (lsp-deferred))))
 
-(use-package highlight-indent-guides
-  :hook
-  (python-mode . highlight-indent-guides-mode)
-  :config
-  (setq highlight-indent-guides-method 'character)
-  (setq highlight-indent-guides-responsive 'top))
+;; (use-package highlight-indent-guides
+;;   :hook
+;;   (python-mode . highlight-indent-guides-mode)
+;;   :config
+;;   (setq highlight-indent-guides-method 'character)
+;;   (setq highlight-indent-guides-responsive 'top))
 
 ;; Tree-Sitter: epic syntax parsing (unfortunately of limited support)
 (use-package tree-sitter
@@ -677,7 +677,7 @@
   (ace-window-display-mode +1))
 
 ;; Multiple-cursors
-(use-package multiple-cursors)
+;; (use-package multiple-cursors)
 ;; TODO: keybindings
 
 ;; Projectile
@@ -696,6 +696,7 @@
   (yas-global-mode +1))
 
 (use-package auto-yasnippet
+  :defer t
   :diminish "")
 
 ;; Searching/mass editing
@@ -735,6 +736,7 @@
 ;;   '(dumbparens :host github :repo "raxod502/dumbparens"))
 
 (use-package smartparens
+  :defer t
   :diminish ""
   :config
   (smartparens-global-mode +1))
@@ -750,32 +752,34 @@
 (use-package vterm)
 
 ;; Writing
-(use-package olivetti)
-(use-package define-word)
-(use-package lorem-ipsum)
-;(use-package pandoc-mode)
+(use-package olivetti
+  :defer t)
+(use-package define-word
+  :defer t)
+(use-package lorem-ipsum
+  :defer t)
 
 ;; Dependencies for certain functions I've written
 (use-package f)
 
 ;; Polymode
-(use-package polymode)
-(define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
-(define-innermode poly-elixir-doc-innermode
-  :mode 'markdown-mode
-  :head-matcher "@\\(module\\)?doc *\"\"\""
-  :tail-matcher "\"\"\""
-  :head-mode 'host
-  :tail-mode 'host)
-(define-innermode poly-elixir-template-innermode
-  :mode 'web-mode
-  :head-matcher "~\\(L\\|E\\)\"\"\""
-  :tail-matcher "\"\"\""
-  :head-mode 'host
-  :tail-mode 'host)
-(define-polymode poly-elixir-mode
-  :hostmode 'poly-elixir-hostmode
-  :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode))
+;; (use-package polymode)
+;; (define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
+;; (define-innermode poly-elixir-doc-innermode
+;;   :mode 'markdown-mode
+;;   :head-matcher "@\\(module\\)?doc *\"\"\""
+;;   :tail-matcher "\"\"\""
+;;   :head-mode 'host
+;;   :tail-mode 'host)
+;; (define-innermode poly-elixir-template-innermode
+;;   :mode 'web-mode
+;;   :head-matcher "~\\(L\\|E\\)\"\"\""
+;;   :tail-matcher "\"\"\""
+;;   :head-mode 'host
+;;   :tail-mode 'host)
+;; (define-polymode poly-elixir-mode
+;;   :hostmode 'poly-elixir-hostmode
+;;   :innermodes '(poly-elixir-doc-innermode poly-elixir-template-innermode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key definitions keybindings <<key bindings>>
