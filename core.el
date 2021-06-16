@@ -72,7 +72,7 @@
 
 (use-package paredit
   :defer t
-  :diminish "()"
+  :diminish "(λ)"
   :hook
   ((prog-mode . paredit-mode)))
 
@@ -335,6 +335,11 @@
   :config
   (setq aw-background nil)
   (ace-window-display-mode +1))
+
+(use-package which-key
+  :diminish ""
+  :config
+  (which-key-mode))
 
 (use-package deft
   :defer t
