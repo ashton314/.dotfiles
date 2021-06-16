@@ -82,6 +82,7 @@
 (use-package emacs
   :defer t
   :init
+  (setq enable-recursive-minibuffers t)
   (setq completion-cycle-threshold 1)
   (setq tab-always-indent 'complete))
 
@@ -283,6 +284,27 @@
 
 (use-package evil-nerd-commenter
   :defer t)
+
+(use-package magit
+  :defer t
+  :bind (("C-x g" . 'magit-status)
+	 ("s-g" . 'magit-status)))
+
+(use-package projectile
+  :diminish " p"
+
+  :bind (("C-x p" . projectile-command-map))
+  
+  :config
+  (setq projectile-completion-system 'vertico))
+
+(use-package yasnippet
+  :diminish ""
+  :config
+  (yas-global-mode +1))
+
+(use-package auto-yasnippet
+  :diminish "")
 
 (setq gc-cons-threshold 800000)
 
