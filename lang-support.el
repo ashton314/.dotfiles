@@ -8,6 +8,8 @@
 
 (use-package lsp-mode
   :config
+  (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
+  (setq lsp-file-watch-threshold 10000)
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
 
 (use-package tree-sitter
@@ -48,7 +50,8 @@
 (use-package elixir-mode
   :defer t
   :config
-  (add-hook 'elixir-mode-hook #'configure-elixir-mode))
+  (add-hook 'elixir-mode-hook #'configure-elixir-mode)
+  (add-hook 'elixir-mode-hook 'lsp-deferred))
 
 (use-package dockerfile-mode
   :defer t)

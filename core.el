@@ -43,13 +43,18 @@
   (load-theme 'nord t))
 
 (use-package org
-  :defer t)
+  :defer t
+  :config
+  (add-hook 'org-mode-hook 'visual-line-mode))
 
 ;; Code
 (use-package projectile
-  :defer t
   :diminish " p"
-  :bind (("C-x p" . projectile-command-map)))
+  :init
+  (projectile-mode +1)
+  :bind (("C-x p" . projectile-command-map))
+  :config
+  (setq projectile-project-search-path '("~/spiff/" "~/.dotfiles/")))
 
 (use-package racket-mode
   :defer t)
@@ -306,6 +311,9 @@
   :bind (("C-x g" . 'magit-status)
 	 ("s-g" . 'magit-status)))
 
+(use-package git-timemachine
+  :defer t)
+
 (use-package yasnippet
   :diminish ""
   :config
@@ -339,12 +347,59 @@
 
 (custom-set-faces
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
+ '(company-tooltip ((t (:background "#3b4252" :foreground "#D8DEE9"))))
+ '(elixir-atom-face ((t (:foreground "#88c0d0" :weight normal))))
+ '(fixed-pitch ((t nil)))
+ '(font-lock-comment-face ((t (:foreground "#636f8a"))))
+ '(font-lock-doc-face ((t (:foreground "#88e088"))))
+ '(font-lock-function-name-face ((t (:foreground "#88c0d0"))))
+ '(font-lock-keyword-face ((t (:foreground "#b48ead"))))
+ '(font-lock-type-face ((t (:foreground "#a3be8c"))))
+ '(font-lock-warning-face ((t (:foreground "#d08770"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
- '(region ((t (:extend t :background "#2e3440"))))
+ '(highlight ((t (:background "#3b4252" :foreground "#88C0D0"))))
+ '(hl-line ((t (:extend t :background "#191919"))))
+ '(italic ((t (:foreground "#bfefff" :slant italic))))
+ '(magit-section-highlight ((t (:extend t :background "#2e3440"))))
+ '(magit-tag ((t (:foreground "#fcec2a"))))
+ '(markdown-header-face-1 ((t (:inherit org-level-1 :height 1.0))))
+ '(markdown-header-face-2 ((t (:inherit org-level-2 :height 1.0))))
+ '(markdown-header-face-3 ((t (:inherit org-level-3 :height 1.0))))
+ '(markdown-header-face-4 ((t (:inherit org-level-4 :height 1.0))))
+ '(markdown-header-face-5 ((t (:inherit org-level-5 :height 1.0))))
+ '(markdown-header-face-6 ((t (:inherit org-level-6 :height 1.0))))
  '(mode-line ((t (:background "#4C566A" :foreground "#d8dee9"))))
  '(mode-line-inactive ((t (:background "#2e3440" :foreground "#5e81ac"))))
+ '(mu4e-thread-folding-child-face ((t (:extend t :background "#202020" :underline nil))) t)
+ '(mu4e-thread-folding-root-unfolded-face ((t (:extend t :background "#404040" :overline nil :underline nil))) t)
+ '(org-agenda-date ((t (:extend t :foreground "#88c0d0" :underline t :height 1.1))))
+ '(org-agenda-date-today ((t (:extend t :foreground "#569cd6" :inverse-video t :underline nil :weight normal :height 1.1))))
+ '(org-agenda-date-weekend ((t (:inherit org-agenda-date :foreground "#4a708b" :slant italic :weight normal))))
+ '(org-agenda-done ((t (:foreground "#3b4252"))))
+ '(org-block ((t (:extend t :background "#0c0c0c" :foreground "#e8e8e8"))))
+ '(org-code ((t (:foreground "#b0ffa0"))))
+ '(org-column ((t (:background "grey14" :strike-through nil :underline nil :slant normal :weight normal))))
+ '(org-headline-done ((t (:foreground "#556655"))))
+ '(org-level-1 ((t (:extend nil :foreground "#6cecff" :weight normal :height 1.1))))
+ '(org-level-2 ((t (:extend nil :foreground "#8cccfe" :weight normal))))
+ '(org-link ((t (:underline "#88c0d0"))))
+ '(org-priority ((t (:foreground "#b48ead"))))
+ '(org-quote ((t (:inherit org-block :foreground "#aae0aa" :slant italic))))
+ '(org-scheduled ((t (:foreground "#a3be8c"))))
+ '(org-scheduled-today ((t (:foreground "#ecec9a" :weight normal :height 1))))
+ '(org-table ((t (:background "#202020" :foreground "#e8e8e8"))))
+ '(org-time-grid ((t (:foreground "#ebcb8b"))))
+ '(org-todo ((t (:foreground "#d08770" :weight bold))))
+ '(org-upcoming-deadline ((t (:foreground "#d08770"))))
+ '(org-upcoming-distant-deadline ((t (:foreground "#c0c0c0"))))
+ '(org-verbatim ((t (:foreground "#b0b0b0"))))
+ '(org-warning ((t (:foreground "#bf616a" :underline nil))))
+ '(proof-locked-face ((t (:extend t :background "#101430"))))
+ '(region ((t (:extend t :background "#2e3440"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
- )
+ '(sp-pair-overlay-face ((t (:background "#03040a"))))
+ '(term-color-black ((t (:background "#404040" :foreground "#404040"))))
+ '(underline ((t (:underline t)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
