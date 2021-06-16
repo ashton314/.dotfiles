@@ -59,8 +59,10 @@
   :bind (("C-M-q" . elixir-mode-fill-doc-string))
   :hook ((elixir-mode . configure-elixir-mode)
 	 (elixir-mode . lsp-deferred)
-	 (before-save . elixir-format)
-	 (elixir-format . format-elixir-file)))
+	 (elixir-format . format-elixir-file))
+  :config
+  (add-hook 'elixir-mode-hook
+	    (lambda () (add-hook 'before-save-hook 'elixir-format nil t))))
 
 (use-package dockerfile-mode
   :defer t)
