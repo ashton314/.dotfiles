@@ -3,7 +3,7 @@
 (load-file "~/.dotfiles/core.el")
 (load-file "~/.dotfiles/keybindings.el")
 (load-file "~/.dotfiles/lang-support.el")
-;; (load-file "~/.dotfiles/email-setup.el")
+(load-file "~/.dotfiles/email-setup.el")
 ;; (load-file "~/.dotfiles/org-customizations.el")
 (load-file "~/.emacs.d/device_vars.el")
 

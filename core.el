@@ -45,10 +45,82 @@
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
+;; (use-package markdown
+;;   :defer t
+;;   :hook ((markdown . visual-line-mode)))
+
 (use-package org
   :defer t
+  :hook ((org . visual-line-mode))
   :config
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (setq org-export-with-smart-quotes t)
+  (setq org-default-notes-file (concat org-directory "/inbox.org"))
+  (setq org-family-notes-file (concat org-directory "/family_shared.org"))
+  (setq org-general-tasks-file (concat org-directory "/general.org"))
+  (setq org-ward-council-file (concat org-directory "/ward_council.org"))
+  (setq org-project-notes-file (concat org-directory "/projects.org"))
+  (setq org-work-notes-file (concat org-directory "/work.org"))
+  (setq org-notes-file (concat org-directory "/notes.org"))
+  (setq org-school-file (concat org-directory "/school.org"))
+  (setq org-for-later-file (concat org-directory "/for_later.org"))
+  (setq org-vocab-file (concat org-directory "/vocab.org"))
+  (setq org-research-directory "~/Sync/Dropbox/undergrad_research/research-notes")
+  (setq org-research-tasks (concat org-research-directory "/research_tasks.org"))
+  (setq org-scripture-study-file "~/Sync/Dropbox/study_journal/HEAD.org")
+
+  (setq org-log-done 'time)               ; Instead of `'time`, also try `'note`
+  (setq org-log-into-drawer t)            ; Move log notes into a drawer
+
+  (setq org-tag-alist '(
+			;; locale
+			(:startgroup)
+			("church")
+			("home" . ?h)
+			("work" . ?w)
+			("school" . ?s)
+			("research" . ?r)
+			(:endgroup)
+			(:newline)
+			;; context
+			("computer" . ?c)
+			("phone" . ?p)
+			("emacs" . ?e)
+			("mail" . ?m)
+			(:newline)
+			;; scale
+			(:startgroup)
+			("group" . ?g)
+			("project" . ?j)
+			("tiny" . ?t)
+			(:endgroup)
+			;; misc
+			("borrowed_item")	; reminders to return or follow-up on things
+			("meta")
+			("review")
+			("german")
+			("reading")
+			))
+
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "BLOCKED(b@)" "IN_PROGRESS(p!)" "|" "DONE(d!)" "WONT_FIX(w@)")))
+
+  (setq org-capture-templates
+	'(("c" "Quick Capture" entry (file org-default-notes-file)
+	   "* TODO %?\n   %U\n%i\n%a")
+	  ("t" "General TODO Item" entry (file org-general-tasks-file)
+	   "* TODO %?\n   %U\n%i\n%a")
+	  ("n" "Note for Later" entry (file org-for-later-file)
+	   "* %?\n    %U\n%i\n%a")
+	  ("w" "Vocab word" entry (file org-vocab-file)
+	   "* %?\n  %U\n%i")))
+
+  (setq org-agenda-custom-commands
+	'(("n" "Agenda and All Todos"
+	   ((agenda)
+	    (todo)))
+	  ("g" "Gospel Study"
+	   ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
+	    (tags-todo "gospel"))))))
 
 ;; Code
 (use-package projectile
