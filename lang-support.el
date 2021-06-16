@@ -49,11 +49,18 @@
 (defun configure-scribble-mode ()
   (setq-local outline-regexp scribble-outline-regexp))
 
+(defun format-elixir-file ()
+  (setq elixir-format-arguments
+	(list "--dot-formatter"
+	      (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs"))))
+
 (use-package elixir-mode
   :defer t
-  :config
-  (add-hook 'elixir-mode-hook #'configure-elixir-mode)
-  (add-hook 'elixir-mode-hook 'lsp-deferred))
+  :bind (("C-M-q" . elixir-mode-fill-doc-string))
+  :hook ((elixir-mode . configure-elixir-mode)
+	 (elixir-mode . lsp-deferred)
+	 (before-save . elixir-format)
+	 (elixir-format . format-elixir-file)))
 
 (use-package dockerfile-mode
   :defer t)
