@@ -7,6 +7,7 @@
   :hook (lsp-mode . flycheck-mode))
 
 (use-package lsp-mode
+  :diminish " lsp"
   :bind (("C-c C-d" . lsp-describe-thing-at-point))
   :config
   (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")

@@ -42,6 +42,9 @@
   :config
   (load-theme 'nord t))
 
+(use-package diminish)
+(diminish 'eldoc-mode "")
+
 (use-package org
   :defer t
   :config
@@ -195,9 +198,6 @@
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
 ;; Evil
-
-(use-package diminish)
-(diminish 'eldoc-mode "")
 
 (use-package undo-fu
   :defer t)
