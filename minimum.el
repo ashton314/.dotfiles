@@ -35,22 +35,30 @@
   :config
   (load-theme 'nord t))
 
-;; Code
+(use-package org
+  :defer t)
 
+;; Code
 (use-package projectile
   :defer t
   :diminish " p"
-  :bind (("C-x p" . projectile-command-map))
-  :config
-  (setq projectile-completion-system 'selectrum))
+  :bind (("C-x p" . projectile-command-map)))
 
 (use-package racket-mode
   :defer t)
 
-(use-package smartparens
-  :diminish ""
+(use-package scribble-mode
+  :mode "\\.scrbl\\'"
   :config
-  (smartparens-global-mode +1))
+  (add-hook 'scribble-mode-hook #'configure-scribble-mode))
+
+(use-package vterm
+  :defer t)
+
+(use-package paredit
+  :defer t
+  :hook
+  ((prog-mode . paredit-mode)))
 
 ;; Completion
 
@@ -61,7 +69,7 @@
 
 (use-package orderless
   :init
-  (setq completion-styles '(orderless)
+  (setq completion-styles '(initials orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles . (partial-completion))))))
 
@@ -290,14 +298,6 @@
   :bind (("C-x g" . 'magit-status)
 	 ("s-g" . 'magit-status)))
 
-(use-package projectile
-  :diminish " p"
-
-  :bind (("C-x p" . projectile-command-map))
-  
-  :config
-  (setq projectile-completion-system 'vertico))
-
 (use-package yasnippet
   :diminish ""
   :config
@@ -305,6 +305,29 @@
 
 (use-package auto-yasnippet
   :diminish "")
+
+(use-package avy
+  :bind (("C-c j" . 'avy-goto-line)
+	 ("C-M-j" . 'avy-goto-char)
+	 ("C-c J" . 'avy-goto-word-0)
+	 ("s-j" . 'avy-goto-line)
+	 ("s-J" . 'avy-goto-word-0)
+	 ("C-s-j" . 'avy-goto-char)))
+
+(use-package ace-window
+  :bind (("M-o" . 'ace-window))
+  :config
+  (setq aw-background nil)
+  (ace-window-display-mode +1))
+
+(use-package deft
+  :defer t
+  :config
+  (setq deft-extensions '("org" "md" "txt" "tex"))
+  (setq deft-new-file-format "%Y-%m-%d")
+  (setq deft-default-extension "org")
+  (setq deft-recursive t)
+  (setq deft-use-filename-as-title t))
 
 (setq gc-cons-threshold 800000)
 
@@ -314,4 +337,5 @@
  '(region ((t (:extend t :background "#2e3440"))))
  '(mode-line ((t (:background "#4C566A" :foreground "#d8dee9"))))
  '(mode-line-inactive ((t (:background "#2e3440" :foreground "#5e81ac"))))
+ '(show-paren-match-expression ((t (:background "#282828"))))
  )

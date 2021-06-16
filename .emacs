@@ -683,11 +683,7 @@
 ;; Projectile
 (use-package projectile
   :diminish " p"
-
-  :bind (("C-x p" . projectile-command-map))
-  
-  :config
-  (setq projectile-completion-system 'selectrum))
+  :bind (("C-x p" . projectile-command-map)))
 
 ;; Yasnippets
 (use-package yasnippet
@@ -700,16 +696,16 @@
   :diminish "")
 
 ;; Searching/mass editing
-(use-package counsel
-  :defer t)
-;; (use-package swiper
-;;   :bind (("C-s" . 'swiper)))
+;; (use-package counsel
+;;   :defer t)
+;; ;; (use-package swiper
+;; ;;   :bind (("C-s" . 'swiper)))
 
-(use-package counsel-projectile
-  :defer t)
+;; (use-package counsel-projectile
+;;   :defer t)
 
-(use-package wgrep
-  :defer t)
+;; (use-package wgrep
+;;   :defer t)
 
 (use-package which-key
   :diminish ""
@@ -735,11 +731,16 @@
 ;; (straight-use-package
 ;;   '(dumbparens :host github :repo "raxod502/dumbparens"))
 
-(use-package smartparens
+;; (use-package smartparens
+;;   :defer t
+;;   :diminish ""
+;;   :config
+;;   (smartparens-global-mode +1))
+
+(use-package paredit
   :defer t
-  :diminish ""
-  :config
-  (smartparens-global-mode +1))
+  :hook
+  ((prog-mode . paredit-mode)))
 
 (use-package racket-mode
   :defer t)
@@ -1067,12 +1068,12 @@
 	  '(lambda () (company-coq-mode)))
 
 ;; Quotes for lisp-like languages
-(mapc (lambda (mode)
-       (add-hook mode
-                 '(lambda () (progn
-                               (sp-pair "`" nil :actions :rem)
-                               (sp-pair "'" nil :actions :rem)))))
-     '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook racket-mode-hook))
+;; (mapc (lambda (mode)
+;;        (add-hook mode
+;;                  '(lambda () (progn
+;;                                (sp-pair "`" nil :actions :rem)
+;;                                (sp-pair "'" nil :actions :rem)))))
+;;      '(emacs-lisp-mode-hook lisp-mode-hook scheme-mode-hook racket-mode-hook))
 
 ;; Writing modes
 (mapc (lambda (mode)
@@ -1147,7 +1148,7 @@
  '(company-box-doc-delay 0.3)
  '(company-box-show-single-candidate 'always)
  '(company-show-numbers t)
- '(counsel-projectile-mode t nil (counsel-projectile))
+ ;; '(counsel-projectile-mode t nil (counsel-projectile))
  '(counsel-rg-base-command
    "rg -M 200 --with-filename --no-heading --line-number --color never %s")
  '(custom-safe-themes
