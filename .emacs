@@ -153,7 +153,7 @@
 (load-when-there "~/.emacs.d/device_vars.el")
 
 ;; Aux functions
-(load-when-there "~/.dotfiles/emacs_aux.el")
+;; (load-when-there "~/.dotfiles/emacs_aux.el")
 
 (load-when-there "~/.dotfiles/functions.el")
 

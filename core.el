@@ -1,4 +1,4 @@
-(setq gc-cons-threshold 500000000)
+;; Core packages and whatnot
 
 (display-time)
 (setq column-number-mode t)
@@ -8,6 +8,13 @@
 (blink-cursor-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+(setq bidi-inhibit-bpa t)
+(setq frame-resize-pixelwise t)
+(setq default-frame-alist '((width . 87) (height . 60)))
+(setq inhibit-startup-screen t)
+
+(set-fontset-font
+ t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 
 (defvar evil-auto-save-buffer-modes '(text-mode scribble-mode org-mode markdown-mode racket-mode emacs-lisp-mode))
 
@@ -57,6 +64,7 @@
 
 (use-package paredit
   :defer t
+  :diminish "()"
   :hook
   ((prog-mode . paredit-mode)))
 
@@ -329,8 +337,6 @@
   (setq deft-recursive t)
   (setq deft-use-filename-as-title t))
 
-(setq gc-cons-threshold 800000)
-
 (custom-set-faces
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
  '(fringe ((t (:background "#171717" :foreground "#545454"))))
@@ -339,3 +345,69 @@
  '(mode-line-inactive ((t (:background "#2e3440" :foreground "#5e81ac"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
+ '(company-box-doc-delay 0.3)
+ '(company-box-show-single-candidate 'always)
+ '(company-show-numbers t)
+ '(counsel-rg-base-command
+   "rg -M 200 --with-filename --no-heading --line-number --color never %s")
+ '(custom-safe-themes
+   '("e3b2bad7b781a968692759ad12cb6552bc39d7057762eefaf168dbe604ce3a4b" default))
+ '(default-input-method "TeX")
+ '(deft-auto-save-interval 30.0)
+ '(dired-use-ls-dired nil)
+ '(find-file-visit-truename t)
+ '(frame-resize-pixelwise t)
+ '(highlight-indent-guides-method 'character)
+ '(initial-major-mode 'text-mode)
+ '(initial-scratch-message
+   ";; This space intentionally left blank. Try \\[find-file].
+
+")
+ '(ispell-query-replace-choices t)
+ '(lsp-file-watch-ignored-directories
+   '("[/\\\\]\\.git$" "[/\\\\]\\.hg$" "[/\\\\]\\.bzr$" "[/\\\\]_darcs$" "[/\\\\]\\.svn$" "[/\\\\]_FOSSIL_$" "[/\\\\]\\.idea$" "[/\\\\]\\.ensime_cache$" "[/\\\\]\\.eunit$" "[/\\\\]node_modules$" "[/\\\\]\\.fslckout$" "[/\\\\]\\.tox$" "[/\\\\]\\.stack-work$" "[/\\\\]\\.bloop$" "[/\\\\]\\.metals$" "[/\\\\]target$" "[/\\\\]\\.ccls-cache$" "[/\\\\]\\.deps$" "[/\\\\]build-aux$" "[/\\\\]autom4te.cache$" "[/\\\\]\\.reference$" "[/\\\\]_build$"))
+ '(lsp-headerline-breadcrumb-enable nil)
+ '(lsp-ui-doc-delay 0.5)
+ '(lsp-ui-doc-include-signature t)
+ '(lsp-ui-doc-position 'at-point)
+ '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((meta)) ((control) . text-scale)))
+ '(mu4e-bookmarks
+   '((:name "Inbox" :query "maildir:/INBOX" :key 105)
+     (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key 117)
+     (:name "Today's messages" :query "date:today..now" :key 116)
+     (:name "Last 7 days" :query "date:7d..now" :key 119)
+     (:name "Messages with images" :query "mime:image/*" :hide-unread t :key 112)
+     (:name "Drafts" :query "maildir:/Drafts" :key 100)))
+ '(mu4e-headers-fields
+   '((:human-date . 16)
+     (:size . 8)
+     (:flags . 6)
+     (:maildir . 15)
+     (:from . 30)
+     (:subject)))
+ '(ns-use-native-fullscreen nil)
+ '(olivetti-body-width 124)
+ '(org-agenda-files
+   '("~/Sync/beorg/inbox.org" "~/Sync/beorg/general.org" "~/Sync/Dropbox/beorg/for_later.org" "~/Sync/Dropbox/undergrad_research/research-notes/research_tasks.org" "~/Sync/beorg/school.org" "~/Sync/beorg/family_shared.org" "~/Sync/beorg/projects.org" "~/Sync/beorg/work.org"))
+ '(org-agenda-prefix-format
+   '((agenda . " %i %-12:c%?-12t%-6e% s")
+     (todo . " %i %-12:c")
+     (tags . " %i %-12:c")
+     (search . " %i %-12:c")))
+ '(org-fontify-quote-and-verse-blocks t)
+ '(org-startup-folded t)
+ '(org-tags-column -90)
+ '(scheme-program-name "racket")
+ '(sentence-end-double-space nil)
+ '(show-paren-delay 0)
+ '(show-paren-mode t)
+ '(show-paren-style 'expression)
+ '(visible-bell t))
