@@ -53,6 +53,40 @@ If the new path's directories does not exist, create them."
     (define-key map (kbd "}") 'enlarge-window-horizontally)
     (set-transient-map map t)))
 
+(defun insert-scripture-ref ()
+  (interactive)
+  ;; Pure-emacs solution: Look up "completing-read" and build a hash
+  ;; table of all scriptures. Here's a link to the docs:
+  ;; [[help:completing-read][completing-read]]
+  (unless (boundp 'scripture-references-list)
+    (load-file "~/.dotfiles/emacs_aux.el"))
+  (let ((ref (completing-read "Scripture reference: " scripture-references-list)))
+    (insert (format "[[scrip:%s][%s]]" ref ref))))
+
+(defun notes-this-day ()
+  "Display files of the form '*-mm-dd*' in the current directory,
+where 'mm-dd' are the current month and day."
+  (interactive)
+  (let* ((month-day (format-time-string "%m-%d"))
+         (this-day-matching (concat "[[:digit:]]+-" month-day))
+         (note-files-this-day (directory-files-recursively "." this-day-matching)))
+
+    ;; make a buffer and fill it with the contents
+    (let ((buff (generate-new-buffer "*Notes on this day*")))
+      (set-buffer buff)                   ; Make this buffer current
+      (org-mode)
+      (insert "* Notes on this day *\n")
+      (mapc (lambda (notes-file)
+              (progn
+                (insert "\n------------------------------------------------------------\n")
+                (insert (concat "[[file:" notes-file "][" notes-file "]]"))          ; File name, as a hyperlink
+                (insert "\n")
+                (insert-file-contents notes-file)
+                (end-of-buffer)))
+            note-files-this-day)
+      (read-only-mode)
+      (display-buffer-pop-up-window buff nil))))
+
 (defun unfill-region (beg end)
   "Remove hard linebreaks from a region of text. Preserves two newlines in a row."
   (interactive "r")

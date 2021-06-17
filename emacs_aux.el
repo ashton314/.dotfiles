@@ -1,69 +1,6 @@
 ;; Auxiliary Emacs functions
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; M-x with annotations from Emacs 28
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun read-extended-command ()
-;;   "Read command name to invoke in `execute-extended-command'."
-;;   (minibuffer-with-setup-hook
-;;       (lambda ()
-;;         (add-hook 'post-self-insert-hook
-;;                   (lambda ()
-;;                     (setq execute-extended-command--last-typed
-;;                               (minibuffer-contents)))
-;;                   nil 'local)
-;; 	(set (make-local-variable 'minibuffer-default-add-function)
-;; 	     (lambda ()
-;; 	       ;; Get a command name at point in the original buffer
-;; 	       ;; to propose it after M-n.
-;; 	       (with-current-buffer (window-buffer (minibuffer-selected-window))
-;; 		 (and (commandp (function-called-at-point))
-;; 		      (format "%S" (function-called-at-point)))))))
-;;     ;; Read a string, completing from and restricting to the set of
-;;     ;; all defined commands.  Don't provide any initial input.
-;;     ;; Save the command read on the extended-command history list.
-;;     (completing-read
-;;      (concat (cond
-;; 	      ((eq current-prefix-arg '-) "- ")
-;; 	      ((and (consp current-prefix-arg)
-;; 		    (eq (car current-prefix-arg) 4)) "C-u ")
-;; 	      ((and (consp current-prefix-arg)
-;; 		    (integerp (car current-prefix-arg)))
-;; 	       (format "%d " (car current-prefix-arg)))
-;; 	      ((integerp current-prefix-arg)
-;; 	       (format "%d " current-prefix-arg)))
-;; 	     ;; This isn't strictly correct if `execute-extended-command'
-;; 	     ;; is bound to anything else (e.g. [menu]).
-;; 	     ;; It could use (key-description (this-single-command-keys)),
-;; 	     ;; but actually a prompt other than "M-x" would be confusing,
-;; 	     ;; because "M-x" is a well-known prompt to read a command
-;; 	     ;; and it serves as a shorthand for "Extended command: ".
-;; 	     "M-x ")
-;;      (lambda (string pred action)
-;;        (if (and suggest-key-bindings (eq action 'metadata))
-;; 	   '(metadata
-;; 	     (annotation-function . read-extended-command--annotation)
-;; 	     (category . command))
-;;          (let ((pred
-;;                 (if (memq action '(nil t))
-;;                     ;; Exclude obsolete commands from completions.
-;;                     (lambda (sym)
-;;                       (and (funcall pred sym)
-;;                            (or (equal string (symbol-name sym))
-;;                                (not (get sym 'byte-obsolete-info)))))
-;;                   pred)))
-;;            (complete-with-action action obarray string pred))))
-;;      #'commandp t nil 'extended-command-history)))
-
-;; (defun read-extended-command--annotation (command-name)
-;;   (let* ((function (and (stringp command-name) (intern-soft command-name)))
-;;          (binding (where-is-internal function overriding-local-map t)))
-;;     (when (and binding (not (stringp binding)))
-;;       (format " (%s)" (key-description binding)))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Scripture References
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1759,8 +1696,3 @@
         "Rev. 19:13" "Rev. 19:14" "Rev. 19:15" "Rev. 19:16" "Rev. 19:17" "Rev. 19:18" "Rev. 19:19" "Rev. 19:20" "Rev. 19:21" "Rev. 20:1" "Rev. 20:2" "Rev. 20:3" "Rev. 20:4" "Rev. 20:5" "Rev. 20:6" "Rev. 20:7" "Rev. 20:8" "Rev. 20:9" "Rev. 20:10" "Rev. 20:11" "Rev. 20:12" "Rev. 20:13" "Rev. 20:14" "Rev. 20:15" "Rev. 21:1" 
         "Rev. 21:2" "Rev. 21:3" "Rev. 21:4" "Rev. 21:5" "Rev. 21:6" "Rev. 21:7" "Rev. 21:8" "Rev. 21:9" "Rev. 21:10" "Rev. 21:11" "Rev. 21:12" "Rev. 21:13" "Rev. 21:14" "Rev. 21:15" "Rev. 21:16" "Rev. 21:17" "Rev. 21:18" "Rev. 21:19" "Rev. 21:20" "Rev. 21:21" "Rev. 21:22" "Rev. 21:23" "Rev. 21:24" "Rev. 21:25" "Rev. 21:26" 
         "Rev. 21:27" "Rev. 22:1" "Rev. 22:2" "Rev. 22:3" "Rev. 22:4" "Rev. 22:5" "Rev. 22:6" "Rev. 22:7" "Rev. 22:8" "Rev. 22:9" "Rev. 22:10" "Rev. 22:11" "Rev. 22:12" "Rev. 22:13" "Rev. 22:14" "Rev. 22:15" "Rev. 22:16" "Rev. 22:17" "Rev. 22:18" "Rev. 22:19" "Rev. 22:20" "Rev. 22:21"))
-
-(defun completing-scripture-read ()
-  "Read a scripture reference"
-  (interactive)
-  (ivy-read "Scripture: " scripture-references-list))
