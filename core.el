@@ -51,7 +51,7 @@
 
 (use-package org
   :defer t
-  :hook ((org . visual-line-mode))
+  :hook ((org-mode . visual-line-mode))
   :config
   (setq org-export-with-smart-quotes t)
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
