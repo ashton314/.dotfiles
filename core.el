@@ -145,8 +145,12 @@
 (use-package paredit
   :defer t
   :diminish "(λ)"
-  :hook
-  ((prog-mode . paredit-mode)))
+  :hook ((racket-mode lisp-mode emacs-lisp-mode) . paredit-mode))
+
+(use-package smartparens
+  :defer t
+  :diminish "(s)"
+  :hook (elixir-mode))
 
 ;; Completion
 
