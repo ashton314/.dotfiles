@@ -1,15 +1,16 @@
 (use-package exec-path-from-shell
   :config
-  (setq exec-path-from-shell-arguments nil)
-  (exec-path-from-shell-initialize))
+  (setq exec-path-from-shell-arguments nil))
 
 (use-package flycheck
   :hook (lsp-mode . flycheck-mode))
 
 (use-package lsp-mode
+  :after (exec-path-from-shell)
   :diminish " lsp"
   :bind (("C-c C-d" . lsp-describe-thing-at-point))
   :config
+  (exec-path-from-shell-initialize)
   (setq lsp-elixir-server "~/Sync/repos/elixir-ls/release/language_server.sh")
   (setq lsp-file-watch-threshold 10000)
   (add-to-list 'exec-path "~/Sync/repos/elixir-ls/release"))
