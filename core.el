@@ -150,7 +150,7 @@
 (use-package smartparens
   :defer t
   :diminish "(s)"
-  :hook (elixir-mode))
+  :hook ((elixir-mode) . smartparens-mode))
 
 ;; Completion
 
@@ -425,6 +425,10 @@
   (setq deft-default-extension "org")
   (setq deft-recursive t)
   (setq deft-use-filename-as-title t))
+
+(use-package olivetti
+  :diminish "»O«"
+  :defer t)
 
 (custom-set-faces
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
