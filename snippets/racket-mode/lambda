@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: lambda
-# key: lambda
-# --
-(λ ($1) $0)
