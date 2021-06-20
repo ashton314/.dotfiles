@@ -367,7 +367,8 @@
   :init
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
-  (setq evil-digraphs-table-user '(((?. ?.) . ?\x2026)))
+  (setq evil-digraphs-table-user '(((?. ?.) . ?\x2026)
+				   ((?e ?l) . ?\x2113)))))
 
   :config
   (evil-mode)
