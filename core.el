@@ -53,6 +53,7 @@
   :defer t
   :hook ((org-mode . visual-line-mode))
   :config
+  (unless (boundp 'scripture-directory) (setq scripture-directory ""))
   (setq org-export-with-smart-quotes t)
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
   (setq org-family-notes-file (concat org-directory "/family_shared.org"))
@@ -383,7 +384,7 @@
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
   (setq evil-digraphs-table-user '(((?. ?.) . ?\x2026)
-				   ((?e ?l) . ?\x2113)))))
+				   ((?e ?l) . ?\x2113)))
 
   :config
   (evil-mode)
