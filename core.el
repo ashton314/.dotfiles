@@ -52,6 +52,10 @@
 (use-package org
   :defer t
   :hook ((org-mode . visual-line-mode))
+  :bind (:map global-map
+	      ("C-c o l" . org-store-link)
+	      ("C-c L" . org-insert-link-global)
+	      ("C-c O" . org-open-at-point-global))
   :config
   (unless (boundp 'scripture-directory) (setq scripture-directory ""))
   (setq org-export-with-smart-quotes t)
