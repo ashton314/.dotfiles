@@ -160,7 +160,6 @@
   (vertico-mode))
 
 (use-package orderless
-  :after (vertico)
   :init
   (setq completion-styles '(initials orderless)
         completion-category-defaults nil
@@ -267,7 +266,6 @@
   (setq consult-project-root-function #'projectile-project-root))
 
 (use-package marginalia
-  :after (vertico consult)
   :config
   (marginalia-mode)
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light)))
@@ -421,7 +419,6 @@
   (yas-global-mode +1))
 
 (use-package auto-yasnippet
-  :defer t
   :diminish "")
 
 (use-package avy
@@ -439,7 +436,6 @@
   (ace-window-display-mode +1))
 
 (use-package which-key
-  :defer t
   :diminish ""
   :config
   (which-key-mode))
