@@ -120,7 +120,22 @@
 	    (todo)))
 	  ("g" "Gospel Study"
 	   ((agenda ((org-agenda-files '("~/Personal/study_journal/HEAD.org"))))
-	    (tags-todo "gospel"))))))
+	    (tags-todo "gospel")))))
+
+  (setq org-link-abbrev-alist
+	`(("scrip" . ,(concat "file:" scripture-directory "/lds_scriptures.txt::<<%s>>"))
+	  ("famhist/person" . "https://www.familysearch.org/tree/person/details/%s")))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path 'file)
+  (setq org-refile-targets
+	`(((,org-for-later-file) . (:level . 0))
+	  ((,org-for-later-file) . (:level . 1))
+	  ((,org-general-tasks-file) . (:level . 0))
+	  ((,org-general-tasks-file) . (:level . 1))
+	  ((,org-notes-file) . (:level . 0))
+	  ((,org-notes-file) . (:level . 1))
+	  ((,org-school-file) . (:level . 1)))))
 
 ;; Code
 (use-package projectile
