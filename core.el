@@ -194,26 +194,26 @@
   :config
   (corfu-global-mode))
 
-;; (use-package company
-;;   :diminish ""
-;;   :hook ((prog-mode org-mode markdown-mode scribble-mode) . company-mode)
-;;   :config
-;;   (setq tab-always-indent 'complete)
-;;   (setq company-idle-delay nil)
-;;   (setq company-minimum-prefix-length 3)
-;;   ;; For this, see https://github.com/jojojames/vscode-icon-emacs
-;;   ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
-;;   :bind (:map company-mode-map
-;; 	 ("<tab>" . 'company-indent-or-complete-common)
-;; 	 :map company-active-map
-;; 	      ("C-n" . 'company-select-next-or-abort)
-;; 	      ("C-j" . 'company-select-next-or-abort)
-;; 	      ("C-p" . 'company-select-previous-or-abort)
-;; 	      ("C-k" . 'company-select-previous-or-abort)))
+(use-package company
+  :diminish ""
+  :hook ((prog-mode) . (lambda () (corfu-mode -1) (company-mode)))
+  :config
+  (setq tab-always-indent 'complete)
+  (setq company-idle-delay nil)
+  (setq company-minimum-prefix-length 3)
+  ;; For this, see https://github.com/jojojames/vscode-icon-emacs
+  ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
+  :bind (:map company-mode-map
+	 ("<tab>" . 'company-indent-or-complete-common)
+	 :map company-active-map
+	      ("C-n" . 'company-select-next-or-abort)
+	      ("C-j" . 'company-select-next-or-abort)
+	      ("C-p" . 'company-select-previous-or-abort)
+	      ("C-k" . 'company-select-previous-or-abort)))
 
-;; (use-package company-prescient
-;;   :config
-;;   (company-prescient-mode +1))
+(use-package company-prescient
+  :config
+  (company-prescient-mode +1))
 
 (use-package dabbrev
   :defer t
