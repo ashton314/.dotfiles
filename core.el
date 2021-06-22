@@ -45,9 +45,9 @@
 (use-package diminish)
 (diminish 'eldoc-mode "")
 
-;; (use-package markdown
-;;   :defer t
-;;   :hook ((markdown . visual-line-mode)))
+(use-package emacs
+  ;; Markdown mode is built-in now I guess
+  :hook ((markdown-mode . visual-line-mode)))
 
 (use-package org
   :defer t
