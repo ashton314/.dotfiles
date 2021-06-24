@@ -170,7 +170,7 @@
 (use-package smartparens
   :defer t
   :diminish "(s)"
-  :hook ((elixir-mode) . smartparens-mode))
+  :hook ((elixir-mode rust-mode) . smartparens-mode))
 
 ;; Completion
 
