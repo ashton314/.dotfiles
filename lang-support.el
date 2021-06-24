@@ -82,3 +82,7 @@
 
 (use-package json-mode
   :defer t)
+
+(use-package rust-mode
+  :defer t
+  :hook ((rust-mode . lsp-deferred)))

@@ -16,7 +16,7 @@
 (set-fontset-font
  t 'symbol (font-spec :family "Apple Color Emoji") nil 'prepend)
 
-(defvar evil-auto-save-buffer-modes '(text-mode scribble-mode org-mode markdown-mode racket-mode emacs-lisp-mode))
+(defvar evil-auto-save-buffer-modes '(text-mode scribble-mode org-mode markdown-mode racket-mode emacs-lisp-mode rust-mode))
 
 ;; Setup package manager
 (defvar bootstrap-version)
