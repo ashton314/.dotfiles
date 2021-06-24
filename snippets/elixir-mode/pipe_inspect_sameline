@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pipe_inspect_sameline
+# key: pii
+# --
+|> IO.inspect(label: "$1")$0
