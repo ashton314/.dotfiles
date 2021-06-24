@@ -195,6 +195,7 @@
   (corfu-global-mode))
 
 (use-package company
+  :defer t
   :diminish ""
   :hook ((prog-mode) . (lambda () (corfu-mode -1) (company-mode)))
   :config
@@ -212,8 +213,8 @@
 	      ("C-k" . 'company-select-previous-or-abort)))
 
 (use-package company-prescient
-  :config
-  (company-prescient-mode +1))
+  :defer t
+  :hook (company-mode . company-prescient-mode))
 
 (use-package dabbrev
   :defer t
@@ -522,6 +523,7 @@
  '(org-verbatim ((t (:foreground "#b0b0b0"))))
  '(org-warning ((t (:foreground "#bf616a" :underline nil))))
  '(proof-locked-face ((t (:extend t :background "#101430"))))
+ '(racket-xp-unused-face ((t (:underline (:color "yellow" :style wave)))))
  '(region ((t (:extend t :background "#2e3440"))))
  '(show-paren-match-expression ((t (:background "#282828"))))
  '(sp-pair-overlay-face ((t (:background "#03040a"))))
