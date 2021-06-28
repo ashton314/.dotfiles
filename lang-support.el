@@ -75,6 +75,7 @@
   :mode "\\.csv\\'")
 
 (use-package web-mode
+  :mode ("\\.ts\\'" "\\.js\\'" "\\.html\\'" "\\.leex\\'" "\\.heex\\'")
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
