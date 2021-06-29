@@ -3,7 +3,6 @@
 (display-time)
 (setq column-number-mode t)
 (setq line-number-mode t)
-(setq tool-bar-mode -1)
 (global-auto-revert-mode)
 (blink-cursor-mode -1)
 (scroll-bar-mode -1)
@@ -153,6 +152,15 @@
   :diminish "(s)"
   :hook ((elixir-mode rust-mode) . smartparens-mode))
 
+(use-package yasnippet
+  :diminish ""
+  :bind (("M-<tab>" . 'yas-expand))
+  :config
+  (yas-global-mode +1))
+
+(use-package auto-yasnippet
+  :diminish "")
+
 ;; Completion
 
 (use-package vertico
@@ -175,27 +183,27 @@
   :config
   (corfu-global-mode))
 
-;; (use-package company
-;;   :defer t
-;;   :diminish ""
-;;   :hook ((prog-mode) . (lambda () (corfu-mode -1) (company-mode)))
-;;   :config
-;;   (setq tab-always-indent 'complete)
-;;   (setq company-idle-delay nil)
-;;   (setq company-minimum-prefix-length 3)
-;;   ;; For this, see https://github.com/jojojames/vscode-icon-emacs
-;;   ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
-;;   :bind (:map company-mode-map
-;; 	 ("<tab>" . 'company-indent-or-complete-common)
-;; 	 :map company-active-map
-;; 	      ("C-n" . 'company-select-next-or-abort)
-;; 	      ("C-j" . 'company-select-next-or-abort)
-;; 	      ("C-p" . 'company-select-previous-or-abort)
-;; 	      ("C-k" . 'company-select-previous-or-abort)))
+(use-package company
+  :defer t
+  :diminish ""
+  :hook ((prog-mode) . (lambda () (corfu-mode -1) (company-mode)))
+  :config
+  (setq tab-always-indent 'complete)
+  (setq company-idle-delay nil)
+  (setq company-minimum-prefix-length 3)
+  ;; For this, see https://github.com/jojojames/vscode-icon-emacs
+  ;; (setq company-format-margin-function #'company-vscode-light-icons-margin)
+  :bind (:map company-mode-map
+	 ("<tab>" . 'company-indent-or-complete-common)
+	 :map company-active-map
+	      ("C-n" . 'company-select-next-or-abort)
+	      ("C-j" . 'company-select-next-or-abort)
+	      ("C-p" . 'company-select-previous-or-abort)
+	      ("C-k" . 'company-select-previous-or-abort)))
 
-;; (use-package company-prescient
-;;   :defer t
-;;   :hook (company-mode . company-prescient-mode))
+(use-package company-prescient
+  :defer t
+  :hook (company-mode . company-prescient-mode))
 
 (use-package dabbrev
   :defer t
@@ -413,14 +421,6 @@
 
 (use-package git-timemachine
   :defer t)
-
-(use-package yasnippet
-  :diminish ""
-  :config
-  (yas-global-mode +1))
-
-(use-package auto-yasnippet
-  :diminish "")
 
 (use-package avy
   :bind (("C-c j" . 'avy-goto-line)
