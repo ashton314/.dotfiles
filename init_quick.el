@@ -1,5 +1,6 @@
 (setq gc-cons-threshold 500000000)	; ~half a gig
 
+(load-file "~/.dotfiles/bootstrap.el")
 (load-file "~/.dotfiles/core.el")
 (load-file "~/.dotfiles/keybindings.el")
 (load-file "~/.dotfiles/lang-support.el")
