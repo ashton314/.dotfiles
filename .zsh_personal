@@ -25,6 +25,11 @@ alias 'romulan'='ssh romulan'
 alias 'klingon'='ssh klingon'
 alias 'tribble'='ssh tribble'
 
+# docker stuff
+alias 'dc'='docker compose'
+alias 'dcu'='docker compose up'
+alias 'dcp'='docker compose pull'
+
 # Run aliases
 if [[ -r ~/.bash_aliases ]]; then
     . ~/.bash_aliases
