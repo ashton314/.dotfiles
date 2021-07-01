@@ -19,4 +19,4 @@
 
 (define-key global-map (kbd "s-m") 'lazy-boot-email)
 
-(setq gc-cons-threshold 800000)
+(setq gc-cons-threshold 800000)		; go back down to prevent stuttering during GCs
