@@ -8,12 +8,12 @@
 (setq mu4e-attachment-dir "~/Downloads")
 
 ;; Signature stuffs
-(setq user-full-name "")
-(setq user-mail-address "")
-(setq mu4e-compose-signature "")
+;; (setq user-full-name "")
+;; (setq user-mail-address "")
+;; (setq mu4e-compose-signature "")
 
-(setq smtpmail-smtp-server "")
-(setq smtpmail-smtp-user "")
+;; (setq smtpmail-smtp-server "")
+;; (setq smtpmail-smtp-user "")
 (setq smtpmail-stream-type 'starttls)
 (setq smtpmail-smtp-service 587)
 
