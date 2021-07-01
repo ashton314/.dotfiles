@@ -68,6 +68,9 @@
 (use-package dockerfile-mode
   :defer t)
 
+(use-package docker-compose-mode
+  :defer t)
+
 (use-package yaml-mode
   :defer t)
 
