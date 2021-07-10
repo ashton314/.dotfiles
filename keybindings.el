@@ -1,7 +1,5 @@
 (use-package emacs
-  :bind (("M-#" . define-word)
-	 ("C-M-3" . define-word-at-point)
-	 ("C-x C-r" . revert-buffer)
+  :bind (("C-x C-r" . revert-buffer)
 	 ("C-c f n" . insert-file-name)
 	 ("C-c s i r" . string-insert-rectangle)
 	 ("C-c s r" . insert-scripture-ref)

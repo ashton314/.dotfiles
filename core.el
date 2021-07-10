@@ -33,6 +33,9 @@
   :defer t
   :hook ((org-mode . visual-line-mode))
   :bind (:map global-map
+	      ("C-c o c" . org-capture)
+	      ("C-c o a" . org-agenda)
+	      ("C-c o '" . org-cycle-agenda-files)
 	      ("C-c o l" . org-store-link)
 	      ("C-c L" . org-insert-link-global)
 	      ("C-c O" . org-open-at-point-global))
@@ -458,6 +461,11 @@
 (use-package olivetti
   :diminish "»O«"
   :defer t)
+
+(use-package define-word
+  :defer t
+  :bind (("M-#" . define-word)
+	 ("C-M-3" . define-word-at-point)))
 
 (custom-set-faces
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#121212" :foreground "#d4d4d4" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Input Mono"))))
