@@ -41,7 +41,8 @@
 (setq message-citation-line-function 'message-insert-formatted-citation-line)
 
 ;; Turn on word-wrap automatically when viewing emails
-(add-hook 'mu4e-view-mode-hook (lambda () (visual-line-mode)))
+(add-hook 'mu4e-view-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'mu4e-compose-mode-hook 'turn-on-visual-line-mode)
 
 ;; Don't hard-wrap my emails as I write!
 (add-hook 'mu4e-compose-mode-hook (lambda () (auto-fill-mode -1)))
